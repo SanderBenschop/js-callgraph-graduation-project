@@ -1,5 +1,6 @@
 module IntraproceduralFlow
 
+import IO;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
@@ -19,6 +20,16 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree) {
 			graph += <createVertex(l), createVertex(ternary)>;
 			graph += <createVertex(r), createVertex(ternary)>;
 		}
+		case andExpr:(Expression)`<Expression _> && <Expression r>`: {
+			graph += <createVertex(r), createVertex(andExpr)>;
+		}
+		case propAssign:(Expression)`{ <{PropertyAssignment ","}* props> }`: {
+			for(PropertyAssignment prop <- props) {
+				if ((PropertyAssignment)`<PropertyName f> : <Expression e>` := prop) {
+					graph += <createVertex(e), createVertex(f)>;
+				}
+			}
+		}
 	}
 	return graph;
 }
@@ -31,7 +42,7 @@ private Vertex createVertex(element) {
 		//}
 		//Different cases
 		
-		//Fallthrough is an expression
+		//Default case is an expression
 		default: {
 			return Expression(element@\loc);
 		}
