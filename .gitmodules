@@ -1,0 +1,4 @@
+[submodule "grammar"]
+	path = grammar
+	url = git@github.com:abort/javascript-call-graph.git
+	branch = release
