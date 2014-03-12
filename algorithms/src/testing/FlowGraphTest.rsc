@@ -38,3 +38,10 @@ public test bool testObjectAssignment() {
 		<Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignObjectToVariable.js|(27,6,<1,27>,<1,33>)),Property("key2")>
 	};
 }
+
+public test bool testAssignNamelessFunctionExpr() {
+	Graph[Vertex] flowGraph = createFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|);
+	return flowGraph == {
+		<Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>)),Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>))>
+	};
+}
