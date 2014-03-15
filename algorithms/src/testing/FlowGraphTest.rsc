@@ -53,3 +53,10 @@ public test bool testAssignNamelessFunctionExpr() {
 		<Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>)),Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>))>
 	};
 }
+
+public test bool testFunctionDeclaration() {
+	Graph[Vertex] flowGraph = createFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/functionDecl.js|);
+	return flowGraph == {
+		<Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/functionDecl.js|(0,21,<1,0>,<3,1>)),Variable(|project://JavaScript%20cg%20algorithms/src/testing/snippets/functionDecl.js|(0,21,<1,0>,<3,1>))>
+	};
+}

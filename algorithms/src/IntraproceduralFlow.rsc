@@ -32,10 +32,13 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree) {
 			}
 		}
 		case functionExpr:(Expression)`function <Id? name> (<{Id ","}* _>) <Block _>`: {
-			graph += <createVertex(functionExpr), createExpressionVertex(functionExpr)>;
+			graph += <createFunctionVertex(functionExpr), createExpressionVertex(functionExpr)>;
 			if (!isEmpty(unparse(name))) { //opt(lex("Id")) also if filled
-				graph += <createVertex(functionExpr), createVariableVertex(functionExpr)>;
+				graph += <createFunctionVertex(functionExpr), createVariableVertex(functionExpr)>;
 			}
+		}
+		case functionDecl:(FunctionDeclaration)`function <Id _> (<{Id ","}* _>) <Block _>`: {
+			graph += <createFunctionVertex(functionDecl), createVariableVertex(functionDecl)>;
 		}
 	}
 	return graph;
@@ -53,6 +56,10 @@ private Vertex createVertex(element) {
 		case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation);
 		default: return createExpressionVertex(element);
 	}
+}
+
+private Vertex createFunctionVertex(element) {
+	return Function(element@\loc);
 }
 
 private Vertex createExpressionVertex(element) {
