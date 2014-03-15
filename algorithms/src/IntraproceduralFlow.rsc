@@ -1,6 +1,7 @@
 module IntraproceduralFlow
 
 import IO;
+import String;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
@@ -30,8 +31,11 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree) {
 				}
 			}
 		}
-		case namelessFuncExpr:(Expression)`function (<{Id ","}* _>) <Block _>`: {
-			graph += <createVertex(namelessFuncExpr), createExpressionVertex(namelessFuncExpr)>;
+		case functionExpr:(Expression)`function <Id? name> (<{Id ","}* _>) <Block _>`: {
+			graph += <createVertex(functionExpr), createExpressionVertex(functionExpr)>;
+			if (!isEmpty(unparse(name))) { //opt(lex("Id")) also if filled
+				graph += <createVertex(functionExpr), createVariableVertex(functionExpr)>;
+			}
 		}
 	}
 	return graph;
@@ -53,4 +57,8 @@ private Vertex createVertex(element) {
 
 private Vertex createExpressionVertex(element) {
 	return Expression(element@\loc);
+}
+
+private Vertex createVariableVertex(element) {
+	return Variable(element@\loc);
 }

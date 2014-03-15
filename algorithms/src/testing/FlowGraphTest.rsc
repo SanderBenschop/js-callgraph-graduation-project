@@ -39,6 +39,14 @@ public test bool testObjectAssignment() {
 	};
 }
 
+public test bool testAssignNamedFunctionExpr() {
+	Graph[Vertex] flowGraph = createFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamedFunctionExpr.js|);
+	return flowGraph == {
+	  <Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamedFunctionExpr.js|(4,14,<1,4>,<1,18>)),Variable(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamedFunctionExpr.js|(4,14,<1,4>,<1,18>))>,
+	  <Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamedFunctionExpr.js|(4,14,<1,4>,<1,18>)),Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamedFunctionExpr.js|(4,14,<1,4>,<1,18>))>
+	};
+}
+
 public test bool testAssignNamelessFunctionExpr() {
 	Graph[Vertex] flowGraph = createFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|);
 	return flowGraph == {
