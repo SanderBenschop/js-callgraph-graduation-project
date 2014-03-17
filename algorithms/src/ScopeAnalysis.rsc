@@ -17,30 +17,17 @@ public Tree addScopingInformationToTree(Tree tree) {
 }
 
 private Tree addScopingInformationToTree(Tree tree, Maybe[SymbolTable] parent) {
-	private VariableDeclaration addScopeToVariableDeclaration(VariableDeclaration original) {
-		println("Annotating original");
-		Id id = getIdFromVariableDeclaration(original);
+	SymbolMap symbolMap = ();
+	
+	private VariableDeclaration annotateVariableDecl(VariableDeclaration va, Id id) {
 		symbolMap += (unparse(id) : Variable(id@\loc));
-		println("Added id at loc to symbol map.");
-		original@scope = createSymbolTable(symbolMap, parent);
-		return original;
+		va@scope = createSymbolTable(symbolMap, parent);
+		return va;
 	}
 	
-	SymbolMap symbolMap = ();
 	return top-down-break visit(tree) {
-		case (Statement)`var <{VariableDeclaration ","}+ a>`: {
-			throw "Unimplemented";
-		}
-		//case (Statement)`var <{VariableDeclaration ","}+ variableDeclarations>;`: {
-		//	for (VariableDeclaration variableDeclaration <- variableDeclarations) {
-		//		//TODO: make prop when globally scoped.
-		//		Id id = getIdFromVariableDeclaration(variableDeclaration);
-		//		symbolMap += (unparse(id) : Variable(id@\loc));
-		//		println("Added id at loc to symbol map.");
-		//		variableDeclaration@scope = createSymbolTable(symbolMap, parent);
-		//	}
-		//}
-		case varDecl:(VariableDeclaration)`<Id id> = <Expression e>` => addScopeToVariableDeclaration(varDecl)
+		case varDecl:(VariableDeclaration)`<Id id>` => annotateVariableDecl(varDecl, id)
+		case varDecl:(VariableDeclaration)`<Id id> = <Expression _>` => annotateVariableDecl(varDecl, id)
 	}
 }
 
@@ -50,13 +37,4 @@ private SymbolTable createSymbolTable(SymbolMap symbolMap, Maybe[SymbolTable] op
 	} else {
 		return root(symbolMap);
 	}
-}
-
-private Id getIdFromVariableDeclaration(VariableDeclaration variableDecl) {
-	if ((VariableDeclaration)`<Id i>` := variableDecl) {
-		return i;
-	} else if ((VariableDeclaration)`<Id i> = <Expression e>` := variableDecl) {
-		return i;
-	}
-	throw "Cannot find Id in VariableDeclaration.";
 }

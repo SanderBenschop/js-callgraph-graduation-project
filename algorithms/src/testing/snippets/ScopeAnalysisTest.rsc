@@ -8,26 +8,17 @@ import Node;
 import DataStructures;
 import ScopeAnalysis;
 
-public test bool testScopeIsAssignedToVar() {
-	Tree tree = parse(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToX.js|);
+public test bool testAssignOneToX() = assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToX.js|);
+public test bool testDeclareX() = assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/declareX.js|);
+
+private bool assertDeclaredVariablesHaveScope(loc location) {
+	Tree tree = parse(location);
 	tree = addScopingInformationToTree(tree);
 	visit(tree) {
-		//case (Statement)`var <{VariableDeclaration ","}+ vs>;`: {
-		//	println("Found var decls");
-		//	for (VariableDeclaration v <- vs) {
-		//		println("Checking id: <v>");
-		//		v@scope = root(());
-		//		map[str, value] annotations = getAnnotations(v);
-		//		println(annotations);
-		//		//if ("scope" notin annotations) throw "Didn not find a scope annotation on variableDecl.";
-		//	}
-		//}
 		case v:(VariableDeclaration)`<Id id> = <Expression e>`: {
 			println("Checking id: <id>");
-			//v@scope = root(());
 			map[str, value] annotations = getAnnotations(v);
-			println(getAnnotations(v));
-			println(getAnnotations(id));
+			if ("scope" notin annotations) throw "Did not find a scope annotation on variableDecl.";
 		}
 	}
 	return true;
