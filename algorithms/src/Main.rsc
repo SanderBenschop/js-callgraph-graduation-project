@@ -7,6 +7,7 @@ import analysis::graphs::Graph;
 import DataStructures;
 import NativeFlow;
 import IntraproceduralFlow;
+import ScopeAnalysis;
 
 public Graph[Vertex] createPessimisticCallGraph(loc source) {
 	Graph[Vertex] graph = createFlowGraph(source);
@@ -17,5 +18,6 @@ public Graph[Vertex] createPessimisticCallGraph(loc source) {
 public Graph[Vertex] createFlowGraph(loc source) {
 	Graph[Vertex] graph = createNativeFlowGraph();
 	Tree tree = parse(source);
+	tree = addScopingInformationToTree(tree);
 	return addIntraproceduralFlow(graph, tree);
 }

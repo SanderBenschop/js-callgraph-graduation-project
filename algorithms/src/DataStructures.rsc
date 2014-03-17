@@ -20,3 +20,12 @@ data Vertex
 	//Unknown vertex represents interprocedural flow not modelled in the pessimistic algorithm.
 	| Unknown()
 	;
+
+alias SymbolTableMap = map[loc, SymbolTable];
+
+data SymbolTable 
+	= root(SymbolMap symbolMap)
+	| child(SymbolMap symbolMap, SymbolTable parent)
+	;
+
+alias SymbolMap = map[str, Vertex];
