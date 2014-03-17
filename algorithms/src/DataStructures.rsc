@@ -21,8 +21,6 @@ data Vertex
 	| Unknown()
 	;
 
-alias SymbolTableMap = map[loc, SymbolTable];
-
 data SymbolTable 
 	= root(SymbolMap symbolMap)
 	| child(SymbolMap symbolMap, SymbolTable parent)
