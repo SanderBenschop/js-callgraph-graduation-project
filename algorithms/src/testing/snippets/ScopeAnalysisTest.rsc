@@ -11,10 +11,11 @@ import ScopeAnalysis;
 public test bool testAssignOneToX() = assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToX.js|);
 public test bool testDeclareX() = assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/declareX.js|);
 public test bool testDeclareXdeclareY() = assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/declareXdeclareY.js|);
+public test bool testDeclareFunctionX() =  assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/declareFX.js|);
 public test bool testId() = assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/id.js|);
 public test bool testThis() = assertDeclaredVariablesHaveScope(|project://JavaScript%20cg%20algorithms/src/testing/snippets/this.js|);
 
-private bool assertDeclaredVariablesHaveScope(loc location) {
+public bool assertDeclaredVariablesHaveScope(loc location) {
 	Tree tree = parse(location);
 	tree = addScopingInformationToTree(tree);
 
@@ -32,6 +33,7 @@ private bool assertDeclaredVariablesHaveScope(loc location) {
 		case v:(VariableDeclaration)`<Id _> = <Expression _>`: checkElement(v);
 		case (Expression)`<Id id>`: checkElement(id);
 		case this:(Expression)`this`: checkElement(this);
+		
 	}
 	
 	if (!visitedSomething) throw "Did not visit anything";

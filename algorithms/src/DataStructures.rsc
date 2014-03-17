@@ -26,4 +26,6 @@ data SymbolTable
 	| child(SymbolMap symbolMap, SymbolTable parent)
 	;
 
-alias SymbolMap = map[str, Vertex];
+alias SymbolMap = map[str, Identifier];
+
+data Identifier = identifier(str name, loc location);

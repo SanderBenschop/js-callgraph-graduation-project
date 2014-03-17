@@ -18,17 +18,23 @@ anno SymbolTable VariableDeclaration @ scope;
  * CatchClause
  * MemberExpression
  * Property
+ * Add THIS references in functions
+ * See why in the JS they see a function decl as both an expression and a decl.
+ * Add function scoping (visit id, properties and body) --> For both expression and decl?
  */ 
 public Tree addScopingInformationToTree(Tree tree) {
 	return addScopingInformationToTree(tree, nothing());
 }
 
+private Tree addScopingInformationToTree(tree, SymbolTable parent) = addScopingInformationToTree(tree, just(parent));
 private Tree addScopingInformationToTree(Tree tree, Maybe[SymbolTable] parent) {
+	println("Creating symbol map");
 	SymbolMap symbolMap = ();
 	
 	private VariableDeclaration annotateVariableDecl(VariableDeclaration va, Id id) {
 		println("Annotation variableDeclaration <va> with scope.");
-		symbolMap += (unparse(id) : Variable(id@\loc));
+		str name = unparse(id);
+		symbolMap += (name : identifier(name, id@\loc));
 		va@scope = createSymbolTable(symbolMap, parent);
 		return va;
 	}
@@ -44,6 +50,25 @@ private Tree addScopingInformationToTree(Tree tree, Maybe[SymbolTable] parent) {
 		case varDecl:(VariableDeclaration)`<Id id> = <Expression _>` => annotateVariableDecl(varDecl, id)
 		case (Expression)`<Id id>` => annotateElementWithCurrentScope(id)
 		case this:(Expression)`this` => annotateElementWithCurrentScope(this)
+		
+		//TODO: why don't they make a difference in the js thing between function expressions and decls?
+		//If you have a decl it is treated as both.
+		case functionDecl:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body>` => {
+			println("Adding func decl <id> to symbolMap.");
+			str name = unparse(id);
+			symbolMap += (name : identifier(name, id@\loc));
+			//TODO: add scope 
+			
+			//TODO: remove duplication
+			for (Id param <- params) {
+				str name = unparse(param);
+				symbolMap += (name : identifier(name, param@\loc));
+			}
+					
+			//I probably don't have to backup the symbolMap as we just create a new one when recursing. TODO: CHECK!
+			println("Recursing into body of functionDecl <id>");
+			return addScopingInformationToTree(body, createSymbolTable(symbolMap, parent)); //Is this correct?
+		}
 	}
 }
 
