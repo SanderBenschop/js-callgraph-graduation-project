@@ -13,7 +13,7 @@ public test bool testDoublyNested() {
 	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
 
 	iprintln(symbolTableMap);
-	SymbolTable scopeA = symbolTableMap[|project://JavaScript%20cg%20algorithms/src/testing/snippets/doublyNested.js|(35,30,<4,5>,<6,2>)],
+	SymbolTable scopeA = symbolTableMap[|project://JavaScript%20cg%20algorithms/src/testing/snippets/doublyNested.js|(35,1,<4,5>,<4,6>)],
 				scopeX = symbolTableMap[|project://JavaScript%20cg%20algorithms/src/testing/snippets/doublyNested.js|(4,1,<1,4>,<1,5>)],
 				scopeY = symbolTableMap[|project://JavaScript%20cg%20algorithms/src/testing/snippets/doublyNested.js|(27,1,<3,5>,<3,6>)],
 				scopeZ = symbolTableMap[|project://JavaScript%20cg%20algorithms/src/testing/snippets/doublyNested.js|(60,1,<5,6>,<5,7>)];
@@ -22,6 +22,11 @@ public test bool testDoublyNested() {
 	assert countSymbolTableDepth(scopeX) == 1;
 	assert countSymbolTableDepth(scopeY) == 2;
 	assert countSymbolTableDepth(scopeZ) == 3;
+	
+	assert !isRootSymbolTable(scopeA);
+	assert isRootSymbolTable(scopeX);
+	assert !isRootSymbolTable(scopeY);
+	assert !isRootSymbolTable(scopeZ);
 	
 	assert isInScope("a", scopeA);
 	assert isInScope("x", scopeA);

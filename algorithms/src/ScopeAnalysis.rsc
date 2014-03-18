@@ -9,14 +9,10 @@ import IO;
 import String;
 
 /* TODO: find out if all the implementations in the JS impl are correct and implement myself:
- * FunctionDeclaration
- * FunctionExpression
  * CatchClause
  * MemberExpression
  * Property
  * Add THIS references in functions
- * See why in the JS they see a function decl as both an expression and a decl.
- * Add function scoping (visit id, properties and body) --> For both expression and decl?
  */
  
 //TODO: remove name in identifier. it's already the key
@@ -41,7 +37,7 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		println("Annotation variableDeclaration <va> with scope.");
 		str name = unparse(id);
 		symbolMap += (name : identifier(name, id@\loc));
-		symbolTableMap += (va@\loc : createSymbolTable(symbolMap, parent));
+		symbolTableMap += (id@\loc : createSymbolTable(symbolMap, parent));
 	}
 	
 	private void annotateElementWithCurrentScope(Tree element) {
@@ -74,15 +70,13 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 
 			case (Expression)`<Id id>` : annotateElementWithCurrentScope(id);
 			case this:(Expression)`this` : annotateElementWithCurrentScope(this);
-			
-			//TODO: why don't they make a difference in the js thing between function expressions and decls?
-			//If you have a decl it is treated as both.
+
 			case (FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), id@\loc, params, body); 
 			case (Expression)`function <Id? id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), id@\loc, params, body);
 		}
 	}
 	doVisit(tree);
-	
+
 	return symbolTableMap;
 }
 

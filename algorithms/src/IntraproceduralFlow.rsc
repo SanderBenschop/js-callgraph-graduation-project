@@ -1,5 +1,7 @@
 module IntraproceduralFlow
 
+import util::Maybe;
+
 import IO;
 import String;
 import EcmaScript;
@@ -8,11 +10,43 @@ import analysis::graphs::Graph;
 
 import DataStructures;
 
-public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree) {
+public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) {
+
+	private Vertex createVertex(element) {
+		loc elementLocation = element@\loc;
+		switch(element) {
+			case (Id)`<Id id>`: {
+				str propName = unparse(id);
+				SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
+				Maybe[Identifier] foundId = find(propName, elementSymbolTable);
+				if (!isRootSymbolTable(elementSymbolTable) && just(identifier(_, location)) := foundId) {
+					return Variable(location);
+				}
+				return Property(propName);
+			}
+			//Different cases
+			
+			case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation);
+			default: return createExpressionVertex(element);
+		}
+	}
+	
+	private Vertex createFunctionVertex(element) {
+		return Function(element@\loc);
+	}
+	
+	private Vertex createExpressionVertex(element) {
+		return Expression(element@\loc);
+	}
+	
+	private Vertex createVariableVertex(element) {
+		return Variable(element@\loc);
+	}
+
 	visit (tree) {
-		//case assignment:(Expression)`<Id id> = <Expression e>`: {
-		//	var i = 0;
-		//}
+		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: { //Is varDecl correct here? Shouldn't it just be expression?
+			graph += <createVertex(r), createVertex(l)>;
+		}
 		case orExpr:(Expression)`<Expression l> || <Expression r>`: {
 			graph += <createVertex(l), createExpressionVertex(orExpr)>;
 			graph += <createVertex(r), createExpressionVertex(orExpr)>;
@@ -42,30 +76,4 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree) {
 		}
 	}
 	return graph;
-}
-
-private Vertex createVertex(element) {
-	loc elementLocation = element@\loc;
-	switch(element) {
-		//case (Expression)`<Id id>`: {
-		//	//TODO: either varVertex or propVertex.
-		//	return Property("MOCKUP");
-		//}
-		//Different cases
-		
-		case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation);
-		default: return createExpressionVertex(element);
-	}
-}
-
-private Vertex createFunctionVertex(element) {
-	return Function(element@\loc);
-}
-
-private Vertex createExpressionVertex(element) {
-	return Expression(element@\loc);
-}
-
-private Vertex createVariableVertex(element) {
-	return Variable(element@\loc);
 }

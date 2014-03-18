@@ -49,3 +49,6 @@ public Maybe[Identifier] find(str name, root(map[str, Identifier] symbolMap)) {
 		return nothing();
 	}
 }
+
+public bool isRootSymbolTable(root(_)) = true;
+public default bool isRootSymbolTable(SymbolTable _) = false;
