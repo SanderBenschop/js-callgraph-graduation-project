@@ -6,11 +6,13 @@ module DataStructures
 
 //When flows through UNKNOWN are to be ignored, these should be filtered and THEN the transitive closure can be calculated.
 
+import util::Maybe;
+
 data Vertex
 	//Intraprocedural flow
-	= Expression(loc position) 
-	| Variable(loc position) 
-	| Property(str name) 
+	= Expression(loc position)
+	| Variable(loc position)
+	| Property(str name)
 	| Function(loc position)
 	//Interprocedural flow
 	| Callee(loc position)
@@ -21,6 +23,8 @@ data Vertex
 	| Unknown()
 	;
 
+alias SymbolTableMap = map[loc, SymbolTable];
+
 data SymbolTable 
 	= root(SymbolMap symbolMap)
 	| child(SymbolMap symbolMap, SymbolTable parent)
@@ -29,3 +33,19 @@ data SymbolTable
 alias SymbolMap = map[str, Identifier];
 
 data Identifier = identifier(str name, loc location);
+
+public Maybe[Identifier] find(str name, child(map[str, Identifier] symbolMap, SymbolTable parent)) {
+	if (name in symbolMap) {
+		return just(symbolMap[name]);
+	} else {
+		return find(name, parent);
+	}
+}
+
+public Maybe[Identifier] find(str name, root(map[str, Identifier] symbolMap)) {
+	if (name in symbolMap) {
+		return just(symbolMap[name]);
+	} else {
+		return nothing();
+	}
+}

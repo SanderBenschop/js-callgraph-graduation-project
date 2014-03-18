@@ -18,6 +18,6 @@ public Graph[Vertex] createPessimisticCallGraph(loc source) {
 public Graph[Vertex] createFlowGraph(loc source) {
 	Graph[Vertex] graph = createNativeFlowGraph();
 	Tree tree = parse(source);
-	tree = addScopingInformationToTree(tree);
+	SymbolTableMap symbolTableMap = addScopingInformationToTree(tree);
 	return addIntraproceduralFlow(graph, tree);
 }

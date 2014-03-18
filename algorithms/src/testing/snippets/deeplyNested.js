@@ -4,6 +4,7 @@ function f() {
 			function i () {
 				function j () {
 					function k() {
+						var x;
 					}
 				}
 			}
