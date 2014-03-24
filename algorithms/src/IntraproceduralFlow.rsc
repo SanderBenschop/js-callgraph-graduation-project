@@ -46,6 +46,7 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 	}
 	
 	private Vertex createExpressionVertex(element) {
+		println(element);
 		return Expression(element@\loc);
 	}
 	
@@ -58,21 +59,26 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 	}
 
 	visit (tree) {
-		//TODO: assignment -> Exp?
-		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: { //Is varDecl correct here? Shouldn't it just be expression?
+		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: {
 			graph += <createVertex(r), createVertex(l)>;
+			graph += <createVertex(r), createExpressionVertex(assignment)>;
 		}
-		case variableAssignment(Expression l, Expression r) : {
+		case assignment:variableAssignment(Expression l, Expression r) : {
 			graph += <createVertex(r), createVertex(l)>;
+			graph += <createVertex(r), createExpressionVertex(assignment)>;
 		}
-		case variableAssignmentNoSemi(Expression l, Expression r) : {
+		case Tree assignment:
+		  if (variableAssignmentNoSemi(Expression l, Expression r) := assignment) {
+				graph += <createVertex(r), createVertex(l)>;
+				graph += <createVertex(r), createExpressionVertex(assignment)>;
+			} else fail;
+		case assignment:variableAssignmentBlockEnd(Expression l, Expression r) : {
 			graph += <createVertex(r), createVertex(l)>;
+			graph += <createVertex(r), createExpressionVertex(assignment)>;
 		}
-		case variableAssignmentBlockEnd(Expression l, Expression r) : {
+		case assignment:variableAssignmentLoose(Expression l, Expression r) : {
 			graph += <createVertex(r), createVertex(l)>;
-		}
-		case variableAssignmentLoose(Expression l, Expression r) : {
-			graph += <createVertex(r), createVertex(l)>;
+			graph += <createVertex(r), createExpressionVertex(assignment)>;
 		}
 		//TODO: multiple declarations: i = 1, j = 2.
 		case orExpr:(Expression)`<Expression l> || <Expression r>`: {
