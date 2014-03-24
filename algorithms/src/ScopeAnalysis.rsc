@@ -52,7 +52,8 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 			symbolMap += (optId : identifier(optId, optIdLoc));
 		}
 		
-		//TODO: add 'this' scope 
+		//Add 'this' to scope.
+		symbolMap += ("this" : identifier("this", optIdLoc));
 
 		for (Id param <- params) {
 			str name = unparse(param);
@@ -75,6 +76,7 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 			case (Expression)`function <Id? id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), id@\loc, params, body);
 		}
 	}
+	
 	doVisit(tree);
 
 	return symbolTableMap;

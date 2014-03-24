@@ -24,7 +24,14 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 				}
 				return Property(propName);
 			}
-			//Different cases
+			case(Expression)`this`: { //Nothing about this in the paper? Should we ommit this?
+				SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
+				if (just(identifier(_, location)) := find("this", elementSymbolTable)) {
+					return Variable(location);
+				}
+				return Expression(elementLocation);
+			}
+			//Member expression. How to look for this?
 			
 			case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation);
 			default: return createExpressionVertex(element);
@@ -47,6 +54,9 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: { //Is varDecl correct here? Shouldn't it just be expression?
 			graph += <createVertex(r), createVertex(l)>;
 		}
+		case assignment:(Expression)`<Id l> = <Expression r>`: {
+			throw "BOEM";
+		}
 		case orExpr:(Expression)`<Expression l> || <Expression r>`: {
 			graph += <createVertex(l), createExpressionVertex(orExpr)>;
 			graph += <createVertex(r), createExpressionVertex(orExpr)>;
@@ -67,7 +77,7 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 		}
 		case functionExpr:(Expression)`function <Id? name> (<{Id ","}* _>) <Block _>`: {
 			graph += <createFunctionVertex(functionExpr), createExpressionVertex(functionExpr)>;
-			if (!isEmpty(unparse(name))) { //opt(lex("Id")) also if filled
+			if (!isEmpty(unparse(name))) {
 				graph += <createFunctionVertex(functionExpr), createVariableVertex(functionExpr)>;
 			}
 		}
