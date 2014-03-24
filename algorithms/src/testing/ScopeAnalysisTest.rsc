@@ -1,4 +1,4 @@
-module testing::snippets::ScopeAnalysisTest
+module testing::ScopeAnalysisTest
 
 import EcmaScript;
 import ParseTree;

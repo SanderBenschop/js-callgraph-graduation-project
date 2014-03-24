@@ -13,18 +13,22 @@ import DataStructures;
 public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) {
 
 	private Vertex createVertex(element) {
+		
+		private Vertex processId(Id id) {
+			str propName = unparse(id);
+			SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
+			Maybe[Identifier] foundId = find(propName, elementSymbolTable);
+			if (!isRootSymbolTable(elementSymbolTable) && just(identifier(_, location)) := foundId) {
+				return Variable(location);
+			}
+			return Property(propName);
+		}
+		
 		loc elementLocation = element@\loc;
 		switch(element) {
-			case (Id)`<Id id>`: {
-				str propName = unparse(id);
-				SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
-				Maybe[Identifier] foundId = find(propName, elementSymbolTable);
-				if (!isRootSymbolTable(elementSymbolTable) && just(identifier(_, location)) := foundId) {
-					return Variable(location);
-				}
-				return Property(propName);
-			}
-			case(Expression)`this`: { //Nothing about this in the paper? Should we ommit this?
+			case (Id)`<Id id>`: return processId(id);
+			case (Expression)`<Id id>`: return processId(id);
+			case (Expression)`this`: { //Nothing about this in the paper? Possibly it's the stuff about 'this' being the 0th parameter.
 				SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
 				if (just(identifier(_, location)) := find("this", elementSymbolTable)) {
 					return Variable(location);
@@ -49,14 +53,29 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 	private Vertex createVariableVertex(element) {
 		return Variable(element@\loc);
 	}
+	
+	private Vertex createPropertyVertex(str name) {
+		return Property(name);
+	}
 
 	visit (tree) {
+		//TODO: assignment -> Exp?
 		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: { //Is varDecl correct here? Shouldn't it just be expression?
 			graph += <createVertex(r), createVertex(l)>;
 		}
-		case assignment:(Expression)`<Id l> = <Expression r>`: {
-			throw "BOEM";
+		case variableAssignment(Expression l, Expression r) : {
+			graph += <createVertex(r), createVertex(l)>;
 		}
+		case variableAssignmentNoSemi(Expression l, Expression r) : {
+			graph += <createVertex(r), createVertex(l)>;
+		}
+		case variableAssignmentBlockEnd(Expression l, Expression r) : {
+			graph += <createVertex(r), createVertex(l)>;
+		}
+		case variableAssignmentLoose(Expression l, Expression r) : {
+			graph += <createVertex(r), createVertex(l)>;
+		}
+		//TODO: multiple declarations: i = 1, j = 2.
 		case orExpr:(Expression)`<Expression l> || <Expression r>`: {
 			graph += <createVertex(l), createExpressionVertex(orExpr)>;
 			graph += <createVertex(r), createExpressionVertex(orExpr)>;
@@ -71,7 +90,7 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 		case propAssign:(Expression)`{ <{PropertyAssignment ","}* props> }`: {
 			for(PropertyAssignment prop <- props) {
 				if ((PropertyAssignment)`<PropertyName f> : <Expression e>` := prop) {
-					graph += <createVertex(e), createVertex(f)>;
+					graph += <createVertex(e), createPropertyVertex(unparse(f))>;
 				}
 			}
 		}

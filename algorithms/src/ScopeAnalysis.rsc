@@ -16,6 +16,7 @@ import String;
  */
  
 //TODO: remove name in identifier. it's already the key
+//TODO: find out if we need to process <Expression l> = <Expression r> as well. Without var it isn't a variable decl..
 public SymbolTableMap createSymbolTableMap(Tree tree) {
 	return createSymbolTableMap(tree, nothing());
 }

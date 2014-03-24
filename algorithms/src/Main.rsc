@@ -19,6 +19,5 @@ public Graph[Vertex] createFlowGraph(loc source) {
 	Graph[Vertex] graph = createNativeFlowGraph();
 	Tree tree = parse(source);
 	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
-	parseAndView(tree);
 	return addIntraproceduralFlow(graph, tree, symbolTableMap);
 }
