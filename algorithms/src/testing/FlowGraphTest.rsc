@@ -52,7 +52,7 @@ public test bool testAssignNamedFunctionExpr() {
 public test bool testAssignNamelessFunctionExpr() {
 	Graph[Vertex] flowGraph = createFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|);
 	return flowGraph == {
-		  <Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>)),Property("a")>,
+		<Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>)),Property("a")>,
 		<Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>)),Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignNamelessFunctionExpr.js|(4,12,<1,4>,<1,16>))>
 	};
 }
@@ -77,5 +77,20 @@ public test bool testAssignOneToX() {
 	return flowGraph == {
   		<Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToX.js|(20,1,<2,5>,<2,6>)),Property("x")>,
   		<Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToX.js|(0,23,<1,0>,<3,1>)),Variable(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToX.js|(0,23,<1,0>,<3,1>))>
+	};
+}
+
+public test bool testAssignOneToXOneLiner() {
+	Graph[Vertex] flowGraph = createFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToXOneLiner.js|);
+	return flowGraph == {
+ 		<Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToXOneLiner.js|(19,1,<1,19>,<1,20>)),Property("x")>,
+  		<Function(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToXOneLiner.js|(0,22,<1,0>,<1,22>)),Variable(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToXOneLiner.js|(0,22,<1,0>,<1,22>))>	
+  	};
+}
+
+public test bool testAssignOneToPropY() {
+	Graph[Vertex] flowGraph = createFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToPropY.js|);
+	return flowGraph == {
+		<Expression(|project://JavaScript%20cg%20algorithms/src/testing/snippets/assignOneToPropY.js|(6,1,<1,6>,<1,7>)),Property("b")>
 	};
 }

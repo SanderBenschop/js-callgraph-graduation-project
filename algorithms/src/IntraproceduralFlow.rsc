@@ -35,8 +35,7 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 				}
 				return Expression(elementLocation);
 			}
-			//Member expression. How to look for this?
-			
+			case (Expression)`<Expression _> . <Id propName>`: return createPropertyVertex(propName);
 			case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation);
 			default: return createExpressionVertex(element);
 		}
@@ -54,8 +53,8 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 		return Variable(element@\loc);
 	}
 	
-	private Vertex createPropertyVertex(str name) {
-		return Property(name);
+	private Vertex createPropertyVertex(element) {
+		return Property(unparse(element));
 	}
 
 	visit (tree) {
@@ -90,7 +89,7 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 		case propAssign:(Expression)`{ <{PropertyAssignment ","}* props> }`: {
 			for(PropertyAssignment prop <- props) {
 				if ((PropertyAssignment)`<PropertyName f> : <Expression e>` := prop) {
-					graph += <createVertex(e), createPropertyVertex(unparse(f))>;
+					graph += <createVertex(e), createPropertyVertex(f)>;
 				}
 			}
 		}
