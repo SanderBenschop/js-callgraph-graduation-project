@@ -46,7 +46,6 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 	}
 	
 	private Vertex createExpressionVertex(element) {
-		println(element);
 		return Expression(element@\loc);
 	}
 	
@@ -98,11 +97,11 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 		}
 		case functionExpr:(Expression)`function <Id? name> (<{Id ","}* _>) <Block _>`: {
 			graph += <createFunctionVertex(functionExpr), createExpressionVertex(functionExpr)>;
-			iprintln(name);
 			
-			println("is opt: </\opt(_) := name>");
-			println("present: <name is present>");
-			println("absent: <name is absent>");
+			//TODO: use present and absent.
+			//println("is opt: </\opt(_) := name>");
+			//println("present: <name is present>");
+			//println("absent: <name is absent>");
 			
 			if (!isEmpty(unparse(name))) {
 				graph += <createFunctionVertex(functionExpr), createVariableVertex(functionExpr)>;

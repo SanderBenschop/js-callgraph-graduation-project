@@ -3,15 +3,19 @@ module Main
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
+import IO;
 
 import DataStructures;
 import NativeFlow;
 import IntraproceduralFlow;
 import ScopeAnalysis;
+import PrettyPrinter;
 
 public Graph[Vertex] createPessimisticCallGraph(loc source) {
 	Graph[Vertex] graph = createFlowGraph(source);
 	//graph = addInterproceduralFlow
+	println("Pretty printed:");
+	prettyPrintGraph(graph);
 	return graph;
 }
 
