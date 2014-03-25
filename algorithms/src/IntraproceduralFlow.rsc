@@ -63,23 +63,20 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 			graph += <createVertex(r), createVertex(l)>;
 			graph += <createVertex(r), createExpressionVertex(assignment)>;
 		}
-		case assignment:variableAssignment(Expression l, Expression r) : {
-			graph += <createVertex(r), createVertex(l)>;
-			graph += <createVertex(r), createExpressionVertex(assignment)>;
-		}
-		case Tree assignment:
-		  if (variableAssignmentNoSemi(Expression l, Expression r) := assignment) {
+		case Tree assignment: //TODO: refactor back to normal labelled patterns when Rascal bug is fixed.
+		  if (variableAssignment(Expression l, Expression r) := assignment) {
+		  		graph += <createVertex(r), createVertex(l)>;
+				graph += <createVertex(r), createExpressionVertex(assignment)>;
+		  } else if (variableAssignmentNoSemi(Expression l, Expression r) := assignment) {
 				graph += <createVertex(r), createVertex(l)>;
 				graph += <createVertex(r), createExpressionVertex(assignment)>;
-			} else fail;
-		case assignment:variableAssignmentBlockEnd(Expression l, Expression r) : {
-			graph += <createVertex(r), createVertex(l)>;
-			graph += <createVertex(r), createExpressionVertex(assignment)>;
-		}
-		case assignment:variableAssignmentLoose(Expression l, Expression r) : {
-			graph += <createVertex(r), createVertex(l)>;
-			graph += <createVertex(r), createExpressionVertex(assignment)>;
-		}
+		  } else if(variableAssignmentLoose(Expression l, Expression r) := assignment) {
+		  		graph += <createVertex(r), createVertex(l)>;
+				graph += <createVertex(r), createExpressionVertex(assignment)>;
+		  } else if(variableAssignmentBlockEnd(Expression l, Expression r) := assignment) {
+		  		graph += <createVertex(r), createVertex(l)>;
+				graph += <createVertex(r), createExpressionVertex(assignment)>;
+		  } else fail;
 		//TODO: multiple declarations: i = 1, j = 2.
 		case orExpr:(Expression)`<Expression l> || <Expression r>`: {
 			graph += <createVertex(l), createExpressionVertex(orExpr)>;
@@ -101,6 +98,12 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 		}
 		case functionExpr:(Expression)`function <Id? name> (<{Id ","}* _>) <Block _>`: {
 			graph += <createFunctionVertex(functionExpr), createExpressionVertex(functionExpr)>;
+			iprintln(name);
+			
+			println("is opt: </\opt(_) := name>");
+			println("present: <name is present>");
+			println("absent: <name is absent>");
+			
 			if (!isEmpty(unparse(name))) {
 				graph += <createFunctionVertex(functionExpr), createVariableVertex(functionExpr)>;
 			}
