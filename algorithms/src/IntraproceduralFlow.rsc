@@ -107,7 +107,7 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 				graph += <createFunctionVertex(functionExpr), createVariableVertex(functionExpr)>;
 			}
 		}
-		case functionDecl:(FunctionDeclaration)`function <Id _> (<{Id ","}* _>) <Block _>`: {
+		case functionDecl:(FunctionDeclaration)`function <Id _> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: {
 			graph += <createFunctionVertex(functionDecl), createVariableVertex(functionDecl)>;
 		}
 	}
