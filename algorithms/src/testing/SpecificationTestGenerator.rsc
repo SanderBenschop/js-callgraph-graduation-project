@@ -8,21 +8,23 @@ import String;
 
 import DataStructures;
 
-public tuple[str, Graph[Expectation]] arbProgram() {
+public tuple[str, Graph[Expectation]] arbProgram() = arbProgram(false);
+public tuple[str, Graph[Expectation]] arbProgram(bool isNested) {
 	switch(arbInt(2)) {
-		case 0: return arbVariableDeclaration();
+		case 0: return arbVariableDeclaration(isNested);
 		case 1: return arbFunctionDeclaration();
 	}
 }
 
-public tuple[str, Graph[Expectation]] arbVariableDeclaration() {
+public tuple[str, Graph[Expectation]] arbVariableDeclaration(bool isNested) {
 	str name = arbIdentifier();
 	str val = arbExpression();
 	str variableDecl = "var <name> = <val>";
 	str source = arbReal() > 0.5 ? variableDecl + ";": variableDecl;
 	
+	ExpectationType targetType = isNested ? variable() : property();
 	Graph[Expectation] expectations = {
-		<expectation(expression(), val), expectation(property(), name)>,
+		<expectation(expression(), val), expectation(targetType, name)>,
 		<expectation(expression(), val), expectation(expression(), "<name> = <val>")>
 	};
 	
@@ -45,7 +47,7 @@ public str arbExpression() {
 public tuple[str, Graph[Expectation]] arbFunctionDeclaration() {
 	str name = arbIdentifier();
 	str params = arbParams();
-	tuple[str source, Graph[Expectation] expectation] content = arbReal() > 0.8 ? arbProgram() : <"", {}>;
+	tuple[str source, Graph[Expectation] expectation] content = arbReal() > 0.8 ? arbProgram(true) : <"", {}>;
 	
 	str completeFunction = "
 	function <name>(<params>) {
@@ -68,7 +70,7 @@ public str arbParams() {
 
 public str arbIdentifier() {
 	str identifier = "";
-	int identifierLength = 1 + arbInt(14);
+	int identifierLength = 5 + arbInt(20);
 	for (int i <- [0..identifierLength]) {
 		identifier += getOneFrom(letters);
 	}
