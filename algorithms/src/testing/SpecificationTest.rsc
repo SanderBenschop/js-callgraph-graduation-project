@@ -18,7 +18,15 @@ public test bool nRandomTests() {
 
 public void randomTest() {
 	tuple[str code, Graph[Expectation] expectations] generatedProgram = arbProgram();
-	Graph[Vertex] flowGraph = createFlowGraph(generatedProgram.code);
+	
+	Graph[Vertex] flowGraph;
+	try 
+		flowGraph = createFlowGraph(generatedProgram.code);
+	catch ParseError : {
+		println("A parse error occured. Source:");
+		println(generatedProgram.code);
+		throw "Parse error occured";
+	}
 	
 	if (countNumberOfEdges(flowGraph) != countNumberOfEdges(generatedProgram.expectations)) {
 		throw "There is a mismatch between the number of actual edges and the number of expected edges. Actual: <flowGraph>. Expected: <generatedProgram.expectations>";
@@ -38,13 +46,23 @@ private bool thereExistsVertex(Expectation from, Expectation to, Graph[Vertex] f
 	for (Vertex base <- domain(flowGraph)) {
 		set[Vertex] targets = flowGraph[base];
 		for (Vertex target <- targets) {
-			ExpectationType leftType = getExpectationType(base), rightType = getExpectationType(target);
-			str leftValue = getVertexValue(program, base), rightValue = getVertexValue(program, target);
-			Expectation left = expectation(leftType, leftValue), right = expectation(rightType, rightValue);
-			if (from == left && to == right) return true;
+			if (expectation(fromType, fromValue) := from && expectation(toType, toValue) := to) {
+				ExpectationType leftType = getExpectationType(base), rightType = getExpectationType(target);
+				str leftValue = getVertexValue(program, base), rightValue = getVertexValue(program, target);
+				if (fromType == leftType && removeLayout(fromValue) == removeLayout(leftValue)
+					&& toType == rightType && removeLayout(toValue) == removeLayout(rightValue)) {
+					return true;	
+				}
+			}
 		}
 	}
 	return false;
+}
+
+public str removeLayout(str source) {
+	str trimmed = replaceAll(source, "\n", "");
+	trimmed = replaceAll(trimmed, "\t", "");
+	return trimmed;
 }
 
 private str getVertexValue(str source, Vertex vertex) {
@@ -67,7 +85,7 @@ private ExpectationType getExpectationType(Vertex vertex) {
 	throw "Unsupported type <vertex>";
 }
 
-private str getTextInString(str source, loc location) {
+public str getTextInString(str source, loc location) {
 	int begin = location.offset, end = begin + location.length;
 	return substring(source, begin, end);
 }

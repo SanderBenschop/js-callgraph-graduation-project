@@ -8,12 +8,10 @@ import String;
 
 import DataStructures;
 
-private list[str] letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-
 public tuple[str, Graph[Expectation]] arbProgram() {
-	switch(arbInt(1)) {
+	switch(arbInt(2)) {
 		case 0: return arbVariableDeclaration();
-		//case 1: return arbFunctionDeclaration(); TODO: readd
+		case 1: return arbFunctionDeclaration();
 	}
 }
 
@@ -47,11 +45,13 @@ public str arbExpression() {
 public tuple[str, Graph[Expectation]] arbFunctionDeclaration() {
 	str name = arbIdentifier();
 	str params = arbParams();
-	tuple[str source, Graph[Expectation] expectation] content = arbReal() > 0.3 ? generateRandomContent() : <"", {}>;
+	tuple[str source, Graph[Expectation] expectation] content = arbReal() > 0.8 ? arbProgram() : <"", {}>;
 	
-	str completeFunction = "function <name>(<params>) {
+	str completeFunction = "
+	function <name>(<params>) {
 		<content.source>
-	}";
+	}
+	";
 	
 	Graph[Expectation] expectations = {
 		<expectation(function(), completeFunction), expectation(variable(), completeFunction)>
@@ -72,7 +72,8 @@ public str arbIdentifier() {
 	for (int i <- [0..identifierLength]) {
 		identifier += getOneFrom(letters);
 	}
-	return identifier;
+	//If the generated identifier is a reserved keyword, try again.
+	return identifier notin reserved ? identifier : arbIdentifier();
 }
 
 data ExpectationType 
@@ -83,3 +84,66 @@ data ExpectationType
 	;
 	
 data Expectation = expectation(ExpectationType expectationType, str content);
+
+private list[str] letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+private list[str] reserved = [
+    "break",
+    "case",
+    "catch",
+    "continue",
+    "debugger",
+    "default",
+    "delete",
+    "do",
+    "else",
+    "finally",
+    "for",
+    "function",
+    "if",
+    "instanceof",
+    "in",
+    "new",
+    "return",
+    "switch",
+    "this",
+    "throw",
+    "try",
+    "typeof",
+    "var",
+    "void",
+    "while",
+    "with",
+    "abstract",
+    "boolean",
+    "byte",
+    "char",
+    "class",
+    "const",
+    "double",
+    "enum",
+    "export",
+    "extends",
+    "final",
+    "float",
+    "goto",
+    "implements",
+    "import",
+    "interface",
+    "int",
+    "long",
+    "native",
+    "package",
+    "private",
+    "protected",
+    "public",
+    "short",
+    "static",
+    "super",
+    "synchronized",
+    "throws",
+    "transient",
+    "volatile",
+    "null",
+    "true",
+    "false"];
