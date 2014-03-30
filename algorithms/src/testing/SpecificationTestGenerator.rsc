@@ -24,7 +24,7 @@ public tuple[str, Graph[Expectation]] arbVariableDeclaration() {
 	str source = arbReal() > 0.5 ? variableDecl + ";": variableDecl;
 	
 	Graph[Expectation] expectations = {
-		<expectation(expression(), val), expectation(property(), "i")>,
+		<expectation(expression(), val), expectation(property(), name)>,
 		<expectation(expression(), val), expectation(expression(), "<name> = <val>")>
 	};
 	

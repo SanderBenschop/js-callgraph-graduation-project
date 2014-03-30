@@ -9,6 +9,13 @@ import Relation;
 import IO;
 import String;
 
+public test bool nRandomTests() {
+	for (int i <- [0..1000]) {
+		randomTest();
+	}
+	return true;
+}
+
 public void randomTest() {
 	tuple[str code, Graph[Expectation] expectations] generatedProgram = arbProgram();
 	Graph[Vertex] flowGraph = createFlowGraph(generatedProgram.code);
@@ -17,25 +24,24 @@ public void randomTest() {
 		throw "There is a mismatch between the number of actual edges and the number of expected edges. Actual: <flowGraph>. Expected: <generatedProgram.expectations>";
 	}
 	
-	for (Vertex base <- domain(flowGraph)) {
-		set[Vertex] targets = flowGraph[base];
-		for (Vertex target <- targets) {
-			ExpectationType leftType = getExpectationType(base), rightType = getExpectationType(target);
-			str leftValue = getVertexValue(generatedProgram.code, base), rightValue = getVertexValue(generatedProgram.code, target);
-			Expectation left = expectation(leftType, leftValue), right = expectation(rightType, rightValue);
-			if (!thereExistsEdge(left, right, generatedProgram.expectations)) {
-				throw "There is no expectation edge from <left> to <right>";
+	for (Expectation base <- domain(generatedProgram.expectations)) {
+		set[Expectation] targets = generatedProgram.expectations[base];
+		for (Expectation target <- targets) {
+			if (!thereExistsVertex(base, target, flowGraph, generatedProgram.code)) {
+				throw "There is no edge from <base> to <target> for source <generatedProgram.code>";
 			}
 		}
 	}
 }
 
-private bool thereExistsEdge(Expectation from, Expectation to, Graph[Expectation] expectations) {
-	println(expectations);
-	for (Expectation base <- domain(expectations)) {
-		set[Expectation] targets = expectations[base];
-		for (Expectation target <- targets) {
-			if (base == from && target == to) return true;
+private bool thereExistsVertex(Expectation from, Expectation to, Graph[Vertex] flowGraph, str program) {
+	for (Vertex base <- domain(flowGraph)) {
+		set[Vertex] targets = flowGraph[base];
+		for (Vertex target <- targets) {
+			ExpectationType leftType = getExpectationType(base), rightType = getExpectationType(target);
+			str leftValue = getVertexValue(program, base), rightValue = getVertexValue(program, target);
+			Expectation left = expectation(leftType, leftValue), right = expectation(rightType, rightValue);
+			if (from == left && to == right) return true;
 		}
 	}
 	return false;
