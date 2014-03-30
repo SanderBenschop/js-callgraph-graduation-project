@@ -34,7 +34,7 @@ private str formatVertex(Vertex vertex) {
 }
 
 private str formatLoc(loc location) {
-	str file = location.file;
+	try file = location.file; catch : file = "mockup.nojs";	
 	int lineNumber = location.begin.line;
 	int columnStart = location.offset;
 	//The tool used by the original authors doesn't show multiple lines but just puts it one one big line like this.

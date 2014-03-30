@@ -1,66 +1,78 @@
 module testing::SpecificationTest
 
 import analysis::graphs::Graph;
-import util::Math;
-import List;
 
+import testing::SpecificationTestGenerator;
+import Main;
 import DataStructures;
+import Relation;
+import IO;
+import String;
 
-private list[str] letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-
-public tuple[str, Graph[Vertex]] getRandomProgram() {
-
-}
-
-public str generateRandomContent() {
-	switch(arbInt(2)) {
-		case 0: return arbVariableDeclaration();
-		case 1: return arbFunctionDeclaration();
+public void randomTest() {
+	tuple[str code, Graph[Expectation] expectations] generatedProgram = arbProgram();
+	Graph[Vertex] flowGraph = createFlowGraph(generatedProgram.code);
+	
+	if (countNumberOfEdges(flowGraph) != countNumberOfEdges(generatedProgram.expectations)) {
+		throw "There is a mismatch between the number of actual edges and the number of expected edges. Actual: <flowGraph>. Expected: <generatedProgram.expectations>";
+	}
+	
+	for (Vertex base <- domain(flowGraph)) {
+		set[Vertex] targets = flowGraph[base];
+		for (Vertex target <- targets) {
+			ExpectationType leftType = getExpectationType(base), rightType = getExpectationType(target);
+			str leftValue = getVertexValue(generatedProgram.code, base), rightValue = getVertexValue(generatedProgram.code, target);
+			Expectation left = expectation(leftType, leftValue), right = expectation(rightType, rightValue);
+			if (!thereExistsEdge(left, right, generatedProgram.expectations)) {
+				throw "There is no expectation edge from <left> to <right>";
+			}
+		}
 	}
 }
 
-public str arbVariableDeclaration() {
-	str name = arbIdentifier();
-	str val = arbExpression();
-	str variableDecl = "var <name> = <val>";
-	return arbReal() > 0.5 ? variableDecl + ";": variableDecl;
+private bool thereExistsEdge(Expectation from, Expectation to, Graph[Expectation] expectations) {
+	println(expectations);
+	for (Expectation base <- domain(expectations)) {
+		set[Expectation] targets = expectations[base];
+		for (Expectation target <- targets) {
+			if (base == from && target == to) return true;
+		}
+	}
+	return false;
 }
 
-public str arbExpression() {
-	if (arbReal() > 0.3) {
-		return "<arbInt()>";
+private str getVertexValue(str source, Vertex vertex) {
+	switch(vertex) {
+		case Expression(position) : return getTextInString(source, position);
+		case Variable(position) : return getTextInString(source, position);
+		case Property(name) : return name;
+		case Function(position) : return getTextInString(source, position);
 	}
-
-	switch(arbInt(4)) {
-		case 0: return "<arbInt()> + <arbExpression()>";
-		case 1: return "<arbInt()> - <arbExpression()>";
-		case 2: return "<arbInt()> * <arbExpression()>";
-		case 3: return "<arbInt()> / <arbExpression()>";
-	}
+	throw "Unsupported type <vertex>";
 }
 
-public str arbFunctionDeclaration() {
-	str name = arbIdentifier();
-	str params = arbParams();
-	str content = arbReal() > 0.3 ? generateRandomContent() : "";
-	return "
-	function <name>(<params>) {
-		<content>
+private ExpectationType getExpectationType(Vertex vertex) {
+	switch(vertex) {
+		case Expression(position) : return expression();
+		case Variable(position) : return variable();
+		case Property(name) : return property();
+		case Function(position) : return function();
 	}
-	";
+	throw "Unsupported type <vertex>";
 }
 
-public str arbParams() {
-	int numberOfParams = arbInt(5);
-	list[str] params = [arbIdentifier() | int n <- [0..numberOfParams], n < numberOfParams];
-	return isEmpty(params) ? "" : (params[0] | it + ", " + param| str param <- tail(params)); 
+private str getTextInString(str source, loc location) {
+	int begin = location.offset, end = begin + location.length;
+	return substring(source, begin, end);
 }
 
-public str arbIdentifier() {
-	str identifier = "";
-	int identifierLength = 1 + arbInt(14);
-	for (int i <- [0..identifierLength]) {
-		identifier += getOneFrom(letters);
+private int countNumberOfEdges(graph) {
+	int count = 0;
+	for (base <- domain(graph)) {
+		targets = graph[base];
+		for (target <- targets) {
+			count += 1;
+		}
 	}
-	return identifier;
+	return count;
 }

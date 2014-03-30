@@ -11,7 +11,7 @@ import IntraproceduralFlow;
 import ScopeAnalysis;
 import PrettyPrinter;
 
-public Graph[Vertex] createPessimisticCallGraph(loc source) {
+public Graph[Vertex] createPessimisticCallGraph(source) {
 	Graph[Vertex] graph = createFlowGraph(source);
 	//graph = addInterproceduralFlow
 	println("Pretty printed:");
@@ -19,7 +19,7 @@ public Graph[Vertex] createPessimisticCallGraph(loc source) {
 	return graph;
 }
 
-public Graph[Vertex] createFlowGraph(loc source) {
+public Graph[Vertex] createFlowGraph(source) {
 	Graph[Vertex] graph = createNativeFlowGraph();
 	Tree tree = parse(source);
 	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
