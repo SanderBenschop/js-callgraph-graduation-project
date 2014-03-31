@@ -10,16 +10,25 @@ import Relation;
 import IO;
 import String;
 
+public void generateNRandomSnippets(int n) {
+	loc generatedFolder = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated|;
+	for (int i <- [0..n]) {
+		str program = randomTest();
+		loc target = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated| + "snippet-<i>.js";
+		writeFile(target, program);
+	}
+}
+
 //TODO: add references to existing properties.
-public test bool nRandomTests() = nRandomTests(1000);
-public test bool nRandomTests(int n) {
+public bool nRandomTests() = nRandomTests(1000);
+public bool nRandomTests(int n) {
 	for (int i <- [0..n]) {
 		randomTest();
 	}
 	return true;
 }
 
-public void randomTest() {
+public str randomTest() {
 	tuple[str code, Graph[Expectation] expectations] generatedProgram = arbProgram();
 	
 	Graph[Vertex] flowGraph;
@@ -62,6 +71,8 @@ public void randomTest() {
 		}
 		throw "EdgeExpectationMismatch";
 	}
+	
+	return generatedProgram.code;
 }
 
 private Maybe[tuple[Vertex, Vertex]] thereExistsVertex(Expectation from, Expectation to, Graph[Vertex] flowGraph, str program) {

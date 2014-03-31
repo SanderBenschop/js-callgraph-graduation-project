@@ -7,45 +7,46 @@ import String;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
+import VertexFactory;
 
 import DataStructures;
 
 public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) {
 	visit (tree) {
 		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: {
-			graph += <createVertex(r), createVertex(l)>;
-			graph += <createVertex(r), createExpressionVertex(assignment)>;
+			graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
+			graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
 		}
 		case Tree assignment: //TODO: refactor back to normal labelled patterns when Rascal bug is fixed.
 		  if (variableAssignment(Expression l, Expression r) := assignment) {
-		  		graph += <createVertex(r), createVertex(l)>;
-				graph += <createVertex(r), createExpressionVertex(assignment)>;
+		  		graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
+				graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
 		  } else if (variableAssignmentNoSemi(Expression l, Expression r) := assignment) {
-				graph += <createVertex(r), createVertex(l)>;
-				graph += <createVertex(r), createExpressionVertex(assignment)>;
+				graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
+				graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
 		  } else if(variableAssignmentLoose(Expression l, Expression r) := assignment) {
-		  		graph += <createVertex(r), createVertex(l)>;
-				graph += <createVertex(r), createExpressionVertex(assignment)>;
+		  		graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
+				graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
 		  } else if(variableAssignmentBlockEnd(Expression l, Expression r) := assignment) {
-		  		graph += <createVertex(r), createVertex(l)>;
-				graph += <createVertex(r), createExpressionVertex(assignment)>;
+		  		graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
+				graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
 		  } else fail;
 		//TODO: multiple declarations: i = 1, j = 2.
 		case orExpr:(Expression)`<Expression l> || <Expression r>`: {
-			graph += <createVertex(l), createExpressionVertex(orExpr)>;
-			graph += <createVertex(r), createExpressionVertex(orExpr)>;
+			graph += <createVertex(l, symbolTableMap), createExpressionVertex(orExpr)>;
+			graph += <createVertex(r, symbolTableMap), createExpressionVertex(orExpr)>;
 		}
 		case ternary:(Expression)`<Expression _> ? <Expression l> : <Expression r>`: {
-			graph += <createVertex(l), createExpressionVertex(ternary)>;
-			graph += <createVertex(r), createExpressionVertex(ternary)>;
+			graph += <createVertex(l, symbolTableMap), createExpressionVertex(ternary)>;
+			graph += <createVertex(r, symbolTableMap), createExpressionVertex(ternary)>;
 		}
 		case andExpr:(Expression)`<Expression _> && <Expression r>`: {
-			graph += <createVertex(r), createExpressionVertex(andExpr)>;
+			graph += <createVertex(r, symbolTableMap), createExpressionVertex(andExpr)>;
 		}
 		case propAssign:(Expression)`{ <{PropertyAssignment ","}* props> }`: {
 			for(PropertyAssignment prop <- props) {
 				if ((PropertyAssignment)`<PropertyName f> : <Expression e>` := prop) {
-					graph += <createVertex(e), createPropertyVertex(f)>;
+					graph += <createVertex(e, symbolTableMap), createPropertyVertex(f)>;
 				}
 			}
 		}

@@ -37,7 +37,7 @@ public tuple[str, Graph[Expectation]] arbProgram(bool isNested) {
 
 public tuple[str, Graph[Expectation]] arbVariableDeclaration(bool isNested) {
 	str name = arbIdentifier();
-	tuple[str code, ExpectationType sourceType, Graph[Expectation] innerExpectations] generatedExpression = arbExpression();
+	tuple[str code, ExpectationType sourceType, Graph[Expectation] innerExpectations] generatedExpression = arbToplevelExpression();
 	str val = generatedExpression.code;
 	str variableDecl = "var <name> = <val>";
 	str source = arbReal() > 0.5 ? variableDecl + ";": variableDecl + "

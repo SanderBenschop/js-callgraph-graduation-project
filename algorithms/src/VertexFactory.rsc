@@ -2,10 +2,12 @@ module VertexFactory
 
 import EcmaScript;
 import util::Maybe;
+import ParseTree;
+import IO;
 
 import DataStructures;
 
-public Vertex createVertex(element) {
+public Vertex createVertex(element, symbolTableMap) {
 	
 	private Vertex processId(Id id) {
 		str propName = unparse(id);
@@ -21,7 +23,7 @@ public Vertex createVertex(element) {
 	switch(element) {
 		case (Id)`<Id id>`: return processId(id);
 		case (Expression)`<Id id>`: return processId(id);
-		case (Expression)`this`: { //Nothing about this in the paper? Possibly it's the stuff about 'this' being the 0th parameter.
+		case (Expression)`this`: {
 			SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
 			if (just(identifier(_, location)) := find("this", elementSymbolTable)) {
 				return Variable(location);
@@ -34,18 +36,18 @@ public Vertex createVertex(element) {
 	}
 }
 
-private Vertex createFunctionVertex(element) {
+public Vertex createFunctionVertex(element) {
 	return Function(element@\loc);
 }
 
-private Vertex createExpressionVertex(element) {
+public Vertex createExpressionVertex(element) {
 	return Expression(element@\loc);
 }
 
-private Vertex createVariableVertex(element) {
+public Vertex createVariableVertex(element) {
 	return Variable(element@\loc);
 }
 
-private Vertex createPropertyVertex(element) {
+public Vertex createPropertyVertex(element) {
 	return Property(unparse(element));
 }
