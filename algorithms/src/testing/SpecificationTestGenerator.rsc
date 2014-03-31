@@ -52,13 +52,53 @@ public tuple[str, Graph[Expectation]] arbVariableDeclaration(bool isNested) {
 	return <source, expectations + generatedExpression.innerExpectations>;
 }
 
+public tuple[str code, ExpectationType expectationType, Graph[Expectation] innerExpectations] arbToplevelExpression() {
+	switch(arbInt(4)) {
+		case 0: return arbExpression();
+		case 1: {
+			//Or expression, cannot be nested in another expression or it won't reach the entire expression.
+			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] lhs = arbExpression();
+			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] rhs = arbExpression();
+			str source = lhs.code + " " + "||" + " " + rhs.code;
+			Graph[Expectation] expectations = {
+				<expectation(lhs.expectationType, lhs.code), expectation(expression(), source)>,
+				<expectation(rhs.expectationType, rhs.code), expectation(expression(), source)>
+			};
+			return <source, expression(), expectations + lhs.expectations + rhs.expectations>;
+		}
+		case 2: {
+			//And expression, cannot be nested in another expression or it won't reach the entire expression.
+			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] lhs = arbExpression();
+			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] rhs = arbExpression();
+			str source = lhs.code + " " + "&&" + " " + rhs.code;
+			Graph[Expectation] expectations = {
+				<expectation(rhs.expectationType, rhs.code), expectation(expression(), source)>
+			};
+			return <source, expression(), expectations + lhs.expectations + rhs.expectations>;
+		}
+		case 3: {
+			//Ternary expression, cannot be nested in another expression or it won't reach the entire expression.
+			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] condition = arbExpression();
+			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] lhs = arbExpression();
+			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] rhs = arbExpression();
+			str source = "<condition.code> ? <lhs.code> : <rhs.code>";
+			Graph[Expectation] expectations = {
+				<expectation(lhs.expectationType, lhs.code), expectation(expression(), source)>,
+				<expectation(rhs.expectationType, rhs.code), expectation(expression(), source)>
+			};
+			return <source, expression(), expectations + condition.expectations + lhs.expectations + rhs.expectations>;
+		}
+		//TODO: test nested and/or/ternary.
+	}
+}
+
 public tuple[str code, ExpectationType expectationType, Graph[Expectation] innerExpectations] arbExpression() {
 	if (arbReal() > 0.3) {
 		//TODO: remove limit so negative numbers can also occur when filtering bug is fixed.
 		return <toString(arbInt(MAX_INTEGER)), expression(), {}>;
 	}
 
-	switch(arbInt(2)) {
+	switch(arbInt(3)) {
 		case 0: {
 			//Binary arithmetic expression.
 			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] lhs = arbExpression();
@@ -70,17 +110,22 @@ public tuple[str code, ExpectationType expectationType, Graph[Expectation] inner
 			tuple[str source, Graph[Expectation] expectations] functionExpr = arbFunctionExpression();
 			return <functionExpr.source, function(), functionExpr.expectations>;
 		}
-		//case 2: {
-		//	//Or expression
-		//	tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] lhs = arbExpression();
-		//	tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] rhs = arbExpression();
-		//	str source = lhs.code + " " + "||" + " " + rhs.code;
-		//	Graph[Expectation] expectations = {
-		//		<expectation(lhs.expectationType, lhs.code), expectation(expression(), source)>,
-		//		<expectation(rhs.expectationType, rhs.code), expectation(expression(), source)>
-		//	};
-		//	return <source, expression(), expectations + lhs.expectations + rhs.expectations>;
-		//}
+		case 2: {
+			//Property.
+			Graph[Expectation] expectations = {};
+			list[str] randomProps = [];
+			int numProps = arbInt(4);
+			for (_ <- [0..numProps]) {
+				str name = arbIdentifier();
+				tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] val = arbExpression();
+				
+				expectations += val.expectations;
+				expectations += <expectation(val.expectationType, val.code), expectation(property(), name)>;
+				randomProps += "<name> : <val.code>";
+			}
+			str merged = "{" + intercalate(", ", randomProps) + "}";
+			return <merged, expression(), expectations>;
+		}
 	}
 }
 

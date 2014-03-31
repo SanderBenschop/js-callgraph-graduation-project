@@ -10,6 +10,7 @@ import Relation;
 import IO;
 import String;
 
+//TODO: add references to existing properties.
 public test bool nRandomTests() {
 	for (int i <- [0..1000]) {
 		randomTest();
@@ -28,16 +29,6 @@ public void randomTest() {
 		println(generatedProgram.code);
 		throw "Parse error occured";
 	}
-	
-	//if (countNumberOfEdges(flowGraph) != countNumberOfEdges(generatedProgram.expectations)) {
-	//	println("There is a mismatch between the number of actual edges and the number of expected edges");
-	//	println("Actual:\n <flowGraph>");
-	//	println("Expected:\n <generatedProgram.expectations>");
-	//	println("Source:\n <generatedProgram.code>");
-	//	println("Total number of actual edges: <countNumberOfEdges(flowGraph)>");
-	//	println("Total number of expected edges: <countNumberOfEdges(generatedProgram.expectations)>");
-	//	throw "EdgeExpectationMismatch";
-	//}
 	
 	Graph[Vertex] matchedEdges = {};
 	for (Expectation base <- domain(generatedProgram.expectations)) {
