@@ -11,8 +11,9 @@ import IO;
 import String;
 
 //TODO: add references to existing properties.
-public test bool nRandomTests() {
-	for (int i <- [0..1000]) {
+public test bool nRandomTests() = nRandomTests(1000);
+public test bool nRandomTests(int n) {
+	for (int i <- [0..n]) {
 		randomTest();
 	}
 	return true;
