@@ -1,6 +1,7 @@
 module testing::SpecificationTest
 
 import analysis::graphs::Graph;
+import util::Maybe;
 
 import testing::SpecificationTestGenerator;
 import Main;
@@ -28,21 +29,50 @@ public void randomTest() {
 		throw "Parse error occured";
 	}
 	
-	if (countNumberOfEdges(flowGraph) != countNumberOfEdges(generatedProgram.expectations)) {
-		throw "There is a mismatch between the number of actual edges and the number of expected edges. Actual: <flowGraph>. Expected: <generatedProgram.expectations>";
-	}
+	//if (countNumberOfEdges(flowGraph) != countNumberOfEdges(generatedProgram.expectations)) {
+	//	println("There is a mismatch between the number of actual edges and the number of expected edges");
+	//	println("Actual:\n <flowGraph>");
+	//	println("Expected:\n <generatedProgram.expectations>");
+	//	println("Source:\n <generatedProgram.code>");
+	//	println("Total number of actual edges: <countNumberOfEdges(flowGraph)>");
+	//	println("Total number of expected edges: <countNumberOfEdges(generatedProgram.expectations)>");
+	//	throw "EdgeExpectationMismatch";
+	//}
 	
+	Graph[Vertex] matchedEdges = {};
 	for (Expectation base <- domain(generatedProgram.expectations)) {
 		set[Expectation] targets = generatedProgram.expectations[base];
 		for (Expectation target <- targets) {
-			if (!thereExistsVertex(base, target, flowGraph, generatedProgram.code)) {
+			Maybe[tuple[Vertex, Vertex]] soughtVertex = thereExistsVertex(base, target, flowGraph, generatedProgram.code);
+			if (just(tuple[Vertex, Vertex] matchedEdge) := soughtVertex) {
+				matchedEdges += matchedEdge;
+			} else {
 				throw "There is no edge from <base> to <target> for source <generatedProgram.code>";
 			}
 		}
 	}
+	
+	if (countNumberOfEdges(flowGraph) != countNumberOfEdges(matchedEdges)) {
+		println("There is a mismatch between the number of actual edges and the number of expected edges");
+		println("Total number of actual edges: <countNumberOfEdges(flowGraph)>");
+		println("Total number of expected edges: <countNumberOfEdges(generatedProgram.expectations)>");
+		println("Actual:\n <flowGraph>");
+		println("Expected:\n <generatedProgram.expectations>");
+		println("Source:\n <generatedProgram.code>");
+		println("Unmatched edges:");
+		Graph[Vertex] unmatchedEdges = flowGraph - matchedEdges;
+		for (Vertex base <- domain(unmatchedEdges)) {
+			for (Vertex target <- unmatchedEdges[base]) {
+				ExpectationType baseType = getExpectationType(base), targetType = getExpectationType(target);
+				str baseValue = getVertexValue(generatedProgram.code, base), targetValue = getVertexValue(generatedProgram.code, target);
+				println("<expectation(baseType, baseValue)> -\> <expectation(targetType, targetValue)>");
+			}
+		}
+		throw "EdgeExpectationMismatch";
+	}
 }
 
-private bool thereExistsVertex(Expectation from, Expectation to, Graph[Vertex] flowGraph, str program) {
+private Maybe[tuple[Vertex, Vertex]] thereExistsVertex(Expectation from, Expectation to, Graph[Vertex] flowGraph, str program) {
 	for (Vertex base <- domain(flowGraph)) {
 		set[Vertex] targets = flowGraph[base];
 		for (Vertex target <- targets) {
@@ -51,12 +81,12 @@ private bool thereExistsVertex(Expectation from, Expectation to, Graph[Vertex] f
 				str leftValue = getVertexValue(program, base), rightValue = getVertexValue(program, target);
 				if (fromType == leftType && removeLayout(fromValue) == removeLayout(leftValue)
 					&& toType == rightType && removeLayout(toValue) == removeLayout(rightValue)) {
-					return true;	
+					return just(<base, target>);
 				}
 			}
 		}
 	}
-	return false;
+	return nothing();
 }
 
 public str removeLayout(str source) {
