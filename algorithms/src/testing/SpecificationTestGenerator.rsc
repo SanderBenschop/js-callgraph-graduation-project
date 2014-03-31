@@ -55,25 +55,36 @@ public tuple[str, Graph[Expectation]] arbVariableDeclaration(bool isNested) {
 public tuple[str code, ExpectationType expectationType, Graph[Expectation] innerExpectations] arbExpression() {
 	if (arbReal() > 0.3) {
 		//TODO: remove limit so negative numbers can also occur when filtering bug is fixed.
-		return <toString(MAX_INTEGER), expression(), {}>;
+		return <toString(arbInt(MAX_INTEGER)), expression(), {}>;
 	}
 
 	switch(arbInt(2)) {
 		case 0: {
-			//Binary expression.
+			//Binary arithmetic expression.
 			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] lhs = arbExpression();
 			tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] rhs = arbExpression();
-			str source = lhs.code + " " + arbBinaryOperator() + " " + rhs.code;
+			str source = lhs.code + " " + arbBinaryArithmeticOperator() + " " + rhs.code;
 			return <source, expression(), lhs.expectations + rhs.expectations>;
 		}
 		case 1: {
 			tuple[str source, Graph[Expectation] expectations] functionExpr = arbFunctionExpression();
 			return <functionExpr.source, function(), functionExpr.expectations>;
 		}
+		//case 2: {
+		//	//Or expression
+		//	tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] lhs = arbExpression();
+		//	tuple[str code, ExpectationType expectationType, Graph[Expectation] expectations] rhs = arbExpression();
+		//	str source = lhs.code + " " + "||" + " " + rhs.code;
+		//	Graph[Expectation] expectations = {
+		//		<expectation(lhs.expectationType, lhs.code), expectation(expression(), source)>,
+		//		<expectation(rhs.expectationType, rhs.code), expectation(expression(), source)>
+		//	};
+		//	return <source, expression(), expectations + lhs.expectations + rhs.expectations>;
+		//}
 	}
 }
 
-public str arbBinaryOperator() {
+public str arbBinaryArithmeticOperator() {
 	switch(arbInt(3)) {
 		case 0: return "+";
 		case 1: return "-";
