@@ -62,7 +62,10 @@ public str randomTest() {
 			if (just(tuple[Vertex, Vertex] matchedEdge) := soughtVertex) {
 				matchedEdges += matchedEdge;
 			} else {
-				throw "There is no edge from <base> to <target> for source <generatedProgram.code>";
+				println("There is no edge from <base> to <target>");
+				println("Source: \n <generatedProgram.code>");
+				println("Flow graph: \n <flowGraph>");
+				throw "MissingEdge";
 			}
 		}
 	}
@@ -115,7 +118,7 @@ public str removeLayout(str source) {
 private str getVertexValue(str source, Vertex vertex) {
 	switch(vertex) {
 		case Expression(position) : return getTextInString(source, position);
-		case Variable(position) : return getTextInString(source, position);
+		case Variable(_,position) : return getTextInString(source, position);
 		case Property(name) : return name;
 		case Function(position) : return getTextInString(source, position);
 	}
@@ -124,10 +127,10 @@ private str getVertexValue(str source, Vertex vertex) {
 
 private ExpectationType getExpectationType(Vertex vertex) {
 	switch(vertex) {
-		case Expression(position) : return expression();
-		case Variable(position) : return variable();
-		case Property(name) : return property();
-		case Function(position) : return function();
+		case Expression(_) : return expression();
+		case Variable(_,_) : return variable();
+		case Property(_) : return property();
+		case Function(_) : return function();
 	}
 	throw "Unsupported type <vertex>";
 }

@@ -74,7 +74,8 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 			case this:(Expression)`this` : annotateElementWithCurrentScope(this);
 
 			case (FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), id@\loc, params, body); 
-			case (Expression)`function <Id? id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), id@\loc, params, body);
+			case (Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), id@\loc, params, body);
+			case (Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", |nothing:///|, params, body);
 		}
 	}
 	

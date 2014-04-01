@@ -31,7 +31,6 @@ public Vertex createVertex(element, symbolTableMap) {
 			return Expression(elementLocation);
 		}
 		case (Expression)`<Expression _> . <Id propName>`: return createPropertyVertex(propName);
-		//case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation); //TODO: check if correct.
 		default: return createExpressionVertex(element);
 	}
 }

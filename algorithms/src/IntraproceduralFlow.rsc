@@ -50,11 +50,12 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 				}
 			}
 		}
-		case functionExpr:(Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: {
-			graph += <createFunctionVertex(functionExpr), createExpressionVertex(functionExpr)>;
-			if (!isEmpty(unparse(id))) {
-				graph += <createFunctionVertex(functionExpr), createVariableVertex(id, functionExpr)>;
-			}
+		case functionExprNameless:(Expression)`function (<{Id ","}* _>) <Block _>`: {
+			graph += <createFunctionVertex(functionExprNameless), createExpressionVertex(functionExprNameless)>;
+		}
+		case functionExprNamed:(Expression)`function <Id id> (<{Id ","}* _>) <Block _>`: {
+			graph += <createFunctionVertex(functionExprNamed), createExpressionVertex(functionExprNamed)>;
+			graph += <createFunctionVertex(functionExprNamed), createVariableVertex(id, functionExprNamed)>;
 		}
 		case functionDecl:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: {
 			graph += <createFunctionVertex(functionDecl), createVariableVertex(id, functionDecl)>;

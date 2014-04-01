@@ -12,7 +12,7 @@ import DataStructures;
 private int MAX_INTEGER = 2147483647;
 
 public tuple[str, Graph[Expectation]] arbProgram() = arbProgram(false);
-public tuple[str, Graph[Expectation]] arbProgram(bool isNested) = arbProgram(false, 1 + arbInt(5));
+public tuple[str, Graph[Expectation]] arbProgram(bool isNested) = arbProgram(isNested, 1 + arbInt(5));
 public tuple[str, Graph[Expectation]] arbProgram(bool isNested, int length) {
 	str code = "";
 	Graph[Expectation] expectations = {};
@@ -107,7 +107,7 @@ public tuple[str code, ExpectationType expectationType, Graph[Expectation] inner
 		}
 		case 1: {
 			tuple[str source, Graph[Expectation] expectations] functionExpr = arbFunctionExpression();
-			return <functionExpr.source, function(), functionExpr.expectations>;
+			return <functionExpr.source, expression(), functionExpr.expectations>;
 		}
 		case 2: {
 			//Property.
