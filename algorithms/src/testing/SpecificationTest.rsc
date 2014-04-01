@@ -9,13 +9,27 @@ import DataStructures;
 import Relation;
 import IO;
 import String;
+import PrettyPrinter;
+
+private loc GENERATED_SNIPPET_FOLDER = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated|;
+private loc PRETTY_PRINT_FOLDER = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated/prettyprinted|;
 
 public void generateNRandomSnippets(int n) {
-	loc generatedFolder = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated|;
+	loc generatedFolder = GENERATED_SNIPPET_FOLDER;
 	for (int i <- [0..n]) {
 		str program = randomTest();
-		loc target = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated| + "snippet-<i>.js";
+		loc target = GENERATED_SNIPPET_FOLDER + "snippet-<i>.js";
 		writeFile(target, program);
+	}
+}
+
+public void writePrettyPrints() {
+	for (loc snippet <- GENERATED_SNIPPET_FOLDER.ls, isFile(snippet)) {
+		Graph[Vertex] flowGraph = createFlowGraph(snippet);
+		str prettyPrinted = prettyPrintGraph(flowGraph, true);
+		str fileName = replaceLast(snippet.file, ".js", "");
+		loc target = PRETTY_PRINT_FOLDER + "<fileName>.log";
+		writeFile(target, prettyPrinted);
 	}
 }
 

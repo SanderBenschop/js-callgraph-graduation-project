@@ -3,16 +3,23 @@ module PrettyPrinter
 import analysis::graphs::Graph;
 import Relation;
 import IO;
+import List;
 
 import DataStructures;
 
-public void prettyPrintGraph(Graph[Vertex] graph) {
+public str prettyPrintGraph(Graph[Vertex] graph) = prettyPrintGraph(graph, false);
+public str prettyPrintGraph(Graph[Vertex] graph, bool sortIt) {
+	list[str] lines = [];
 	for (Vertex base <- domain(graph)) {
 		set[Vertex] targets = graph[base];
 		for (Vertex target <- targets) {
-			println("\"<formatVertex(base)>\" -\> \"<formatVertex(target)>\"");
+			lines += "\"<formatVertex(base)>\" -\> \"<formatVertex(target)>\"";
 		}
 	}
+	if (sortIt) lines = sort(lines);
+	str joined = intercalate("\n", lines);
+	println(joined);
+	return joined;
 }
 
 private str formatVertex(Vertex vertex) {
