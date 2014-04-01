@@ -8,6 +8,7 @@ import IO;
 import DataStructures;
 import NativeFlow;
 import IntraproceduralFlow;
+import PessimisticInterproceduralFlow;
 import ScopeAnalysis;
 import PrettyPrinter;
 
@@ -24,4 +25,5 @@ public Graph[Vertex] createFlowGraph(source) {
 	Tree tree = parse(source);
 	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
 	return addIntraproceduralFlow(graph, tree, symbolTableMap);
+	//return addPessimisticInterproceduralFlow(graph, tree, symbolTableMap);
 }

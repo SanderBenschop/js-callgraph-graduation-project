@@ -27,8 +27,8 @@ private str formatVertex(Vertex vertex) {
 		case Expression(loc position) : {
 			return "Expr(<formatLoc(position)>)";
 		}
-		case Variable(loc position) : {
-			return "Var(<formatLoc(position)>)";
+		case Variable(str name, loc position) : {
+			return "Var(<name>, <formatLoc(position)>)";
 		}
 		case Property(str name) : {
 			return "Prop(<name>)";

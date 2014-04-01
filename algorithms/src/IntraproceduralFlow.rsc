@@ -50,20 +50,14 @@ public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, Symb
 				}
 			}
 		}
-		case functionExpr:(Expression)`function <Id? name> (<{Id ","}* _>) <Block _>`: {
+		case functionExpr:(Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: {
 			graph += <createFunctionVertex(functionExpr), createExpressionVertex(functionExpr)>;
-			
-			//TODO: use present and absent.
-			//println("is opt: </\opt(_) := name>");
-			//println("present: <name is present>");
-			//println("absent: <name is absent>");
-			
-			if (!isEmpty(unparse(name))) {
-				graph += <createFunctionVertex(functionExpr), createVariableVertex(functionExpr)>;
+			if (!isEmpty(unparse(id))) {
+				graph += <createFunctionVertex(functionExpr), createVariableVertex(id, functionExpr)>;
 			}
 		}
-		case functionDecl:(FunctionDeclaration)`function <Id _> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: {
-			graph += <createFunctionVertex(functionDecl), createVariableVertex(functionDecl)>;
+		case functionDecl:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: {
+			graph += <createFunctionVertex(functionDecl), createVariableVertex(id, functionDecl)>;
 		}
 	}
 	return graph;

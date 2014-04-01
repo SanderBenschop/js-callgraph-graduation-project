@@ -14,7 +14,7 @@ public Vertex createVertex(element, symbolTableMap) {
 		SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
 		Maybe[Identifier] foundId = find(propName, elementSymbolTable);
 		if (!isRootSymbolTable(elementSymbolTable) && just(identifier(_, location)) := foundId) {
-			return Variable(location);
+			return Variable(propName, location);
 		}
 		return Property(propName);
 	}
@@ -26,12 +26,12 @@ public Vertex createVertex(element, symbolTableMap) {
 		case (Expression)`this`: {
 			SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
 			if (just(identifier(_, location)) := find("this", elementSymbolTable)) {
-				return Variable(location);
+				return Variable("this", location);
 			}
 			return Expression(elementLocation);
 		}
 		case (Expression)`<Expression _> . <Id propName>`: return createPropertyVertex(propName);
-		case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation);
+		//case (Expression)`function <Id? id> (<{Id ","}* _>) <Block _>`: return Function(elementLocation); //TODO: check if correct.
 		default: return createExpressionVertex(element);
 	}
 }
@@ -44,8 +44,8 @@ public Vertex createExpressionVertex(element) {
 	return Expression(element@\loc);
 }
 
-public Vertex createVariableVertex(element) {
-	return Variable(element@\loc);
+public Vertex createVariableVertex(name, element) {
+	return Variable(unparse(name), element@\loc);
 }
 
 public Vertex createPropertyVertex(element) {

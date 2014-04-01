@@ -12,13 +12,12 @@ import DataStructures;
 private int MAX_INTEGER = 2147483647;
 
 public tuple[str, Graph[Expectation]] arbProgram() = arbProgram(false);
-
-public tuple[str, Graph[Expectation]] arbProgram(bool isNested) {
+public tuple[str, Graph[Expectation]] arbProgram(bool isNested) = arbProgram(false, 1 + arbInt(5));
+public tuple[str, Graph[Expectation]] arbProgram(bool isNested, int length) {
 	str code = "";
 	Graph[Expectation] expectations = {};
 	
-	int identifierLength = 1 + arbInt(5);
-	for (_ <- [0..identifierLength]) {
+	for (_ <- [0..length]) {
 		switch(arbInt(2)) {
 			case 0: {
 				tuple[str code, Graph[Expectation] expectations] generated = arbVariableDeclaration(isNested);

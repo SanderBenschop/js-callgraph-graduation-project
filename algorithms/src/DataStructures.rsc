@@ -11,7 +11,7 @@ import util::Maybe;
 data Vertex
 	//Intraprocedural flow
 	= Expression(loc position)
-	| Variable(loc position)
+	| Variable(str name, loc position)
 	| Property(str name)
 	| Function(loc position)
 	//Interprocedural flow
