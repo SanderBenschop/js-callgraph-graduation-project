@@ -51,7 +51,13 @@ public Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 public Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 	Graph[Vertex] unresolvedEdges = {};
 	for (Tree unresolvedCallSite <- unresolvedCallSites) {
+		loc callSiteLocation = unresolvedCallSite@\loc;
 		int i = 0;
+		for (Tree arg <- extractArguments(unresolvedCallSite)) {
+			unresolvedEdges += <Argument(callSiteLocation, i), Unknown()>;
+			i++;
+		}
+		unresolvedEdges += <Unknown(), Result(callSiteLocation)>;
 	}
 	return unresolvedEdges;
 }
@@ -59,7 +65,14 @@ public Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 public Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	Graph[Vertex] escapingEdges = {};
 	for (Tree escapingFunction <- escapingFunctions) {
+		loc escapingFunctionLocation = escapingFunction@\loc;
 		int i = 0;
+		println("Unparsed: <unparse(escapingFunction)>");
+		for (Tree param <- extractParameters(escapingFunction)) {
+			escapingEdges += <Unknown(), Parameter(escapingFunctionLocation, i)>;
+			i++;
+		}
+		escapingEdges += <Return(escapingFunctionLocation), Unknown()>;
 	}
 	return escapingEdges;
 }
@@ -74,7 +87,9 @@ public list[Tree] extractArguments(call) {
 }
 
 public list[Tree] extractParameters(function) {
-	if ((Expression)`function (<{Id ","}* params>) <Block _>` := function || (Expression)`function <Id _> (<{Id ","}* params>) <Block _>` := function) {
+	if ((Expression)`function (<{Id ","}* params>) <Block _>` := function 
+		|| (Expression)`function <Id _> (<{Id ","}* params>) <Block _>` := function
+		|| (FunctionDeclaration)`function <Id _> (<{Id ","}* params>) <Block _> <ZeroOrMoreNewLines _>` := function) {
 		return [param | param <- params];
 	}
 	throw "Not a function";
@@ -92,7 +107,7 @@ public tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functio
 			functionsInsideClosures += extractNestedExpression(call);
 		} else {
 			println("Which is an unresolved call site");
-			unresolved += call;
+			unresolved += closure;
 		}
 	}
 	visit(tree) {
