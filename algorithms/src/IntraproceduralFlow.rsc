@@ -11,7 +11,8 @@ import VertexFactory;
 
 import DataStructures;
 
-public Graph[Vertex] addIntraproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) {
+public Graph[Vertex] getIntraproceduralFlow(Tree tree, SymbolTableMap symbolTableMap) {
+	Graph[Vertex] graph = {};
 	visit (tree) {
 		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: {
 			graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;

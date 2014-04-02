@@ -22,15 +22,18 @@ public Graph[Vertex] createFlowGraph(source, interProceduralFlowStrategy) {
 	Graph[Vertex] graph = createNativeFlowGraph();
 	Tree tree = parse(source);
 	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
-	graph = addIntraproceduralFlow(graph, tree, symbolTableMap);
+	
+	//Figure 4 of paper
+	graph += getIntraproceduralFlow(tree, symbolTableMap);
 	
 	switch(interProceduralFlowStrategy) {
 		case NO_INTERPROCEDURAL_FLOW: {
 			println("ADDING NO INTERPROCEDURAL FLOW");
 		}
 		case PESSIMISTIC_INTERPROCEDURAL_FLOW: {
+			//Algorithm 1 & 2 of paper
 			println("ADDING PESSIMISTIC INTERPROCEDURAL FLOW");
-			graph = addPessimisticInterproceduralFlow(graph, tree, symbolTableMap);
+			graph += getPessimisticInterproceduralFlow(tree);
 		}
 		default: throw "Invalid interprocedural flow strategy";
 	}

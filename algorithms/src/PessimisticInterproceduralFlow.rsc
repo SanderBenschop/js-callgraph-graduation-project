@@ -12,16 +12,17 @@ import Utils;
 
 import DataStructures;
 
-public Graph[Vertex] addPessimisticInterproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) {
+public Graph[Vertex] getPessimisticInterproceduralFlow(Tree tree) {
 	tuple[lrel[Tree, Tree] oneShotClosures, list[Tree] unresolved, list[Tree] functionsInsideClosures] callSites = analyseCallSites(tree);
 	list[Tree] escaping = getEscapingFunctions(tree, callSites.functionsInsideClosures);	
+	Graph[Vertex] graph = {};
 	graph += oneShotClosureEdges(callSites.oneShotClosures);
 	graph += unresolvedEdges(callSites.unresolved);
 	graph += escapingEdges(escaping);
 	return graph;
 }
 
-public Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
+private Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 	Graph[Vertex] oneShotClosureEdges = {};
 	//TODO: rename call as this is actually the part before the call and it's confusing
 	for (tuple[Tree call, Tree closure] oneShotClosure <- oneShotClosures) {
@@ -37,7 +38,7 @@ public Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 	return oneShotClosureEdges;
 }
 
-public Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
+private Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 	Graph[Vertex] unresolvedEdges = {};
 	for (Tree unresolvedCallSite <- unresolvedCallSites) {
 		loc callSiteLocation = unresolvedCallSite@\loc;
@@ -51,7 +52,7 @@ public Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 	return unresolvedEdges;
 }
 
-public Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
+private Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	Graph[Vertex] escapingEdges = {};
 	for (Tree escapingFunction <- escapingFunctions) {
 		loc escapingFunctionLocation = escapingFunction@\loc;
@@ -66,7 +67,7 @@ public Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	return escapingEdges;
 }
 
-public list[Tree] extractArguments(call) {
+private list[Tree] extractArguments(call) {
 	if ((Expression)`<Expression e>()` := call) {
 		return [];
 	} else if ((Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )` := call) {
@@ -75,7 +76,7 @@ public list[Tree] extractArguments(call) {
 	throw "Not a call";
 }
 
-public list[Tree] extractParameters(function) {
+private list[Tree] extractParameters(function) {
 	if ((Expression)`function (<{Id ","}* params>) <Block _>` := function 
 		|| (Expression)`function <Id _> (<{Id ","}* params>) <Block _>` := function
 		|| (FunctionDeclaration)`function <Id _> (<{Id ","}* params>) <Block _> <ZeroOrMoreNewLines _>` := function) {
@@ -84,7 +85,7 @@ public list[Tree] extractParameters(function) {
 	throw "Not a function";
 }
 
-public tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functionsInsideClosures] analyseCallSites(Tree tree) {
+private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functionsInsideClosures] analyseCallSites(Tree tree) {
 	lrel[Tree, Tree] oneShot = [];
 	list[Tree] unresolved = [], functionsInsideClosures = [];
 	private void analyseCall(call, closure) {
@@ -106,7 +107,7 @@ public tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functio
 	return <oneShot, unresolved, functionsInsideClosures>;
 }
 
-public list[Tree] getEscapingFunctions(Tree tree, list[Tree] functionsInsideClosures) {
+private list[Tree] getEscapingFunctions(Tree tree, list[Tree] functionsInsideClosures) {
 	list[Tree] escaping = [];
 	visit(tree) {
 		case functionExprNameless:(Expression)`function (<{Id ","}* _>) <Block _>`: {
@@ -122,7 +123,7 @@ public list[Tree] getEscapingFunctions(Tree tree, list[Tree] functionsInsideClos
 	return escaping;
 }
 
-public Tree extractNestedExpression(nestingExpression) {
+private Tree extractNestedExpression(nestingExpression) {
 	if ((Expression)`(<Expression nestedExpression>)` := nestingExpression) {
 		return nestedExpression;
 	}
