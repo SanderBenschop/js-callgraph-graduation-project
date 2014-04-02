@@ -12,18 +12,30 @@ import PessimisticInterproceduralFlow;
 import ScopeAnalysis;
 import PrettyPrinter;
 
+private int NO_INTERPROCEDURAL_FLOW = 0;
+private int PESSIMISTIC_INTERPROCEDURAL_FLOW = 1;
+
 public Graph[Vertex] createPessimisticCallGraph(source) {
-	Graph[Vertex] graph = createFlowGraph(source);
-	//graph = addInterproceduralFlow
-	println("Pretty printed:");
-	prettyPrintGraph(graph);
+	Graph[Vertex] graph = createFlowGraph(source, PESSIMISTIC_INTERPROCEDURAL_FLOW);
 	return graph;
 }
 
-public Graph[Vertex] createFlowGraph(source) {
+public Graph[Vertex] createFlowGraph(source) = createFlowGraph(source, NO_INTERPROCEDURAL_FLOW);
+public Graph[Vertex] createFlowGraph(source, interProceduralFlowStrategy) {
 	Graph[Vertex] graph = createNativeFlowGraph();
 	Tree tree = parse(source);
 	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
-	return addIntraproceduralFlow(graph, tree, symbolTableMap);
-	//return addPessimisticInterproceduralFlow(graph, tree, symbolTableMap);
+	graph = addIntraproceduralFlow(graph, tree, symbolTableMap);
+	
+	switch(interProceduralFlowStrategy) {
+		case NO_INTERPROCEDURAL_FLOW: {
+			println("ADDING NO INTERPROCEDURAL FLOW");
+		}
+		case PESSIMISTIC_INTERPROCEDURAL_FLOW: {
+			println("ADDING PESSIMISTIC INTERPROCEDURAL FLOW");
+			graph = addPessimisticInterproceduralFlow(graph, tree, symbolTableMap);
+		}
+		default: throw "Invalid interprocedural flow strategy";
+	}
+	return graph;
 }

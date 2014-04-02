@@ -17,6 +17,7 @@ data Vertex
 	//Interprocedural flow
 	| Callee(loc position)
 	| Argument(loc position, int index)
+	| Parameter(loc position, int index)
 	| Return(loc position)
 	| Result(loc position)
 	//Unknown vertex represents interprocedural flow not modelled in the pessimistic algorithm.
