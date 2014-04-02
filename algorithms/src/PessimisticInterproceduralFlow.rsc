@@ -12,22 +12,12 @@ import Utils;
 
 import DataStructures;
 
-//C = one shot closures
-//E = escaping functions = other functions 
-//U = unresolved call sites = calls that are not one shot closures.
 public Graph[Vertex] addPessimisticInterproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) {
 	tuple[lrel[Tree, Tree] oneShotClosures, list[Tree] unresolved, list[Tree] functionsInsideClosures] callSites = analyseCallSites(tree);
 	list[Tree] escaping = getEscapingFunctions(tree, callSites.functionsInsideClosures);	
-	
-	println("Functions inside closures: <callSites.functionsInsideClosures>");
-	println("One shot closures: <callSites.oneShotClosures>");
-	println("Unresolved: <callSites.unresolved>");
-	println("Escaping: <escaping>");
-	
 	graph += oneShotClosureEdges(callSites.oneShotClosures);
 	graph += unresolvedEdges(callSites.unresolved);
 	graph += escapingEdges(escaping);
-	
 	return graph;
 }
 
@@ -39,7 +29,6 @@ public Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 		loc oneShotClosureLocation = oneShotClosure.closure@\loc, nestedFunctionLocation = nestedFunction@\loc;
 		int i = 0;
 		for (tuple[Tree parameter, Tree argument] pa <- unbalancedZip(extractParameters(nestedFunction), extractArguments(oneShotClosure.closure))) {
-			println("Parameter: <unparse(pa.parameter)> argument: <unparse(pa.argument)>");
 			oneShotClosureEdges += <Argument(oneShotClosureLocation, i), Parameter(nestedFunctionLocation, i)>;
 			i += 1;
 		}

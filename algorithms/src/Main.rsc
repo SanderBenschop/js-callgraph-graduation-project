@@ -15,10 +15,7 @@ import PrettyPrinter;
 private int NO_INTERPROCEDURAL_FLOW = 0;
 private int PESSIMISTIC_INTERPROCEDURAL_FLOW = 1;
 
-public Graph[Vertex] createPessimisticCallGraph(source) {
-	Graph[Vertex] graph = createFlowGraph(source, PESSIMISTIC_INTERPROCEDURAL_FLOW);
-	return graph;
-}
+public Graph[Vertex] createPessimisticCallGraph(source) = createFlowGraph(source, PESSIMISTIC_INTERPROCEDURAL_FLOW);
 
 public Graph[Vertex] createFlowGraph(source) = createFlowGraph(source, NO_INTERPROCEDURAL_FLOW);
 public Graph[Vertex] createFlowGraph(source, interProceduralFlowStrategy) {
