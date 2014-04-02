@@ -45,7 +45,7 @@ private Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 		int i = 0;
 		for (Tree arg <- extractArguments(unresolvedCallSite)) {
 			unresolvedEdges += <Argument(callSiteLocation, i), Unknown()>;
-			i++;
+			i += 1;
 		}
 		unresolvedEdges += <Unknown(), Result(callSiteLocation)>;
 	}
@@ -60,7 +60,7 @@ private Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 		println("Unparsed: <unparse(escapingFunction)>");
 		for (Tree param <- extractParameters(escapingFunction)) {
 			escapingEdges += <Unknown(), Parameter(escapingFunctionLocation, i)>;
-			i++;
+			i += 1;
 		}
 		escapingEdges += <Return(escapingFunctionLocation), Unknown()>;
 	}
@@ -71,7 +71,7 @@ private list[Tree] extractArguments(call) {
 	if ((Expression)`<Expression e>()` := call) {
 		return [];
 	} else if ((Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )` := call) {
-		return [arg | arg <- args];
+		return iterableToTreeList(args);
 	}
 	throw "Not a call";
 }
@@ -80,7 +80,7 @@ private list[Tree] extractParameters(function) {
 	if ((Expression)`function (<{Id ","}* params>) <Block _>` := function 
 		|| (Expression)`function <Id _> (<{Id ","}* params>) <Block _>` := function
 		|| (FunctionDeclaration)`function <Id _> (<{Id ","}* params>) <Block _> <ZeroOrMoreNewLines _>` := function) {
-		return [param | param <- params];
+		return iterableToTreeList(params);
 	}
 	throw "Not a function";
 }

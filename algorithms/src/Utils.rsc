@@ -1,6 +1,7 @@
 module Utils
 
 import List;
+import ParseTree;
 
 list[tuple[&T first, &U second]] unbalancedZip(list[&T] a, list[&U] b) {
 	int sizeA = size(a), sizeB = size(b);
@@ -11,3 +12,5 @@ list[tuple[&T first, &U second]] unbalancedZip(list[&T] a, list[&U] b) {
 	}
 	return zip(a, b);
 }
+
+public list[Tree] iterableToTreeList(elements) = [element | element <- elements];

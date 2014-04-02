@@ -9,6 +9,7 @@ import DataStructures;
 import NativeFlow;
 import IntraproceduralFlow;
 import PessimisticInterproceduralFlow;
+import CommonInterproceduralFlow;
 import ScopeAnalysis;
 import PrettyPrinter;
 
@@ -27,9 +28,7 @@ public Graph[Vertex] createFlowGraph(source, interProceduralFlowStrategy) {
 	graph += getIntraproceduralFlow(tree, symbolTableMap);
 	
 	switch(interProceduralFlowStrategy) {
-		case NO_INTERPROCEDURAL_FLOW: {
-			println("ADDING NO INTERPROCEDURAL FLOW");
-		}
+		case NO_INTERPROCEDURAL_FLOW: println("ADDING NO INTERPROCEDURAL FLOW");
 		case PESSIMISTIC_INTERPROCEDURAL_FLOW: {
 			//Algorithm 1 & 2 of paper
 			println("ADDING PESSIMISTIC INTERPROCEDURAL FLOW");
@@ -37,5 +36,8 @@ public Graph[Vertex] createFlowGraph(source, interProceduralFlowStrategy) {
 		}
 		default: throw "Invalid interprocedural flow strategy";
 	}
+	
+	graph += getCommonInterproceduralFlow(tree, symbolTableMap);
+	
 	return graph;
 }
