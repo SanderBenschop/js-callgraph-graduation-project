@@ -6,6 +6,7 @@ import IO;
 import List;
 
 import DataStructures;
+import Utils;
 
 public str prettyPrintGraph(Graph[Vertex] graph) = prettyPrintGraph(graph, false);
 public str prettyPrintGraph(Graph[Vertex] graph, bool sortIt) {
@@ -38,13 +39,4 @@ private str formatVertex(Vertex vertex) {
 		}
 		default: throw "Pretty print not implemented for vertex <vertex>";
 	}
-}
-
-private str formatLoc(loc location) {
-	try file = location.file; catch : file = "mockup.nojs";	
-	int lineNumber = location.begin.line;
-	int columnStart = location.offset;
-	//The tool used by the original authors doesn't show multiple lines but just puts it one one big line like this.
-	int columnEnd = columnStart + location.length;
-	return "<file>@<lineNumber>:<columnStart>-<columnEnd>";
 }

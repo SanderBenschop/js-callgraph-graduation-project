@@ -14,3 +14,12 @@ list[tuple[&T first, &U second]] unbalancedZip(list[&T] a, list[&U] b) {
 }
 
 public list[Tree] iterableToTreeList(elements) = [element | element <- elements];
+
+public str formatLoc(loc location) {
+	try file = location.file; catch : file = "mockup.nojs";	
+	int lineNumber = location.begin.line;
+	int columnStart = location.offset;
+	//The tool used by the original authors doesn't show multiple lines but just puts it one one big line like this.
+	int columnEnd = columnStart + location.length;
+	return "<file>@<lineNumber>:<columnStart>-<columnEnd>";
+}
