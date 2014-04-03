@@ -28,7 +28,7 @@ private Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 	for (tuple[Tree call, Tree closure] oneShotClosure <- oneShotClosures) {
 		Tree nestedFunction = extractNestedExpression(oneShotClosure.call);
 		loc oneShotClosureLocation = oneShotClosure.closure@\loc, nestedFunctionLocation = nestedFunction@\loc;
-		int i = 0;
+		int i = 1;
 		for (tuple[Tree parameter, Tree argument] pa <- unbalancedZip(extractParameters(nestedFunction), extractArguments(oneShotClosure.closure))) {
 			oneShotClosureEdges += <Argument(oneShotClosureLocation, i), Parameter(nestedFunctionLocation, i)>;
 			i += 1;
@@ -42,7 +42,7 @@ private Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 	Graph[Vertex] unresolvedEdges = {};
 	for (Tree unresolvedCallSite <- unresolvedCallSites) {
 		loc callSiteLocation = unresolvedCallSite@\loc;
-		int i = 0;
+		int i = 1;
 		for (Tree arg <- extractArguments(unresolvedCallSite)) {
 			unresolvedEdges += <Argument(callSiteLocation, i), Unknown()>;
 			i += 1;
@@ -56,7 +56,7 @@ private Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	Graph[Vertex] escapingEdges = {};
 	for (Tree escapingFunction <- escapingFunctions) {
 		loc escapingFunctionLocation = escapingFunction@\loc;
-		int i = 0;
+		int i = 1;
 		println("Unparsed: <unparse(escapingFunction)>");
 		for (Tree param <- extractParameters(escapingFunction)) {
 			escapingEdges += <Unknown(), Parameter(escapingFunctionLocation, i)>;
