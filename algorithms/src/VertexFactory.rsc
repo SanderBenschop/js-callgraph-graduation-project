@@ -10,10 +10,12 @@ import DataStructures;
 public Vertex createVertex(element, symbolTableMap) {
 	
 	private Vertex processId(Id id) {
+		//If \(pi, x)is the uith parameter of the function declared at pi' then V(x at Pi) = Parm(pi', i)
+		//Maybe make an identifier type for both normal declarations and parameters?
 		str propName = unparse(id);
 		SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
 		Maybe[Identifier] foundId = find(propName, elementSymbolTable);
-		if (!isRootSymbolTable(elementSymbolTable) && just(identifier(_, location)) := foundId) {
+		if (!isRootSymbolTable(elementSymbolTable) && just(identifier(location)) := foundId) {
 			return Variable(propName, location);
 		}
 		return Property(propName);
@@ -25,7 +27,7 @@ public Vertex createVertex(element, symbolTableMap) {
 		case (Expression)`<Id id>`: return processId(id);
 		case (Expression)`this`: {
 			SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
-			if (just(identifier(_, location)) := find("this", elementSymbolTable)) {
+			if (just(identifier(location)) := find("this", elementSymbolTable)) {
 				return Variable("this", location);
 			}
 			return Expression(elementLocation);

@@ -14,9 +14,6 @@ import String;
  * Property
  * Add THIS references in functions
  */
- 
-//TODO: remove name in identifier. it's already the key
-//TODO: find out if we need to process <Expression l> = <Expression r> as well. Without var it isn't a variable decl..
 public SymbolTableMap createSymbolTableMap(Tree tree) {
 	return createSymbolTableMap(tree, nothing());
 }
@@ -37,7 +34,7 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	private void annotateVariableDecl(VariableDeclaration va, Id id) {
 		println("Annotation variableDeclaration <va> with scope.");
 		str name = unparse(id);
-		symbolMap += (name : identifier(name, id@\loc));
+		symbolMap += (name : identifier(id@\loc));
 		symbolTableMap += (id@\loc : createSymbolTable(symbolMap, parent));
 	}
 	
@@ -50,15 +47,16 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	private void annotateFunction(str optId, loc optIdLoc, params, body) {
 		if (!isEmpty(optId)) {
 			println("Adding function <optId> to symbolMap.");
-			symbolMap += (optId : identifier(optId, optIdLoc));
+			symbolMap += (optId : identifier(optIdLoc));
 		}
 		
 		//Add 'this' to scope.
-		symbolMap += ("this" : identifier("this", optIdLoc));
+		//TODO: to entire function instead of id
+		symbolMap += ("this" : identifier(optIdLoc));
 
 		for (Id param <- params) {
 			str name = unparse(param);
-			symbolMap += (name : identifier(name, param@\loc));
+			symbolMap += (name : identifier(param@\loc));
 		}
 				
 		println("Recursing into body of function");
