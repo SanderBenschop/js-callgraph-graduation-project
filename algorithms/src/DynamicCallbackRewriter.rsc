@@ -37,17 +37,18 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 public str addFunctionLocToBody(str body, loc location) {
 	return replaceFirst(body, "{", "{ var FUNCTION_LOC = \"<formatLoc(location)>\"; 
 		  if (LAST_CALL_LOC !== undefined) {
-		  	if (CALL_MAP[LAST_CALL_LOC] === undefined) CALL_MAP[LAST_CALL_LOC] = [];
-          	CALL_MAP[LAST_CALL_LOC].push(FUNCTION_LOC);
+		    if (CALL_MAP[LAST_CALL_LOC] === undefined) CALL_MAP[LAST_CALL_LOC] = [];
+            CALL_MAP[LAST_CALL_LOC].push(FUNCTION_LOC);
           }
 		");
 }
 
 public str addLastCallInformation(str call, loc location) {
-	return "
+	return "(function(){
   	var OLD_LAST_CALL_LOC = LAST_CALL_LOC;
   	LAST_CALL_LOC = \"<formatLoc(location)>\";
-  	<call>
+  	var result = <call>
     LAST_CALL_LOC = OLD_LAST_CALL_LOC;
-	";
+    return result;
+    }())";
 }
