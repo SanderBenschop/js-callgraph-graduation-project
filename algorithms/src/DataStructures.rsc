@@ -33,7 +33,10 @@ data SymbolTable
 
 alias SymbolMap = map[str, Identifier];
 
-data Identifier = identifier(loc location);
+data Identifier 
+	= declaration(loc location) 
+	| parameter(loc enclosingFunctionLocation, int index)
+	;
 
 public Maybe[Identifier] find(str name, child(map[str, Identifier] symbolMap, SymbolTable parent)) {
 	if (name in symbolMap) {

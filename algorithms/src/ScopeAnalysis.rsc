@@ -34,7 +34,7 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	private void annotateVariableDecl(VariableDeclaration va, Id id) {
 		println("Annotation variableDeclaration <va> with scope.");
 		str name = unparse(id);
-		symbolMap += (name : identifier(id@\loc));
+		symbolMap += (name : declaration(id@\loc));
 		symbolTableMap += (id@\loc : createSymbolTable(symbolMap, parent));
 	}
 	
@@ -44,19 +44,20 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	}
 	
 
-	private void annotateFunction(str optId, loc optIdLoc, params, body) {
+	private void annotateFunction(str optId, loc optIdLoc, loc functionLoc, params, body) {
 		if (!isEmpty(optId)) {
 			println("Adding function <optId> to symbolMap.");
-			symbolMap += (optId : identifier(optIdLoc));
+			symbolMap += (optId : declaration(optIdLoc));
 		}
 		
 		//Add 'this' to scope.
-		//TODO: to entire function instead of id
-		symbolMap += ("this" : identifier(optIdLoc));
+		symbolMap += ("this" : parameter(functionLoc, 0));
 
+		int i = 1;
 		for (Id param <- params) {
 			str name = unparse(param);
-			symbolMap += (name : identifier(param@\loc));
+			symbolMap += (name : parameter(functionLoc, i));
+			i += 1;
 		}
 				
 		println("Recursing into body of function");
@@ -71,9 +72,9 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 			case (Expression)`<Id id>` : annotateElementWithCurrentScope(id);
 			case this:(Expression)`this` : annotateElementWithCurrentScope(this);
 
-			case (FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), id@\loc, params, body); 
-			case (Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), id@\loc, params, body);
-			case (Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", |nothing:///|, params, body);
+			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), id@\loc, func@\loc, params, body); 
+			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), id@\loc, func@\loc, params, body);
+			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", |nothing:///|, func@\loc, params, body);
 		}
 	}
 	
