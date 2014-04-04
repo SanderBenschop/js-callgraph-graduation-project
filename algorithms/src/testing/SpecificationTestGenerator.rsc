@@ -7,6 +7,8 @@ import IO;
 import String;
 import Boolean;
 
+//TODO: make graph a list instead of set as duplicates can occur..
+
 import DataStructures;
 
 private int MAX_INTEGER = 2147483647;
@@ -157,8 +159,7 @@ public tuple[str, Graph[Expectation]] arbFunctionExpression() {
 	if (hasName) {
 		expectations += <expectation(function(), completeFunction), expectation(variable(), completeFunction)>;
 	}
-	
-	expectations += content.expectation;
+	expectations += content.expectation;	
 	return <completeFunction, expectations>;
 }
 

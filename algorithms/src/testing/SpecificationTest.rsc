@@ -79,17 +79,37 @@ public str randomTest() {
 		println("Source:\n <generatedProgram.code>");
 		println("Unmatched edges:");
 		Graph[Vertex] unmatchedEdges = flowGraph - matchedEdges;
+		writeFile(|project://JavaScript%20cg%20algorithms/src/testing/filedump/dump.js|, generatedProgram.code);
 		for (Vertex base <- domain(unmatchedEdges)) {
 			for (Vertex target <- unmatchedEdges[base]) {
 				ExpectationType baseType = getExpectationType(base), targetType = getExpectationType(target);
 				str baseValue = getVertexValue(generatedProgram.code, base), targetValue = getVertexValue(generatedProgram.code, target);
 				println("<expectation(baseType, baseValue)> -\> <expectation(targetType, targetValue)>");
+				println("Created from vertex <replaceLocs(base)> to <replaceLocs(target)>");
 			}
 		}
 		throw "EdgeExpectationMismatch";
 	}
 	
 	return generatedProgram.code;
+}
+
+private Vertex replaceLocs(Vertex vertex) {
+	switch(vertex) {
+		case Expression(position) : return Expression(replaceLoc(position));
+		case Variable(name,position) : return Variable(name, replaceLoc(position));
+		case property:Property(_) : return property;
+		case Function(position) : return Function(replaceLoc(position));
+	}
+	throw "Unsupported type <vertex>";
+}
+
+public loc replaceLoc(loc original) {
+	//TODO: locs
+	int O = original.offset, L = original.length, 
+		BL = original.begin.line, BC = original.begin.column,
+		EL = original.end.line, EC = original.end.column;
+	return |project://JavaScript%20cg%20algorithms/src/testing/filedump/dump.js|(O, L, <BL, BC> , <EL,EC>);
 }
 
 private Maybe[tuple[Vertex, Vertex]] thereExistsVertex(Expectation from, Expectation to, Graph[Vertex] flowGraph, str program) {
@@ -112,6 +132,7 @@ private Maybe[tuple[Vertex, Vertex]] thereExistsVertex(Expectation from, Expecta
 public str removeLayout(str source) {
 	str trimmed = replaceAll(source, "\n", "");
 	trimmed = replaceAll(trimmed, "\t", "");
+	trimmed = replaceAll(trimmed, " ", "");
 	return trimmed;
 }
 
