@@ -7,8 +7,6 @@ import IO;
 import String;
 import Boolean;
 
-//TODO: make graph a list instead of set as duplicates can occur..
-
 import DataStructures;
 
 private int MAX_INTEGER = 2147483647;

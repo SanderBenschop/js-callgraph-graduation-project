@@ -9,6 +9,7 @@ import DataStructures;
 import Relation;
 import IO;
 import String;
+import Set;
 import PrettyPrinter;
 
 private loc GENERATED_SNIPPET_FOLDER = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated|;
@@ -74,8 +75,8 @@ public str randomTest() {
 		println("There is a mismatch between the number of actual edges and the number of expected edges");
 		println("Total number of actual edges: <countNumberOfEdges(flowGraph)>");
 		println("Total number of expected edges: <countNumberOfEdges(generatedProgram.expectations)>");
-		println("Actual:\n <flowGraph>");
-		println("Expected:\n <generatedProgram.expectations>");
+		println("Actual:\n <mapper(flowGraph, replaceTupleLocs)>");
+		println("Expectations:\n <generatedProgram.expectations>");
 		println("Source:\n <generatedProgram.code>");
 		println("Unmatched edges:");
 		Graph[Vertex] unmatchedEdges = flowGraph - matchedEdges;
@@ -93,6 +94,11 @@ public str randomTest() {
 	
 	return generatedProgram.code;
 }
+
+public Graph[&U] mapper(Graph[&T] graph, tuple[&U, &U] (tuple[&T, &T]) fn) {
+    return {fn(elm) | tuple[&T, &T] elm <- graph};
+}
+public tuple[Vertex, Vertex] replaceTupleLocs(tuple[Vertex left, Vertex right] oldTuple) = <replaceLocs(oldTuple.left), replaceLocs(oldTuple.right)>;
 
 private Vertex replaceLocs(Vertex vertex) {
 	switch(vertex) {
