@@ -22,6 +22,8 @@ data Vertex
 	| Result(loc position)
 	//Unknown vertex represents interprocedural flow not modelled in the pessimistic algorithm.
 	| Unknown()
+	//Native vertex represents a native JavaScript function
+	| Native(str name)
 	;
 
 alias SymbolTableMap = map[loc, SymbolTable];
