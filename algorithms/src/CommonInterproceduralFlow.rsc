@@ -16,21 +16,22 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 	Graph[Vertex] graph = {};
 	map [loc, loc] returnToFunctionMap = getEnclosingFunctionLocations(tree);
 	
-	private void processR8(Tree element, arguments) {
-		loc elementLoc = element@\loc;
-		graph += <createVertex(element, symbolTableMap), Callee(elementLoc)>;
+	private void processR8(Tree \node, Tree function, arguments) {
+		loc nodeLoc = \node@\loc;
+		graph += <createVertex(function, symbolTableMap), Callee(nodeLoc)>;
 		int i = 1;
 		for (argument <- arguments) {
-			graph += <createVertex(argument, symbolTableMap), Argument(elementLoc, i)>;
+			graph += <createVertex(argument, symbolTableMap), Argument(nodeLoc, i)>;
 			i += 1;
 		}
-		graph += <Result(elementLoc), Expression(elementLoc)>;
+		graph += <Result(nodeLoc), Expression(nodeLoc)>;
 	}
 	
-	private void processR9(Tree element, Tree r, arguments) {
-		println("Processing R9 on element <element>");
-		processR8(element, arguments);
-		graph += <createVertex(r, symbolTableMap), Argument(element@\loc, 0)>;
+	private void processR9(Tree \node, Tree r, Id p, arguments) {
+		println("Processing R9 on node <\node> with arguments : <arguments>. R: <r> P: <p>");
+		Tree function = (Expression)`<Expression r>.<Id p>`;
+		processR8(\node, function, arguments);
+		graph += <createVertex(r, symbolTableMap), Argument(\node@\loc, 0)>;
 	}
 	
 	private void processR10(Tree element, Tree e) {
@@ -43,15 +44,15 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 		//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
 		//TODO: new a.b() ??
 		//TODO: here it matches new <Expression e> but in the paper it shows a call to a function specifically.
-		case newFunctionCallParams:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newFunctionCallParams, args);
-		case newFunctionCallNoParams:(Expression)`new <Expression e>()`: processR8(newFunctionCallNoParams, []);
-		case newNoParams:(Expression)`new <Expression args>`: processR8(newNoParams, args);
+		case newFunctionCallParams:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newFunctionCallParams, e, args);
+		case newFunctionCallNoParams:(Expression)`new <Expression e>()`: processR8(newFunctionCallNoParams, e, []);
+		case newNoParams:(Expression)`new <Expression e>`: processR8(newNoParams, e, []);
 
-		case propertyCallEmptyParams:(Expression)`<Expression r>.<Id _>()`: processR9(propertyCallEmptyParams, r, []);
-		case propertyCallParams:(Expression)`<Expression r>.<Id _>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallParams, r, args);
+		case propertyCallParams:(Expression)`<Expression r>.<Id p>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallParams, r, p, args);
+		case propertyCallEmptyParams:(Expression)`<Expression r>.<Id p>()`: processR9(propertyCallEmptyParams, r, p, []);
 		
-		case functionCallParams:(Expression)`<Expression _> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, args);
-		case functionCallNoParams:(Expression)`<Expression _>()`: processR8(functionCallNoParams, []);
+		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, e, args);
+		case functionCallNoParams:(Expression)`<Expression e>()`: processR8(functionCallNoParams, e, []);
 		
 		// Return statements
 		case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
