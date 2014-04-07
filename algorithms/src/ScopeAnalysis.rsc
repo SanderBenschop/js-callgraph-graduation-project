@@ -26,12 +26,12 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	println("Creating symbol map");
 	SymbolMap symbolMap = ();
 	
-	private void annotateVariableDecl(VariableDeclaration va, Id id, Expression expression) {
+	private void annotateVariableDecl(va, id, expression) {
 		annotateVariableDecl(va, id);
 		doVisit(expression);
 	}
 	
-	private void annotateVariableDecl(VariableDeclaration va, Id id) {
+	private void annotateVariableDecl(va, id) {
 		println("Annotation variableDeclaration <va> with scope.");
 		str name = unparse(id);
 		symbolMap += (name : declaration(id@\loc));
@@ -68,6 +68,8 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		top-down-break visit(visitTree) {
 			case varDecl:(VariableDeclaration)`<Id id>` : annotateVariableDecl(varDecl, id);
 			case varDecl:(VariableDeclaration)`<Id id> = <Expression expression>` : annotateVariableDecl(varDecl, id, expression);
+			case varDecl:(VariableDeclarationNoIn)`<Id id>` : annotateVariableDecl(varDecl, id);
+			case varDecl:(VariableDeclarationNoIn)`<Id id> = <Expression expression>` : annotateVariableDecl(varDecl, id, expression);
 
 			case (Expression)`<Id id>` : annotateElementWithCurrentScope(id);
 			case this:(Expression)`this` : annotateElementWithCurrentScope(this);

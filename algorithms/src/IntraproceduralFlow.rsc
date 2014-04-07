@@ -14,6 +14,11 @@ import DataStructures;
 public Graph[Vertex] getIntraproceduralFlow(Tree tree, SymbolTableMap symbolTableMap) {
 	Graph[Vertex] graph = {};
 	visit (tree) {
+		//TODO: remove duplication
+		case assignment:(VariableDeclarationNoIn)`<Id l> = <Expression r>`: {
+			graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
+			graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
+		}
 		case assignment:(VariableDeclaration)`<Id l> = <Expression r>`: {
 			graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
 			graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
