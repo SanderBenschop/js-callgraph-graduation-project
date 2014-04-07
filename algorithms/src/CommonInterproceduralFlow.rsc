@@ -28,6 +28,7 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 	}
 	
 	private void processR9(Tree element, Tree r, arguments) {
+		println("Processing R9 on element <element>");
 		processR8(element, arguments);
 		graph += <createVertex(r, symbolTableMap), Argument(element@\loc, 0)>;
 	}
@@ -38,16 +39,20 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 		graph += <createVertex(e, symbolTableMap), Return(enclosingFunctionLocation)>;
 	}
 	
-	top-down-break visit(tree) {
+	visit(tree) {
 		//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
 		//TODO: new a.b() ??
-		case functionCallParams:(Expression)`<Expression _> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, args);
-		case functionCallNoParams:(Expression)`<Expression _>()`: processR8(functionCallNoParams, []);
+		//TODO: here it matches new <Expression e> but in the paper it shows a call to a function specifically.
 		case newFunctionCallParams:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newFunctionCallParams, args);
 		case newFunctionCallNoParams:(Expression)`new <Expression e>()`: processR8(newFunctionCallNoParams, []);
 		case newNoParams:(Expression)`new <Expression args>`: processR8(newNoParams, args);
+
 		case propertyCallEmptyParams:(Expression)`<Expression r>.<Id _>()`: processR9(propertyCallEmptyParams, r, []);
 		case propertyCallParams:(Expression)`<Expression r>.<Id _>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallParams, r, args);
+		
+		case functionCallParams:(Expression)`<Expression _> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, args);
+		case functionCallNoParams:(Expression)`<Expression _>()`: processR8(functionCallNoParams, []);
+		
 		// Return statements
 		case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
 		case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);

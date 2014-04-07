@@ -8,6 +8,11 @@ import List;
 import DataStructures;
 import Utils;
 
+public void writePrettyPrintedGraph(Graph[Vertex] graph, bool sortIt) {
+    str prettyPrinted = prettyPrintGraph(graph, sortIt);
+    writeFile(|project://JavaScript%20cg%20algorithms/src/testing/filedump/prettyPrinted.log|, prettyPrinted);
+}
+
 public str prettyPrintGraph(Graph[Vertex] graph) = prettyPrintGraph(graph, false);
 public str prettyPrintGraph(Graph[Vertex] graph, bool sortIt) {
 	list[str] lines = [];
@@ -47,7 +52,7 @@ private str formatVertex(Vertex vertex) {
 		}
 		
 		case Parameter(loc position, int index) : {
-			return "Arg(<formatLoc(position)>, <index>)";
+			return "Parm(<formatLoc(position)>, <index>)";
 		}
 		
 		case Return(loc position) : {
@@ -63,7 +68,7 @@ private str formatVertex(Vertex vertex) {
 		}
 		
 		case Native(str name) : {
-			return name;
+			return "Builtin(<name>)";
 		}
 		
 		default: throw "Pretty print not implemented for vertex <vertex>";
