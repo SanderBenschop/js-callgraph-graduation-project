@@ -43,7 +43,7 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 	visit(tree) {
 		//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
 		//TODO: new a.b() ??
-		//TODO: here it matches new <Expression e> but in the paper it shows a call to a function specifically.
+		//TODO: here it matches new <Expression e> but in the paper it shows a call to a function specifically. Maybe this should be fixed?
 		case newFunctionCallParams:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newFunctionCallParams, e, args);
 		case newFunctionCallNoParams:(Expression)`new <Expression e>()`: processR8(newFunctionCallNoParams, e, []);
 		case newNoParams:(Expression)`new <Expression e>`: processR8(newNoParams, e, []);
@@ -51,9 +51,12 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 		case propertyCallParams:(Expression)`<Expression r>.<Id p>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallParams, r, p, args);
 		case propertyCallEmptyParams:(Expression)`<Expression r>.<Id p>()`: processR9(propertyCallEmptyParams, r, p, []);
 		
+		case wrappedFunctionCallParams:(Expression)`(<Expression e>) ( <{ Expression!comma ","}+ args> )`: processR8(wrappedFunctionCallParams, e, args);
+		case wrappedFunctionCallNoParams:(Expression)`(<Expression e>)()`: processR8(wrappedFunctionCallNoParams, e, []);
+		
 		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, e, args);
 		case functionCallNoParams:(Expression)`<Expression e>()`: processR8(functionCallNoParams, e, []);
-		
+				
 		// Return statements
 		case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
 		case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);
