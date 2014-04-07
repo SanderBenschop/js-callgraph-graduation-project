@@ -48,7 +48,7 @@ public str randomTest() {
 	
 	Graph[Vertex] flowGraph;
 	try 
-		flowGraph = createFlowGraph(generatedProgram.code);
+		flowGraph = createFlowGraph(generatedProgram.code, NO_INTERPROCEDURAL_FLOW, false);
 	catch ParseError : {
 		println("A parse error occured. Source:");
 		println(generatedProgram.code);

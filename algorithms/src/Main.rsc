@@ -13,14 +13,15 @@ import CommonInterproceduralFlow;
 import ScopeAnalysis;
 import PrettyPrinter;
 
-private int NO_INTERPROCEDURAL_FLOW = 0;
-private int PESSIMISTIC_INTERPROCEDURAL_FLOW = 1;
+public int NO_INTERPROCEDURAL_FLOW = 0;
+public int PESSIMISTIC_INTERPROCEDURAL_FLOW = 1;
 
-public Graph[Vertex] createPessimisticCallGraph(source) = createFlowGraph(source, PESSIMISTIC_INTERPROCEDURAL_FLOW);
+public Graph[Vertex] createPessimisticCallGraph(source) = createFlowGraph(source, PESSIMISTIC_INTERPROCEDURAL_FLOW, true);
+public Graph[Vertex] createFlowGraph(source) = createFlowGraph(source, NO_INTERPROCEDURAL_FLOW, true);
 
-public Graph[Vertex] createFlowGraph(source) = createFlowGraph(source, NO_INTERPROCEDURAL_FLOW);
-public Graph[Vertex] createFlowGraph(source, interProceduralFlowStrategy) {
-	Graph[Vertex] graph = createNativeFlowGraph();
+public Graph[Vertex] createFlowGraph(source, interProceduralFlowStrategy, addNativeFlow) {
+	Graph[Vertex] graph = addNativeFlow ? createNativeFlowGraph() : {};
+	
 	Tree tree = parse(source);
 	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
 	
