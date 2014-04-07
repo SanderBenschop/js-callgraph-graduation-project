@@ -44,10 +44,10 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	}
 	
 
-	private void annotateFunction(str optId, loc optIdLoc, loc functionLoc, params, body) {
+	private void annotateFunction(str optId, loc functionLoc, params, body) {
 		if (!isEmpty(optId)) {
 			println("Adding function <optId> to symbolMap.");
-			symbolMap += (optId : declaration(optIdLoc));
+			symbolMap += (optId : declaration(functionLoc));
 		}
 		
 		//Add 'this' to scope.
@@ -74,9 +74,9 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 			case (Expression)`<Id id>` : annotateElementWithCurrentScope(id);
 			case this:(Expression)`this` : annotateElementWithCurrentScope(this);
 
-			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), id@\loc, func@\loc, params, body); 
-			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), id@\loc, func@\loc, params, body);
-			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", |nothing:///|, func@\loc, params, body);
+			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), func@\loc, params, body); 
+			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), func@\loc, params, body);
+			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", func@\loc, params, body);
 		}
 	}
 	

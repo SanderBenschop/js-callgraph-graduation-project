@@ -11,8 +11,6 @@ public Vertex createVertex(element, symbolTableMap) {
 	
 	private Vertex processId(Id id) = processId(unparse(id));
 	
-	//If \(pi, x)is the uith parameter of the function declared at pi' then V(x at Pi) = Parm(pi', i)
-	//Maybe make an identifier type for both normal declarations and parameters?
 	private Vertex processId(str id) {
 		SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
 		Maybe[Identifier] foundId = find(id, elementSymbolTable);
