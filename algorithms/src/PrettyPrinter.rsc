@@ -37,6 +37,35 @@ private str formatVertex(Vertex vertex) {
 		case Function(loc position) : {
 			return "Func(<formatLoc(position)>)";
 		}
+
+		case Callee(loc position) : {
+			return "Callee(<formatLoc(position)>)";
+		}
+		
+		case Argument(loc position, int index) : {
+			return "Arg(<formatLoc(position)>, <index>)";
+		}
+		
+		case Parameter(loc position, int index) : {
+			return "Arg(<formatLoc(position)>, <index>)";
+		}
+		
+		case Return(loc position) : {
+			return "Ret(<formatLoc(position)>)";
+		}
+		
+		case Result(loc position) : {
+			return "Res(<formatLoc(position)>)";
+		}
+		
+		case Unknown() : {
+			return "Unknown";
+		}
+		
+		case Native(str name) : {
+			return name;
+		}
+		
 		default: throw "Pretty print not implemented for vertex <vertex>";
 	}
 }
