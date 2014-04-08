@@ -11,17 +11,17 @@ import IntraproceduralFlow;
 import PessimisticInterproceduralFlow;
 import CommonInterproceduralFlow;
 import OptimisticTransitiveClosure;
+import CallGraphExtractor;
 import ScopeAnalysis;
 import PrettyPrinter;
 
 public int NO_INTERPROCEDURAL_FLOW = 0;
 public int PESSIMISTIC_INTERPROCEDURAL_FLOW = 1;
 
-public Graph[Vertex] createPessimisticCallGraph(source) {
+public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createPessimisticCallGraph(source) {
 	Graph[Vertex] vertex = createFlowGraph(source, PESSIMISTIC_INTERPROCEDURAL_FLOW, true);
 	Graph[Vertex] closure = getOptimisticTransitiveClosure(vertex);
-	//Extract CG from transitive closure.
-	return closure;
+	return extractCallGraph(closure);
 }
 
 public Graph[Vertex] createFlowGraph(source) = createFlowGraph(source, NO_INTERPROCEDURAL_FLOW, true);
