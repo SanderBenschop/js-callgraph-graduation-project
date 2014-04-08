@@ -26,7 +26,7 @@ public void generateNRandomSnippets(int n) {
 
 public void writePrettyPrints() {
 	for (loc snippet <- GENERATED_SNIPPET_FOLDER.ls, isFile(snippet)) {
-		Graph[Vertex] flowGraph = createFlowGraph(snippet);
+		Graph[Vertex] flowGraph = createIntraProceduralFlowGraphNF(snippet);
 		str prettyPrinted = prettyPrintGraph(flowGraph, true);
 		str fileName = replaceLast(snippet.file, ".js", "");
 		loc target = PRETTY_PRINT_FOLDER + "<fileName>.log";
@@ -48,7 +48,7 @@ public str randomTest() {
 	
 	Graph[Vertex] flowGraph;
 	try 
-		flowGraph = createFlowGraph(generatedProgram.code, NO_INTERPROCEDURAL_FLOW, false);
+		flowGraph = createIntraProceduralFlowGraph(generatedProgram.code);
 	catch ParseError : {
 		println("A parse error occured. Source:");
 		println(generatedProgram.code);
