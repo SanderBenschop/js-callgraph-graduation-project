@@ -67,7 +67,7 @@ private str formatVertex(Vertex vertex) {
 			return "Unknown";
 		}
 		
-		case Native(str name) : {
+		case Builtin(str name) : {
 			return "Builtin(<name>)";
 		}
 		

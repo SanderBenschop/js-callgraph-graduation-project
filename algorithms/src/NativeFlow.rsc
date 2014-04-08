@@ -7,8 +7,7 @@ import DataStructures;
 /**
  * Creates the initial CallGraph consisting of modelled native flow.
  */
-//TODO: implement native flow creation.
-public Graph[Vertex] createNativeFlowGraph() = { <Native(key), Property(nativeFlows[key])> | str key <- nativeFlows };
+public Graph[Vertex] createNativeFlowGraph() = { <Builtin(key), Property(nativeFlows[key])> | str key <- nativeFlows };
 
 private map[str, str] nativeFlows = (
 		"eval": "eval",
