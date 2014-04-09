@@ -1,9 +1,5 @@
 module IntraproceduralFlow
 
-import util::Maybe;
-
-import IO;
-import String;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;

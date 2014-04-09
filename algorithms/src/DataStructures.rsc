@@ -1,11 +1,5 @@
 module DataStructures
 
-//Graph is represented as an adjacency set in original paper.
-//I could just use a relation here, which also makes it easy to compute the transitive closure.
-//But it make make it very slow.
-
-//When flows through UNKNOWN are to be ignored, these should be filtered and THEN the transitive closure can be calculated.
-
 import util::Maybe;
 import ParseTree;
 

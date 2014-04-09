@@ -3,7 +3,6 @@ module GraphBuilder
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
-import IO;
 
 import DataStructures;
 import NativeFlow;
@@ -14,7 +13,6 @@ import OptimisticInterproceduralFlow;
 import OptimisticTransitiveClosure;
 import CallGraphExtractor;
 import ScopeAnalysis;
-import PrettyPrinter;
 import Utils;
 
 public Graph[Vertex] newGraph(source, list[Graph[Vertex] (Graph[Vertex], Tree, SymbolTableMap)] intermediateOperations) = newGraph(source, intermediateOperations, andDoNothing);

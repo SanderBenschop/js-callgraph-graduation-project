@@ -1,7 +1,6 @@
 module OptimisticInterproceduralFlow
 
 import IO;
-import String;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
@@ -15,8 +14,6 @@ public Graph[Vertex] getOptimisticInterproceduralFlow(Tree tree, Graph[Vertex] g
 	println("Processing optimistic interprocedural flow");
 	bool changed = false;
 
-	//Abusing Unknown() here, should never be added to real flow graph for optimistic algo!
-	//Actually I think this is completely useless. Check what happens if I remove it
 	private void processFunction(Tree function) {
 		Vertex functionVertex = Function(function@\loc);
 		Graph[Vertex] reachabilityGraph = graph+;
