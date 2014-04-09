@@ -4,7 +4,7 @@ import analysis::graphs::Graph;
 import DataStructures;
 import Relation;
 
-public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] extractCallGraph(Graph[Vertex] flowGraph) {
+public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] extractPessimisticCallGraph(Graph[Vertex] flowGraph) {
 	Graph[Vertex] calls = {};
 	set[Vertex] escaping = {}, unresolved = {};
 	for (Vertex base <- domain(flowGraph)) {
@@ -16,4 +16,9 @@ public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] 
 		}
 	}
 	return <calls, escaping, unresolved>;
+}
+
+public Graph[Vertex] extractOptimisticCallGraph(Graph[Vertex] flowGraph) {
+	tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] res = extractPessimisticCallGraph(flowGraph);
+	return res.calls;
 }

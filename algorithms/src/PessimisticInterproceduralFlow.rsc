@@ -67,24 +67,6 @@ private Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	return escapingEdges;
 }
 
-private list[Tree] extractArguments(call) {
-	if ((Expression)`<Expression e>()` := call) {
-		return [];
-	} else if ((Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )` := call) {
-		return iterableToTreeList(args);
-	}
-	throw "Not a call";
-}
-
-private list[Tree] extractParameters(function) {
-	if ((Expression)`function (<{Id ","}* params>) <Block _>` := function 
-		|| (Expression)`function <Id _> (<{Id ","}* params>) <Block _>` := function
-		|| (FunctionDeclaration)`function <Id _> (<{Id ","}* params>) <Block _> <ZeroOrMoreNewLines _>` := function) {
-		return iterableToTreeList(params);
-	}
-	throw "Not a function";
-}
-
 private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functionsInsideClosures] analyseCallSites(Tree tree) {
 	lrel[Tree, Tree] oneShot = [];
 	list[Tree] unresolved = [], functionsInsideClosures = [];

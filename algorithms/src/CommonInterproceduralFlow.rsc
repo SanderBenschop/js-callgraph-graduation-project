@@ -18,7 +18,7 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 	
 	private void processR8(Tree \node, Tree function, arguments) {
 		loc nodeLoc = \node@\loc;
-		graph += <createVertex(function, symbolTableMap), Callee(nodeLoc)>;
+		graph += <createVertex(function, symbolTableMap), createCalleeVertex(\node)>;
 		int i = 1;
 		for (argument <- arguments) {
 			graph += <createVertex(argument, symbolTableMap), Argument(nodeLoc, i)>;

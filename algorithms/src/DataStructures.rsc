@@ -7,6 +7,7 @@ module DataStructures
 //When flows through UNKNOWN are to be ignored, these should be filtered and THEN the transitive closure can be calculated.
 
 import util::Maybe;
+import ParseTree;
 
 data Vertex
 	//Intraprocedural flow
@@ -25,6 +26,8 @@ data Vertex
 	//Native vertex represents a native JavaScript function
 	| Builtin(str name)
 	;
+
+anno Tree Vertex @ tree;
 
 alias SymbolTableMap = map[loc, SymbolTable];
 

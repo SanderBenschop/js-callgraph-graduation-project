@@ -95,9 +95,6 @@ public str randomTest() {
 	return generatedProgram.code;
 }
 
-public Graph[&U] mapper(Graph[&T] graph, tuple[&U, &U] (tuple[&T, &T]) fn) {
-    return {fn(elm) | tuple[&T, &T] elm <- graph};
-}
 public tuple[Vertex, Vertex] replaceTupleLocs(tuple[Vertex left, Vertex right] oldTuple) = <replaceLocs(oldTuple.left), replaceLocs(oldTuple.right)>;
 
 private Vertex replaceLocs(Vertex vertex) {

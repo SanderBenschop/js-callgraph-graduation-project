@@ -47,3 +47,9 @@ public Vertex createVariableVertex(name, element) {
 public Vertex createPropertyVertex(element) {
 	return Property(unparse(element));
 }
+
+public Vertex createCalleeVertex(element) {
+	Vertex callee = Callee(element@\loc);
+	callee@tree = element;
+	return callee;
+}
