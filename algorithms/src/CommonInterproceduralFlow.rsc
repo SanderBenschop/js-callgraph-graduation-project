@@ -70,14 +70,17 @@ private map [loc, loc] getEnclosingFunctionLocations(Tree tree) {
 	loc lastSeenFunction = |nothing:///|;
 	
 	private void markFunction(function, body) {
+		println("Marking function <function>");
 		loc oldLastSeen = lastSeenFunction;
 		lastSeenFunction = function@\loc;
 		doVisit(body);
 		lastSeenFunction = oldLastSeen;
 	}
 	
-	private void markReturn(returnStatement) {
+	private void markReturn(returnStatement, expression) {
+		println("Marking return <returnStatement> to last seen function <lastSeenFunction>");
 		returnToFunctionMap += (returnStatement@\loc : lastSeenFunction);
+		doVisit(expression);
 	}
 	
 	private void doVisit(parseTree) {
@@ -85,8 +88,8 @@ private map [loc, loc] getEnclosingFunctionLocations(Tree tree) {
 			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : markFunction(func, body); 
 			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: markFunction(func, body);
 			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: markFunction(func, body);
-			case returnExpSemi:(Statement)`return <Expression _>;`: markReturn(returnExpSemi);
-			case returnExpNoSemi:(Statement)`return <Expression _>`: markReturn(returnExpNoSemi);
+			case returnExpSemi:(Statement)`return <Expression e>;`: markReturn(returnExpSemi, e);
+			case returnExpNoSemi:(Statement)`return <Expression e>`: markReturn(returnExpNoSemi, e);
 		}
 	}
 	
