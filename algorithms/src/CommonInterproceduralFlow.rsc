@@ -25,6 +25,12 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 			i += 1;
 		}
 		graph += <Result(nodeLoc), Expression(nodeLoc)>;
+		
+		//TODO: optimize, this is to get the largest expressions
+		doVisit(\function);
+		for (argument <- arguments) {
+			doVisit(argument);
+		}
 	}
 	
 	private void processR9(Tree \node, Tree r, Id p, arguments) {
@@ -32,35 +38,48 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 		Tree function = (Expression)`<Expression r>.<Id p>`;
 		processR8(\node, function, arguments);
 		graph += <createVertex(r, symbolTableMap), Argument(\node@\loc, 0)>;
+		
+		//TODO: optimize
+		doVisit(r);
+		doVisit(p);
+		for (argument <- arguments) {
+			doVisit(argument);
+		}
 	}
 	
 	private void processR10(Tree element, Tree e) {
 		//Innermost enclosing function containing the return statement.
 		loc enclosingFunctionLocation = returnToFunctionMap[element@\loc];
 		graph += <createVertex(e, symbolTableMap), Return(enclosingFunctionLocation)>;
+		
+		doVisit(e);
 	}
 	
-	visit(tree) {
-		//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
-		//TODO: new a.b() ??
-		//TODO: here it matches new <Expression e> but in the paper it shows a call to a function specifically. Maybe this should be fixed?
-		case newFunctionCallParams:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newFunctionCallParams, e, args);
-		case newFunctionCallNoParams:(Expression)`new <Expression e>()`: processR8(newFunctionCallNoParams, e, []);
-		case newNoParams:(Expression)`new <Expression e>`: processR8(newNoParams, e, []);
-
-		case propertyCallParams:(Expression)`<Expression r>.<Id p>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallParams, r, p, args);
-		case propertyCallEmptyParams:(Expression)`<Expression r>.<Id p>()`: processR9(propertyCallEmptyParams, r, p, []);
-		
-		case wrappedFunctionCallParams:(Expression)`(<Expression e>) ( <{ Expression!comma ","}+ args> )`: processR8(wrappedFunctionCallParams, e, args);
-		case wrappedFunctionCallNoParams:(Expression)`(<Expression e>)()`: processR8(wrappedFunctionCallNoParams, e, []);
-		
-		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, e, args);
-		case functionCallNoParams:(Expression)`<Expression e>()`: processR8(functionCallNoParams, e, []);
-				
-		// Return statements
-		case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
-		case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);
+	private void doVisit(parseTree) {
+		top-down-break visit(parseTree) {
+			//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
+			//TODO: new a.b() ??
+			//TODO: here it matches new <Expression e> but in the paper it shows a call to a function specifically. Maybe this should be fixed?
+			case newFunctionCallParams:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newFunctionCallParams, e, args);
+			case newFunctionCallNoParams:(Expression)`new <Expression e>()`: processR8(newFunctionCallNoParams, e, []);
+			case newNoParams:(Expression)`new <Expression e>`: processR8(newNoParams, e, []);
+	
+			case propertyCallParams:(Expression)`<Expression r>.<Id p>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallParams, r, p, args);
+			case propertyCallEmptyParams:(Expression)`<Expression r>.<Id p>()`: processR9(propertyCallEmptyParams, r, p, []);
+			
+			case wrappedFunctionCallParams:(Expression)`(<Expression e>) ( <{ Expression!comma ","}+ args> )`: processR8(wrappedFunctionCallParams, e, args);
+			case wrappedFunctionCallNoParams:(Expression)`(<Expression e>)()`: processR8(wrappedFunctionCallNoParams, e, []);
+			
+			case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, e, args);
+			case functionCallNoParams:(Expression)`<Expression e>()`: processR8(functionCallNoParams, e, []);
+					
+			// Return statements
+			case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
+			case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);
+		}
 	}
+	doVisit(tree);
+	
 	return graph;
 }
 
