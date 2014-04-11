@@ -16,6 +16,7 @@ public void rewriteToFile(source) = rewriteToFile(source, |project://JavaScript%
 public void rewriteToFile(source, loc target) = writeFile(target, rewriteForDynamicCallGraph(parse(source)));
 
 public str rewriteForDynamicCallGraph(Tree tree) {
+	list[Tree] nestedExpressions = getExpressionsNestedInNewExpression(tree);
 	list[str] allFunctionLocations = [];
 		
 	private str addFunctionLocToBody(str body, loc location) {
@@ -25,14 +26,12 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 			  //Function augmented
 			  var THISREFERENCE = this;
 			  var FUNCTION_LOC = \"<formattedLoc>\";
-			  COVERED_FUNCTIONS.push(FUNCTION_LOC);
+			  if(COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
 			  if (LAST_CALL_LOC !== undefined) {
 			    if (CALL_MAP[LAST_CALL_LOC] === undefined) CALL_MAP[LAST_CALL_LOC] = [];
 	            if (CALL_MAP[LAST_CALL_LOC].indexOf(FUNCTION_LOC) === -1) {
-	            	console.log(\"Adding edge \" + LAST_CALL_LOC + \" --\> <formattedLoc> \");
+	            	//console.log(\"Adding edge \" + LAST_CALL_LOC + \" --\> <formattedLoc> \");
 	            	CALL_MAP[LAST_CALL_LOC].push(FUNCTION_LOC);
-	            } else {
-	            	console.log(\"Not adding edge \" + LAST_CALL_LOC + \" --\> <formattedLoc> as we already have it.\");
 	            }
 	          }
 			");
@@ -50,6 +49,10 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 	}
 	
 	private Tree markCall(functionCall) {
+		if (functionCall in nestedExpressions) {
+			println("Call <functionCall> is nested and will thus not be wrapped.");
+			return functionCall;
+		}
 		loc callLoc = functionCall@\loc;
 		str newUnparsedCall = addLastCallInformation(functionCall, callLoc);
 		return parse(newUnparsedCall);
@@ -82,9 +85,7 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 		case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>` => markNamedFunctionExpressionLoc(id, params, body, func@\loc)
 		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines nl>` => markFunctionDeclLoc(id, params, body, nl, func@\loc) 
 		
-		//case newFunctionCallParams:(Expression)`new <Expression _> ( <{ Expression!comma ","}+ _> )` => markCall(newFunctionCallParams)
-		//case newFunctionCallNoParams:(Expression)`new <Expression _>()` => markCall(newFunctionCallNoParams)
-		//case newNoParams:(Expression)`new <Expression _>` => markCall(newNoParams)
+		case newExpression:(Expression)`new <Expression _>` => markCall(newExpression)
 		
 		case functionCallParams:(Expression)`<Expression _> ( <{ Expression!comma ","}+ _> )` => markCall(functionCallParams)
 		case functionCallNoParams:(Expression)`<Expression _>()` => markCall(functionCallNoParams)
@@ -104,4 +105,12 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 	}
 	/** END OF GENERATED VARIABLES AND FUNCTIONS **/\n";
 	return globals + unparse(replacedTree);
+}
+
+public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
+	list[Tree] nestedExpressions = [];
+	visit(tree) {
+		case newExpression:(Expression)`new <Expression e>` : nestedExpressions += e;
+	}
+	return nestedExpressions;
 }
