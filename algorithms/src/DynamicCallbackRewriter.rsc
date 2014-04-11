@@ -28,8 +28,12 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 			  COVERED_FUNCTIONS.push(FUNCTION_LOC);
 			  if (LAST_CALL_LOC !== undefined) {
 			    if (CALL_MAP[LAST_CALL_LOC] === undefined) CALL_MAP[LAST_CALL_LOC] = [];
-	            console.log(\"Adding edge \" + LAST_CALL_LOC + \" --\> <formattedLoc> \");
-	            CALL_MAP[LAST_CALL_LOC].push(FUNCTION_LOC);
+	            if (CALL_MAP[LAST_CALL_LOC].indexOf(FUNCTION_LOC) === -1) {
+	            	console.log(\"Adding edge \" + LAST_CALL_LOC + \" --\> <formattedLoc> \");
+	            	CALL_MAP[LAST_CALL_LOC].push(FUNCTION_LOC);
+	            } else {
+	            	console.log(\"Not adding edge \" + LAST_CALL_LOC + \" --\> <formattedLoc> as we already have it.\");
+	            }
 	          }
 			");
 	}
