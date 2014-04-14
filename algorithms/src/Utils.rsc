@@ -31,8 +31,10 @@ public list[Tree] extractArguments(call) {
 		return [];
 	} else if ((Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )` := call) {
 		return iterableToTreeList(args);
+	} else if ((Expression)`new <Expression e>` := call) {
+		return extractArguments(e);
 	}
-	throw "Not a call";
+	throw "Passed arugment <call> is not a call";
 }
 
 public list[Tree] extractParameters(function) {
@@ -41,7 +43,7 @@ public list[Tree] extractParameters(function) {
 		|| (FunctionDeclaration)`function <Id _> (<{Id ","}* params>) <Block _> <ZeroOrMoreNewLines _>` := function) {
 		return iterableToTreeList(params);
 	}
-	throw "Not a function";
+	throw "Passed argument <function> is not a function";
 }
 
 public Graph[&U] mapper(Graph[&T] graph, tuple[&U, &U] (tuple[&T, &T]) fn) {
