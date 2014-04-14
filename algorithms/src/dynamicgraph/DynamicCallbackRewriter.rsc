@@ -13,10 +13,22 @@ import NativeFlow;
 
 import DataStructures;
 
-public void rewriteToFile(source) = rewriteToFile(source, |project://JavaScript%20cg%20algorithms/src/testing/filedump/rewritten.js|);
-public void rewriteToFile(source, loc target) = writeFile(target, rewriteForDynamicCallGraph(parse(source)));
+public void rewriteFolder(loc folderLoc) = rewriteFiles(folderLoc.ls);
+public void rewriteFile(loc file) = rewriteFiles([file]);
 
-public str rewriteForDynamicCallGraph(Tree tree) {
+public void rewriteFiles(list[loc] files) {
+	loc targetFolder = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/|;
+	list[str] combinedFunctionNames = [];
+	for (loc fileLoc <- files) {
+		Tree parseTree = parse(fileLoc);
+		tuple[list[str] allFunctionNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
+		writeFile(targetFolder + fileLoc.file, output.rewrittenSource);
+		combinedFunctionNames += output.allFunctionNames;
+	}
+	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(combinedFunctionNames));
+}
+
+public tuple[list[str] allFunctionNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree) {
 	list[Tree] nestedExpressions = getExpressionsNestedInNewExpression(tree);
 	list[str] allFunctionLocations = [];
 		
@@ -28,14 +40,14 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 			  var THISREFERENCE = this;
 			  var FUNCTION_LOC = \"<formattedLoc>\";
 			  if(COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
-			  if (LAST_CALL_LOC !== undefined) addDynamicCallGraphEdge(LAST_CALL_LOC, FUNCTION_LOC);
+			  if (LAST_CALL_LOC !== undefined) ADD_DYNAMIC_CALL_GRAPH_EDGE(LAST_CALL_LOC, FUNCTION_LOC);
 			");
 	}
 
 	private str addNativeCallInformation(Tree nestedCall, loc location, str nativeFunctionName) {
 		return "(function() {
 		//Native call augmented
-		addDynamicCallGraphEdge(\"<formatLoc(location)>\", \"<nativeFunctionName>\");
+		ADD_DYNAMIC_CALL_GRAPH_EDGE(\"<formatLoc(location)>\", \"<nativeFunctionName>\");
 		return <unparse(nestedCall)>;
 		}())";
 	}
@@ -95,26 +107,7 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
 	};
 	
-	str allFunctionsJoined = intercalate(",", allFunctionLocations);
-	str globals = "
-	/** START OF GENERATED VARIABLES AND FUNCTIONS **/
-	var THISREFERENCE = this, LAST_CALL_LOC = undefined, CALL_MAP = {}, ALL_FUNCTIONS = [<allFunctionsJoined>], COVERED_FUNCTIONS = [];
-	function getUncoveredFunctions() {
-	    return ALL_FUNCTIONS.filter(function(func) {
-	        return COVERED_FUNCTIONS.indexOf(func) === -1;
-	    });
-	}
-	function getCoveragePercentage() {
-		return COVERED_FUNCTIONS.length / ALL_FUNCTIONS.length * 100;
-	}
-	function addDynamicCallGraphEdge(base, target) {
-	    if (CALL_MAP[base] === undefined) CALL_MAP[base] = [];
-	    if (CALL_MAP[base].indexOf(target) === -1) {
-	    	CALL_MAP[base].push(target);
-	    }
-	}
-	/** END OF GENERATED VARIABLES AND FUNCTIONS **/\n";
-	return globals + unparse(replacedTree);
+	return <allFunctionLocations, unparse(replacedTree)>;
 }
 
 public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
@@ -123,4 +116,26 @@ public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
 		case newExpression:(Expression)`new <Expression e>` : nestedExpressions += e;
 	}
 	return nestedExpressions;
+}
+
+private str getInstrumentationCode(list[str] functionNames) {
+	str allFunctionsJoined = intercalate(",", functionNames);
+	return "
+	/** START OF GENERATED VARIABLES AND FUNCTIONS **/
+	var THISREFERENCE = this, LAST_CALL_LOC = undefined, CALL_MAP = {}, ALL_FUNCTIONS = [<allFunctionsJoined>], COVERED_FUNCTIONS = [];
+	function GET_UNCOVERED_FUNCTIONS() {
+	    return ALL_FUNCTIONS.filter(function(func) {
+	        return COVERED_FUNCTIONS.indexOf(func) === -1;
+	    });
+	}
+	function GET_COVERAGE_PERCENTAGE() {
+		return COVERED_FUNCTIONS.length / ALL_FUNCTIONS.length * 100;
+	}
+	function ADD_DYNAMIC_CALL_GRAPH_EDGE(base, target) {
+	    if (CALL_MAP[base] === undefined) CALL_MAP[base] = [];
+	    if (CALL_MAP[base].indexOf(target) === -1) {
+	    	CALL_MAP[base].push(target);
+	    }
+	}
+	/** END OF GENERATED VARIABLES AND FUNCTIONS **/\n";
 }
