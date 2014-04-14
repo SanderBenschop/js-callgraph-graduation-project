@@ -5,11 +5,12 @@ import analysis::graphs::Graph;
 import DataStructures;
 import Relation;
 
+//TODO: Fix escaping and unresolved, information is lost somewhere now.
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] extractPessimisticCallGraph(Graph[Vertex] flowGraph) {
 	Graph[Vertex] calls = {};
 	set[Vertex] escaping = {}, unresolved = {};
 	for (Vertex base <- domain(flowGraph)) {
-		if (Function(_) := base) {
+		if (Function(_) := base || Builtin(_) := base) {
 			calls += { <target, base> | target <- flowGraph[base], Callee(_) := target };
 			escaping += Unknown() in flowGraph[base] ? base : {};
 		} else if (Unknown() := base) {

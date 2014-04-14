@@ -82,6 +82,9 @@ private str callGraphFormatVertex(Vertex vertex) {
 		case Function(loc position) : {
 			return formatLoc(position);
 		}
+		case Builtin(str name) : {
+			return name;
+		}
 		case Callee(loc position) : {
 			return formatLoc(position);
 		}
