@@ -1,6 +1,7 @@
 module NativeFlow
 
 import analysis::graphs::Graph;
+import Map;
 
 import DataStructures;
 
@@ -8,7 +9,7 @@ import DataStructures;
  * Creates the initial CallGraph consisting of modelled native flow.
  */
 public Graph[Vertex] createNativeFlowGraph() = { <Builtin(key), Property(nativeFlows[key])> | str key <- nativeFlows };
-
+public bool isNativeTarget(str val) = val in range(nativeFlows);
 private map[str, str] nativeFlows = (
 		"eval": "eval",
         "parseInt": "parseInt",

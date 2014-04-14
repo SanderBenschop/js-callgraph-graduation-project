@@ -1,4 +1,4 @@
-module DynamicCallbackRewriter
+module dynamicgraph::DynamicCallbackRewriter
 
 import util::Maybe;
 
@@ -9,6 +9,7 @@ import ParseTree;
 import analysis::graphs::Graph;
 import VertexFactory;
 import Utils;
+import NativeFlow;
 
 import DataStructures;
 
@@ -27,14 +28,16 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 			  var THISREFERENCE = this;
 			  var FUNCTION_LOC = \"<formattedLoc>\";
 			  if(COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
-			  if (LAST_CALL_LOC !== undefined) {
-			    if (CALL_MAP[LAST_CALL_LOC] === undefined) CALL_MAP[LAST_CALL_LOC] = [];
-	            if (CALL_MAP[LAST_CALL_LOC].indexOf(FUNCTION_LOC) === -1) {
-	            	//console.log(\"Adding edge \" + LAST_CALL_LOC + \" --\> <formattedLoc> \");
-	            	CALL_MAP[LAST_CALL_LOC].push(FUNCTION_LOC);
-	            }
-	          }
+			  if (LAST_CALL_LOC !== undefined) addDynamicCallGraphEdge(LAST_CALL_LOC, FUNCTION_LOC);
 			");
+	}
+
+	private str addNativeCallInformation(Tree nestedCall, loc location, str nativeFunctionName) {
+		return "(function() {
+		//Native call augmented
+		addDynamicCallGraphEdge(\"<formatLoc(location)>\", \"<nativeFunctionName>\");
+		return <unparse(nestedCall)>;
+		}())";
 	}
 
 	private str addLastCallInformation(Tree nestedCall, loc location) {
@@ -48,13 +51,14 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 	    }())";
 	}
 	
-	private Tree markCall(functionCall) {
+	private Tree markCall(functionExpression, functionCall) {
 		if (functionCall in nestedExpressions) {
 			println("Call <functionCall> is nested and will thus not be wrapped.");
 			return functionCall;
 		}
+		str functionName = unparse(functionExpression);
 		loc callLoc = functionCall@\loc;
-		str newUnparsedCall = addLastCallInformation(functionCall, callLoc);
+		str newUnparsedCall = isNativeTarget(functionName) ? addNativeCallInformation(functionCall, callLoc, functionName) : addLastCallInformation(functionCall, callLoc);
 		return parse(newUnparsedCall);
 	}
 	
@@ -87,8 +91,8 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 		
 		case newExpression:(Expression)`new <Expression _>` => markCall(newExpression)
 		
-		case functionCallParams:(Expression)`<Expression _> ( <{ Expression!comma ","}+ _> )` => markCall(functionCallParams)
-		case functionCallNoParams:(Expression)`<Expression _>()` => markCall(functionCallNoParams)
+		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ _> )` => markCall(e, functionCallParams)
+		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
 	};
 	
 	str allFunctionsJoined = intercalate(",", allFunctionLocations);
@@ -97,11 +101,17 @@ public str rewriteForDynamicCallGraph(Tree tree) {
 	var THISREFERENCE = this, LAST_CALL_LOC = undefined, CALL_MAP = {}, ALL_FUNCTIONS = [<allFunctionsJoined>], COVERED_FUNCTIONS = [];
 	function getUncoveredFunctions() {
 	    return ALL_FUNCTIONS.filter(function(func) {
-	        return COVERED_FUNCTIONS.indexOf(func) == -1;
+	        return COVERED_FUNCTIONS.indexOf(func) === -1;
 	    });
 	}
 	function getCoveragePercentage() {
 		return COVERED_FUNCTIONS.length / ALL_FUNCTIONS.length * 100;
+	}
+	function addDynamicCallGraphEdge(base, target) {
+	    if (CALL_MAP[base] === undefined) CALL_MAP[base] = [];
+	    if (CALL_MAP[base].indexOf(target) === -1) {
+	    	CALL_MAP[base].push(target);
+	    }
 	}
 	/** END OF GENERATED VARIABLES AND FUNCTIONS **/\n";
 	return globals + unparse(replacedTree);
