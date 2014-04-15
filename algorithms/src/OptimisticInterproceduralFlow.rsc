@@ -6,6 +6,7 @@ import ParseTree;
 import analysis::graphs::Graph;
 import VertexFactory;
 import utils::Utils;
+import Set;
 
 import DataStructures;
 
@@ -13,11 +14,12 @@ public Graph[Vertex] getOptimisticInterproceduralFlow(Tree tree, Graph[Vertex] g
 	
 	println("Processing optimistic interprocedural flow");
 	bool changed = false;
+	Graph[Vertex] reachabilityGraph = {};
 
 	private void processFunction(Tree function) {
+		if (isEmpty(reachabilityGraph) || changed) reachabilityGraph = graph+;
 		Vertex functionVertex = Function(function@\loc);
-		Graph[Vertex] reachabilityGraph = graph+;
-		for (Vertex calleeVertex <- reachabilityGraph[functionVertex], Callee(_) := calleeVertex) {
+		for (Vertex calleeVertex <- reachabilityGraph, Callee(_) := calleeVertex) {
 			Tree callee = calleeVertex@tree;
 			//Ret -> Res
 			tuple[Vertex, Vertex] candidateTuple = <Return(function@\loc), Result(callee@\loc)>;
