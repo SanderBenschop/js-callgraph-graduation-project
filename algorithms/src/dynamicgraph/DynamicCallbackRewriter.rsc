@@ -13,19 +13,35 @@ import NativeFlow;
 
 import DataStructures;
 
-public void rewriteFolder(loc folderLoc) = rewriteFiles(folderLoc.ls);
-public void rewriteFile(loc file) = rewriteFiles([file]);
+public void rewrite(loc location) { 
+	list[str] combinedFunctionNames = isDirectory(location) ? rewriteFolder(location) : rewriteFile(location);
+	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(combinedFunctionNames));
+}
+public list[str] rewriteFolder(loc folderLoc) = rewriteFiles(folderLoc.ls, folderLoc);
+public list[str] rewriteFile(loc file) = rewriteFiles([file], file.parent);
 
-public void rewriteFiles(list[loc] files) {
+public list[str] rewriteFiles(list[loc] files, loc sourceFolderLoc) {
 	loc targetFolder = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/|;
 	list[str] combinedFunctionNames = [];
 	for (loc fileLoc <- files) {
-		Tree parseTree = parse(fileLoc);
-		tuple[list[str] allFunctionNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
-		writeFile(targetFolder + fileLoc.file, output.rewrittenSource);
-		combinedFunctionNames += output.allFunctionNames;
+		int sourceFolderNameSize = size(sourceFolderLoc.uri);
+		str targetFolderSuffix = substring(fileLoc.uri, sourceFolderNameSize);
+		if (isDirectory(fileLoc)) {
+			println("Recursing into directory <fileLoc>");
+			combinedFunctionNames += rewriteFiles(fileLoc.ls, sourceFolderLoc);
+		} else if (fileLoc.extension == "js") {
+			println("Rewriting file <fileLoc>");
+			Tree parseTree = parse(fileLoc);
+			tuple[list[str] allFunctionNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
+			writeFile(targetFolder + targetFolderSuffix, output.rewrittenSource);
+			combinedFunctionNames += output.allFunctionNames;
+		} else {
+			println("Copying item <fileLoc> without altering as it is not a JavaScript file");
+			str source = readFile(fileLoc);
+			writeFile(targetFolder + targetFolderSuffix, source);
+		}
 	}
-	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(combinedFunctionNames));
+	return combinedFunctionNames;
 }
 
 public tuple[list[str] allFunctionNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree) {
@@ -101,7 +117,7 @@ public tuple[list[str] allFunctionNames, str rewrittenSource] rewriteForDynamicC
 		case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>` => markNamedFunctionExpressionLoc(id, params, body, func@\loc)
 		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines nl>` => markFunctionDeclLoc(id, params, body, nl, func@\loc) 
 		
-		case newExpression:(Expression)`new <Expression _>` => markCall(newExpression)
+		case newExpression:(Expression)`new <Expression e>` => markCall(e, newExpression)
 		
 		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ _> )` => markCall(e, functionCallParams)
 		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
