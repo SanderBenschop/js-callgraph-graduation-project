@@ -1,5 +1,6 @@
-module Utils
+module utils::Utils
 
+import IO;
 import List;
 import ParseTree;
 import EcmaScript;

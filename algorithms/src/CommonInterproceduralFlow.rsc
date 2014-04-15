@@ -8,7 +8,7 @@ import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
 import VertexFactory;
-import Utils;
+import utils::Utils;
 
 import DataStructures;
 

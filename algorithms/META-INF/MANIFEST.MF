@@ -5,4 +5,4 @@ Bundle-SymbolicName: JavaScript_cg_algorithms
 Bundle-Version: 1.0.0
 Require-Bundle: org.eclipse.imp.pdb.values,
  rascal
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

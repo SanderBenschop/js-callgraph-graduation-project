@@ -1,4 +1,4 @@
-module dynamicgraph::DynamicCallbackRewriter
+module dynamicgraph::DynamicCallgraphRewriter
 
 import util::Maybe;
 
@@ -8,7 +8,8 @@ import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
 import VertexFactory;
-import Utils;
+import utils::Utils;
+import utils::FileUtils;
 import NativeFlow;
 
 import DataStructures;
@@ -37,8 +38,7 @@ public list[str] rewriteFiles(list[loc] files, loc sourceFolderLoc) {
 			combinedFunctionNames += output.allFunctionNames;
 		} else {
 			println("Copying item <fileLoc> without altering as it is not a JavaScript file");
-			str source = readFile(fileLoc);
-			writeFile(targetFolder + targetFolderSuffix, source);
+			copyFile(fileLoc, targetFolder + targetFolderSuffix);
 		}
 	}
 	return combinedFunctionNames;

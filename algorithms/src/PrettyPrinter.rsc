@@ -6,7 +6,7 @@ import IO;
 import List;
 
 import DataStructures;
-import Utils;
+import utils::Utils;
 
 public void writePrettyPrintedGraph(Graph[Vertex] graph, bool sortIt, bool flowGraphStyle) {
     str prettyPrinted = prettyPrintGraph(graph, sortIt, flowGraphStyle);

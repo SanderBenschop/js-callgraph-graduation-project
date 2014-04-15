@@ -13,7 +13,7 @@ import OptimisticInterproceduralFlow;
 import OptimisticTransitiveClosure;
 import CallGraphExtractor;
 import ScopeAnalysis;
-import Utils;
+import utils::Utils;
 
 public Graph[Vertex] newGraph(source, list[Graph[Vertex] (Graph[Vertex], Tree, SymbolTableMap)] intermediateOperations) = newGraph(source, intermediateOperations, andDoNothing);
 public &T newGraph(source, list[Graph[Vertex] (Graph[Vertex], Tree, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
