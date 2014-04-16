@@ -19,7 +19,7 @@ public Graph[Vertex] getOptimisticInterproceduralFlow(Tree tree, Graph[Vertex] g
 	private void processFunction(Tree function) {
 		if (isEmpty(reachabilityGraph) || changed) reachabilityGraph = graph+;
 		Vertex functionVertex = Function(function@\loc);
-		for (Vertex calleeVertex <- reachabilityGraph, Callee(_) := calleeVertex) {
+		for (Vertex calleeVertex <- reachabilityGraph[functionVertex], Callee(_) := calleeVertex) {
 			Tree callee = calleeVertex@tree;
 			//Ret -> Res
 			tuple[Vertex, Vertex] candidateTuple = <Return(function@\loc), Result(callee@\loc)>;
