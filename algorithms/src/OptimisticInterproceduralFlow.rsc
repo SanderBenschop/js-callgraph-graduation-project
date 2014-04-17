@@ -14,12 +14,11 @@ public Graph[Vertex] getOptimisticInterproceduralFlow(Tree tree, Graph[Vertex] g
 	
 	println("Processing optimistic interprocedural flow");
 	bool changed = false;
-	Graph[Vertex] reachabilityGraph = {};
+	set[Tree] functions = {};
 
 	private void processFunction(Tree function) {
-		if (isEmpty(reachabilityGraph) || changed) reachabilityGraph = graph+;
 		Vertex functionVertex = Function(function@\loc);
-		for (Vertex calleeVertex <- reachabilityGraph[functionVertex], Callee(_) := calleeVertex) {
+		for (Vertex calleeVertex <- reach(graph, { functionVertex }), Callee(_) := calleeVertex) {
 			Tree callee = calleeVertex@tree;
 			//Ret -> Res
 			tuple[Vertex, Vertex] candidateTuple = <Return(function@\loc), Result(callee@\loc)>;
@@ -40,14 +39,16 @@ public Graph[Vertex] getOptimisticInterproceduralFlow(Tree tree, Graph[Vertex] g
 		}
 	}
 
+	visit(tree) {
+		case func:(Expression)`function (<{Id ","}* _>) <Block _>`: functions += func;
+		case func:(Expression)`function <Id id> (<{Id ","}* _>) <Block _>`: functions += func;
+		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: functions += func;
+	}
+
 	do {
 		println("Visiting the tree, looking for function calls.");
 		changed = false;
-		visit(tree) {
-			case func:(Expression)`function (<{Id ","}* _>) <Block _>`: processFunction(func);
-			case func:(Expression)`function <Id id> (<{Id ","}* _>) <Block _>`: processFunction(func);
-			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: processFunction(func);
-		}
+		for (Tree function <- functions) processFunction(function);
 	} while(changed);
 
 	return graph;

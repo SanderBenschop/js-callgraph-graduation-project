@@ -8,6 +8,8 @@ import List;
 import DataStructures;
 import utils::Utils;
 
+public void writePrettyPrintedGraph(Graph[Vertex] graph) = writePrettyPrintedGraph(graph, true, true);
+
 public void writePrettyPrintedGraph(Graph[Vertex] graph, bool sortIt, bool flowGraphStyle) {
     str prettyPrinted = prettyPrintGraph(graph, sortIt, flowGraphStyle);
     writeFile(|project://JavaScript%20cg%20algorithms/src/testing/filedump/prettyPrinted.log|, prettyPrinted);

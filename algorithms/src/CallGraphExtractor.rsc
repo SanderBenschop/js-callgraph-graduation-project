@@ -1,19 +1,21 @@
 module CallGraphExtractor
 
+import IO;
 import Set;
 import analysis::graphs::Graph;
 import DataStructures;
 import Relation;
 
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] extractPessimisticCallGraph(Graph[Vertex] flowGraph) {
-	Graph[Vertex] calls = { <target, base> | base <- domain(flowGraph), target <- flowGraph[base], isValidBase(base) && isValidTarget(target) };
+	println("Extracting call graph");
+	Graph[Vertex] calls = { <tup.target, tup.base> | tuple[Vertex base, Vertex target] tup <- flowGraph, isValidBase(tup.base), isValidTarget(tup.target) };
 	set[Vertex] escaping = { convertToFunction(edge.base) | tuple[Vertex base, Vertex target] edge <- flowGraph, Return(_) := edge.base && Unknown() := edge.target };
 	set[Vertex] unresolved = { convertToCallee(edge.target) | tuple[Vertex base, Vertex target] edge <- flowGraph, Unknown() := edge.base && Result(_) := edge.target };
 	return <calls, escaping, unresolved>;
 }
 
-private bool isValidBase(Vertex base) = Function(_) := base || Builtin(_) := base;
-private bool isValidTarget(Vertex target) = Callee(_) := target;
+public bool isValidBase(Vertex base) = Function(_) := base || Builtin(_) := base;
+public bool isValidTarget(Vertex target) = Callee(_) := target;
 
 public Graph[Vertex] extractOptimisticCallGraph(Graph[Vertex] flowGraph) {
 	tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] res = extractPessimisticCallGraph(flowGraph);

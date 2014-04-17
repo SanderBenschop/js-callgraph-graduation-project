@@ -33,7 +33,6 @@ public Graph[Vertex] getIntraproceduralFlow(Tree tree, SymbolTableMap symbolTabl
 		  		graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;
 				graph += <createVertex(r, symbolTableMap), createExpressionVertex(assignment)>;
 		  } else fail;
-		//TODO: multiple declarations: i = 1, j = 2.
 		case orExpr:(Expression)`<Expression l> || <Expression r>`: {
 			graph += <createVertex(l, symbolTableMap), createExpressionVertex(orExpr)>;
 			graph += <createVertex(r, symbolTableMap), createExpressionVertex(orExpr)>;
