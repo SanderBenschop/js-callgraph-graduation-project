@@ -14,39 +14,42 @@ import NativeFlow;
 
 import DataStructures;
 
-public void rewrite(loc location) { 
-	list[str] combinedFunctionNames = isDirectory(location) ? rewriteFolder(location) : rewriteFile(location);
-	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(combinedFunctionNames));
+public void rewrite(loc location) {
+	tuple[list[str] functions, list[str] calls] result = isDirectory(location) ? rewriteFolder(location) : rewriteFile(location);
+	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(result));
 }
-public list[str] rewriteFolder(loc folderLoc) = rewriteFiles(folderLoc.ls, folderLoc);
-public list[str] rewriteFile(loc file) = rewriteFiles([file], file.parent);
+public tuple[list[str] functions, list[str] calls] rewriteFolder(loc folderLoc) = rewriteFiles(folderLoc.ls, folderLoc);
+public tuple[list[str] functions, list[str] calls] rewriteFile(loc file) = rewriteFiles([file], file.parent);
 
-public list[str] rewriteFiles(list[loc] files, loc sourceFolderLoc) {
+public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files, loc sourceFolderLoc) {
 	loc targetFolder = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/|;
-	list[str] combinedFunctionNames = [];
+	list[str] combinedFunctionNames = [], combinedCallNames = [];
 	for (loc fileLoc <- files) {
 		int sourceFolderNameSize = size(sourceFolderLoc.uri);
 		str targetFolderSuffix = substring(fileLoc.uri, sourceFolderNameSize);
 		if (isDirectory(fileLoc)) {
 			println("Recursing into directory <fileLoc>");
-			combinedFunctionNames += rewriteFiles(fileLoc.ls, sourceFolderLoc);
+			tuple[list[str] functions, list[str] calls] recursive = rewriteFiles(fileLoc.ls, sourceFolderLoc);
+			combinedFunctionNames += recursive.functions;
+			combinedCallNames += recursive.calls;
 		} else if (fileLoc.extension == "js") {
 			println("Rewriting file <fileLoc>");
 			Tree parseTree = parse(fileLoc);
-			tuple[list[str] allFunctionNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
+			tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
 			writeFile(targetFolder + targetFolderSuffix, output.rewrittenSource);
 			combinedFunctionNames += output.allFunctionNames;
+			combinedCallNames += output.allCallNames;
 		} else {
 			println("Copying item <fileLoc> without altering as it is not a JavaScript file");
 			copyFile(fileLoc, targetFolder + targetFolderSuffix);
 		}
 	}
-	return combinedFunctionNames;
+	return <combinedFunctionNames, combinedCallNames>;
 }
 
-public tuple[list[str] allFunctionNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree) {
+public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree) {
 	list[Tree] nestedExpressions = getExpressionsNestedInNewExpression(tree);
-	list[str] allFunctionLocations = [];
+	list[str] allFunctionLocations = [], allCallLocations = [];
 		
 	private str addFunctionLocToBody(str body, loc location) {
 		str formattedLoc = formatLoc(location);
@@ -61,18 +64,25 @@ public tuple[list[str] allFunctionNames, str rewrittenSource] rewriteForDynamicC
 	}
 
 	private str addNativeCallInformation(Tree nestedCall, loc location, str nativeFunctionName) {
+		str formattedLoc = formatLoc(location);
+		allCallLocations += ("\"<formattedLoc>\"");
 		return "(function() {
 		//Native call augmented
-		ADD_DYNAMIC_CALL_GRAPH_EDGE(\"<formatLoc(location)>\", \"<nativeFunctionName>\");
+		var location = \"<formattedLoc>\";
+		if(COVERED_CALLS.indexOf(location) === -1) COVERED_CALLS.push(location);
+		ADD_DYNAMIC_CALL_GRAPH_EDGE(location, \"<nativeFunctionName>\");
 		return <unparse(nestedCall)>;
 		}())";
 	}
 
 	private str addLastCallInformation(Tree nestedCall, loc location) {
+		str formattedLoc = formatLoc(location);
+		allCallLocations += ("\"<formattedLoc>\"");
 		return "(function() {
 		//Call augmented
 	  	var OLD_LAST_CALL_LOC = LAST_CALL_LOC;
-	  	LAST_CALL_LOC = \"<formatLoc(location)>\";
+	  	LAST_CALL_LOC = \"<formattedLoc>\";
+	  	if(COVERED_CALLS.indexOf(LAST_CALL_LOC) === -1) COVERED_CALLS.push(LAST_CALL_LOC);
 	  	var result = <unparse(nestedCall)>;
 	    LAST_CALL_LOC = OLD_LAST_CALL_LOC;
 	    return result;
@@ -123,7 +133,7 @@ public tuple[list[str] allFunctionNames, str rewrittenSource] rewriteForDynamicC
 		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
 	};
 	
-	return <allFunctionLocations, unparse(replacedTree)>;
+	return <allFunctionLocations, allCallLocations, unparse(replacedTree)>;
 }
 
 public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
@@ -134,19 +144,30 @@ public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
 	return nestedExpressions;
 }
 
-private str getInstrumentationCode(list[str] functionNames) {
-	str allFunctionsJoined = intercalate(",", functionNames);
+private str getInstrumentationCode(tuple[list[str] functions, list[str] calls] information) {
+	str allFunctionsJoined = intercalate(",", information.functions), allCallsJoined = intercalate(",", information.calls);;
 	return "
 	/** START OF GENERATED VARIABLES AND FUNCTIONS **/
-	var THISREFERENCE = this, LAST_CALL_LOC = undefined, CALL_MAP = {}, ALL_FUNCTIONS = [<allFunctionsJoined>], COVERED_FUNCTIONS = [];
+	var THISREFERENCE = this, LAST_CALL_LOC = undefined, CALL_MAP = {}, ALL_FUNCTIONS = [<allFunctionsJoined>], COVERED_FUNCTIONS = [], ALL_CALLS = [<allCallsJoined>], COVERED_CALLS = [];
+	
 	function GET_UNCOVERED_FUNCTIONS() {
 	    return ALL_FUNCTIONS.filter(function(func) {
 	        return COVERED_FUNCTIONS.indexOf(func) === -1;
 	    });
 	}
-	function GET_COVERAGE_PERCENTAGE() {
+	function GET_FUNCTION_COVERAGE_PERCENTAGE() {
 		return COVERED_FUNCTIONS.length / ALL_FUNCTIONS.length * 100;
 	}
+	
+	function GET_UNCOVERED_CALLS() {
+	    return ALL_CALLS.filter(function(call) {
+	        return COVERED_CALLS.indexOf(call) === -1;
+	    });
+	}
+	function GET_CALL_COVERAGE_PERCENTAGE() {
+		return COVERED_CALLS.length / ALL_CALLS.length * 100;
+	}
+	
 	function ADD_DYNAMIC_CALL_GRAPH_EDGE(base, target) {
 	    if (CALL_MAP[base] === undefined) CALL_MAP[base] = [];
 	    if (CALL_MAP[base].indexOf(target) === -1) {
