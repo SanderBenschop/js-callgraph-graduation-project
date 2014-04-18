@@ -96,7 +96,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		}
 		str functionName = unparse(functionExpression);
 		loc callLoc = functionCall@\loc;
-		str newUnparsedCall = isNativeTarget(functionName) ? addNativeCallInformation(functionCall, callLoc, functionName) : addLastCallInformation(functionCall, callLoc);
+		str newUnparsedCall = isNativeElement(functionName) ? addNativeCallInformation(functionCall, callLoc, functionName) : addLastCallInformation(functionCall, callLoc);
 		return parse(newUnparsedCall);
 	}
 	

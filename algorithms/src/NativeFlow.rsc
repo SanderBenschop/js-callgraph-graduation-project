@@ -2,6 +2,7 @@ module NativeFlow
 
 import analysis::graphs::Graph;
 import Map;
+import String;
 
 import DataStructures;
 
@@ -10,6 +11,15 @@ import DataStructures;
  */
 public Graph[Vertex] createNativeFlowGraph() = { <Builtin(key), Property(nativeFlows[key])> | str key <- nativeFlows };
 public bool isNativeTarget(str val) = val in range(nativeFlows);
+public bool isNativeElement(str val) = isNativeTarget(val) || isNativeBase(val);
+private bool isNativeBase(str val) = convertNativeName(val) in domain(nativeFlows);
+
+public str convertNativeName(str val) {
+	str replaced = replaceAll(val, ".", "_");
+	//Replace document_ by Document_prototype
+	return replaceAll(replaced, "document_", "Document_prototype_");
+}
+
 private map[str, str] nativeFlows = (
 		"eval": "eval",
         "parseInt": "parseInt",
