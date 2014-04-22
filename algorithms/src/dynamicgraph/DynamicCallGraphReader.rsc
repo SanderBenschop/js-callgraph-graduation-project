@@ -10,6 +10,9 @@ import analysis::graphs::Graph;
 import ParseTree;
 import NativeFlow;
 
+public alias SourceLocationMapping = map[str, loc];
+public alias SourceMapping = map[str, str];
+
 public Graph[Vertex] convertJsonToGraph(loc jsonFile, SourceLocationMapping sourceLocationMapping) {
 	SourceMapping sourceMapping = createSourceMapping(sourceLocationMapping);
 	Graph[Vertex] callGraph = {};
@@ -58,9 +61,6 @@ public loc parseLocation(str stringValue, SourceLocationMapping sourceLocationMa
 public int extractEndline(int startLine, str subString) {
 	return startLine + countLines(subString) - 1;
 }
-
-public alias SourceLocationMapping = map[str, loc];
-public alias SourceMapping = map[str, str];
 
 public SourceMapping createSourceMapping(map[str, loc] sourceLocationMapping) {
 	SourceMapping sourceMapping = ();
