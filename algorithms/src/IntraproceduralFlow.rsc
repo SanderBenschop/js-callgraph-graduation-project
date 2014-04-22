@@ -7,9 +7,9 @@ import VertexFactory;
 
 import DataStructures;
 
-public Graph[Vertex] getIntraproceduralFlow(Tree tree, SymbolTableMap symbolTableMap) {
+public Graph[Vertex] getIntraproceduralFlow(trees, SymbolTableMap symbolTableMap) {
 	Graph[Vertex] graph = {};
-	visit (tree) {
+	visit (trees) {
 		//TODO: remove duplication
 		case assignment:(VariableDeclarationNoIn)`<Id l> = <Expression r>`: {
 			graph += <createVertex(r, symbolTableMap), createVertex(l, symbolTableMap)>;

@@ -8,12 +8,14 @@ import EcmaScript;
 import IO;
 import String;
 
-/* TODO: find out if all the implementations in the JS impl are correct and implement myself:
- * CatchClause
- * MemberExpression
- * Property
- * Add THIS references in functions
- */
+//Rewrite to fold
+public SymbolTableMap createSymbolTableMap(list[Tree] trees) {
+	SymbolTableMap mergedMap = ();
+	for (Tree tree <- trees) {
+		mergedMap += createSymbolTableMap(tree);
+	}
+	return mergedMap;
+}
 public SymbolTableMap createSymbolTableMap(Tree tree) {
 	return createSymbolTableMap(tree, nothing());
 }

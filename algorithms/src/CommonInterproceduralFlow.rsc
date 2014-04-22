@@ -12,9 +12,9 @@ import utils::Utils;
 
 import DataStructures;
 
-public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symbolTableMap) {
+public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTableMap) {
 	Graph[Vertex] graph = {};
-	map [loc, loc] returnToFunctionMap = getEnclosingFunctionLocations(tree);
+	map [loc, loc] returnToFunctionMap = getEnclosingFunctionLocations(trees);
 	
 	private void processR8(Tree \node, Tree function, arguments) {
 		loc nodeLoc = \node@\loc;
@@ -55,8 +55,8 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 		doVisit(e);
 	}
 	
-	private void doVisit(parseTree) {
-		top-down-break visit(parseTree) {
+	private void doVisit(parseTrees) {
+		top-down-break visit(parseTrees) {
 			//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
 			//TODO: new a.b() ??
 			//TODO: here it matches new <Expression e> but in the paper it shows a call to a function specifically. Maybe this should be fixed?
@@ -78,13 +78,13 @@ public Graph[Vertex] getCommonInterproceduralFlow(Tree tree, SymbolTableMap symb
 			case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);
 		}
 	}
-	doVisit(tree);
+	doVisit(trees);
 	
 	return graph;
 }
 
 //Returns a map of the location of the  statement with expressions to the inner-most function enclosing them.
-private map [loc, loc] getEnclosingFunctionLocations(Tree tree) {
+private map [loc, loc] getEnclosingFunctionLocations(trees) {
 	map [loc, loc] returnToFunctionMap = ();
 	loc lastSeenFunction = |nothing:///|;
 	
@@ -112,7 +112,7 @@ private map [loc, loc] getEnclosingFunctionLocations(Tree tree) {
 		}
 	}
 	
-	doVisit(tree);
+	doVisit(trees);
 	
 	return returnToFunctionMap;
 }

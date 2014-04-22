@@ -12,9 +12,9 @@ import utils::Utils;
 
 import DataStructures;
 
-public Graph[Vertex] getPessimisticInterproceduralFlow(Tree tree) {
-	tuple[lrel[Tree, Tree] oneShotClosures, list[Tree] unresolved, list[Tree] functionsInsideClosures] callSites = analyseCallSites(tree);
-	list[Tree] escaping = getEscapingFunctions(tree, callSites.functionsInsideClosures);	
+public Graph[Vertex] getPessimisticInterproceduralFlow(trees) {
+	tuple[lrel[Tree, Tree] oneShotClosures, list[Tree] unresolved, list[Tree] functionsInsideClosures] callSites = analyseCallSites(trees);
+	list[Tree] escaping = getEscapingFunctions(trees, callSites.functionsInsideClosures);	
 	Graph[Vertex] graph = {};
 	graph += oneShotClosureEdges(callSites.oneShotClosures);
 	graph += unresolvedEdges(callSites.unresolved);
@@ -67,7 +67,7 @@ private Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	return escapingEdges;
 }
 
-private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functionsInsideClosures] analyseCallSites(Tree tree) {
+private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functionsInsideClosures] analyseCallSites(trees) {
 	lrel[Tree, Tree] oneShot = [];
 	list[Tree] unresolved = [], functionsInsideClosures = [];
 	private void analyseCall(call, closure) {
@@ -82,16 +82,16 @@ private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functi
 			unresolved += closure;
 		}
 	}
-	visit(tree) {
+	visit(trees) {
 		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ _> )`: analyseCall(e, functionCallParams);
 		case functionCallNoParams:(Expression)`<Expression e>()`: analyseCall(e, functionCallNoParams);
 	}
 	return <oneShot, unresolved, functionsInsideClosures>;
 }
 
-private list[Tree] getEscapingFunctions(Tree tree, list[Tree] functionsInsideClosures) {
+private list[Tree] getEscapingFunctions(trees, list[Tree] functionsInsideClosures) {
 	list[Tree] escaping = [];
-	visit(tree) {
+	visit(trees) {
 		case functionExprNameless:(Expression)`function (<{Id ","}* _>) <Block _>`: {
 			if (functionExprNameless notin functionsInsideClosures) escaping += functionExprNameless;
 		}

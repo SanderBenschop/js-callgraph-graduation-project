@@ -10,7 +10,7 @@ import Set;
 
 import DataStructures;
 
-public Graph[Vertex] getOptimisticInterproceduralFlow(Tree tree, Graph[Vertex] graph) {
+public Graph[Vertex] getOptimisticInterproceduralFlow(trees, Graph[Vertex] graph) {
 	
 	println("Processing optimistic interprocedural flow");
 	bool changed = false;
@@ -39,7 +39,7 @@ public Graph[Vertex] getOptimisticInterproceduralFlow(Tree tree, Graph[Vertex] g
 		}
 	}
 
-	visit(tree) {
+	visit(trees) {
 		case func:(Expression)`function (<{Id ","}* _>) <Block _>`: functions += func;
 		case func:(Expression)`function <Id id> (<{Id ","}* _>) <Block _>`: functions += func;
 		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: functions += func;

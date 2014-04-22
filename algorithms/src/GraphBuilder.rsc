@@ -16,31 +16,32 @@ import ScopeAnalysis;
 import utils::Utils;
 
 public Graph[Vertex] newGraph(source, list[Graph[Vertex] (Graph[Vertex], Tree, SymbolTableMap)] intermediateOperations) = newGraph(source, intermediateOperations, andDoNothing);
-public &T newGraph(source, list[Graph[Vertex] (Graph[Vertex], Tree, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
-	Tree tree = parse(source);
-	SymbolTableMap symbolTableMap = createSymbolTableMap(tree);
+
+public &T newGraph(source, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
+	trees = parseAll(source);
+	SymbolTableMap symbolTableMap = createSymbolTableMap(trees);
 	
 	Graph[Vertex] graph = {};
 	for (intermediateOperation <- intermediateOperations) {
-		graph = intermediateOperation(graph, tree, symbolTableMap);
+		graph = intermediateOperation(graph, trees, symbolTableMap);
 	}
 	return finalOperation(graph);
 }
 
-public Graph[Vertex] withNativeFlow(Graph[Vertex] graph, Tree _, SymbolTableMap _) = graph + createNativeFlowGraph();
-public Graph[Vertex] withIntraproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) = graph + getIntraproceduralFlow(tree, symbolTableMap);
-public Graph[Vertex] withOptimisticInterproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) =  getOptimisticInterproceduralFlow(tree, (graph + getCommonInterproceduralFlow(tree, symbolTableMap)));
-public Graph[Vertex] withPessimisticInterproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) = graph + getPessimisticInterproceduralFlow(tree) + getCommonInterproceduralFlow(tree, symbolTableMap);
-public Graph[Vertex] withCommonInterproceduralFlow(Graph[Vertex] graph, Tree tree, SymbolTableMap symbolTableMap) = graph + getCommonInterproceduralFlow(tree, symbolTableMap);
+public Graph[Vertex] withNativeFlow(Graph[Vertex] graph, _, SymbolTableMap _) = graph + createNativeFlowGraph();
+public Graph[Vertex] withIntraproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getIntraproceduralFlow(trees, symbolTableMap);
+public Graph[Vertex] withOptimisticInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) =  getOptimisticInterproceduralFlow(trees, (graph + getCommonInterproceduralFlow(trees, symbolTableMap)));
+public Graph[Vertex] withPessimisticInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getPessimisticInterproceduralFlow(trees) + getCommonInterproceduralFlow(trees, symbolTableMap);
+public Graph[Vertex] withCommonInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getCommonInterproceduralFlow(trees, symbolTableMap);
 
-public Graph[Vertex] withOptimisticTransitiveClosure(Graph[Vertex] graph, Tree _, SymbolTableMap _) = getOptimisticTransitiveClosure(graph);
+public Graph[Vertex] withOptimisticTransitiveClosure(Graph[Vertex] graph, _, SymbolTableMap _) = getOptimisticTransitiveClosure(graph);
 
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] andExtractPessimisticCallGraph(Graph[Vertex] graph) = extractPessimisticCallGraph(graph);
-public Graph[Vertex] andExtractOptimisticCallGraph(Graph[Vertex] graph, Tree _, SymbolTableMap _) = extractOptimisticCallGraph(graph);
+public Graph[Vertex] andExtractOptimisticCallGraph(Graph[Vertex] graph, _, SymbolTableMap _) = extractOptimisticCallGraph(graph);
 public Graph[Vertex] andDoNothing(Graph[Vertex] graph) = graph;
 
 //TODO: move.
-public Graph[Vertex] andRemoveTreeAnnotations(Graph[Vertex] graph, Tree _, SymbolTableMap _) = mapper(graph, removeTreeAnnotations);
+public Graph[Vertex] andRemoveTreeAnnotations(Graph[Vertex] graph, _, SymbolTableMap _) = mapper(graph, removeTreeAnnotations);
 private tuple[Vertex, Vertex] removeTreeAnnotations(tuple[Vertex from, Vertex to] tup) = <cleanVertex(tup.from), cleanVertex(tup.to)>;
 
 private Vertex cleanVertex(Vertex annotatedVertex) {
