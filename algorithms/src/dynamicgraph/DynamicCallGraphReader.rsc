@@ -37,8 +37,20 @@ private JSONText parse(loc jsonFile) = parse(#JSONText, readFile(jsonFile));
 public Vertex parseCallee(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) = Callee(parseLocation(stringValue, sourceLocationMapping, sourceMapping));
 
 public Vertex parseFunction(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) {
-	if (isNativeElement(stringValue)) return Builtin(convertNativeName(stringValue));
+	if (matchesNativeElement(stringValue)) return createBuiltinNode(stringValue);
 	else return Function(parseLocation(stringValue, sourceLocationMapping, sourceMapping));
+}
+
+private bool matchesNativeElement(str string) = !contains(string, "@");
+public Vertex createBuiltinNode(str string) {
+	if (isNativeTarget(string)) return Builtin(getKeyByValue(string));
+	list[str] splitted = split(".", string);
+	int maxIndex = size(splitted);
+	for (i <- [1..maxIndex]) {
+		str joined = intercalate(".", splitted[i..]);
+		if (isNativeTarget(joined)) return Builtin(getKeyByValue(joined));
+	}
+	throw "Cannot extract call to native function from <string>";
 }
 
 public loc parseLocation(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) {

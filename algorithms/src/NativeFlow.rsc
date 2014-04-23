@@ -20,7 +20,14 @@ public str convertNativeName(str val) {
 	return replaceAll(replaced, "document_", "Document_prototype_");
 }
 
-private map[str, str] nativeFlows = (
+public str getKeyByValue(str val) {
+	for(key <- nativeFlows) {
+		if(nativeFlows[key] == val) return key;
+	}
+	throw "Did not find <val>";
+}
+
+public map[str, str] nativeFlows = (
 		"eval": "eval",
         "parseInt": "parseInt",
         "parseFloat": "parseFloat",
@@ -608,6 +615,7 @@ private map[str, str] nativeFlows = (
         "Node_prototype_replaceChild": "replaceChild",
         "Node_prototype_isEqualNode": "isEqualNode",
         "Node_prototype_appendChild": "appendChild",
+        "Node_prototype_write": "write", //ADDED MANUALLY
         "NodeList": "NodeList",
         "NodeList_toString": "toString",
         "NodeList_prototype_item": "item",
