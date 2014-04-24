@@ -23,7 +23,13 @@ public Graph[Vertex] convertJsonToGraph(loc jsonFile, SourceLocationMapping sour
 			if (array(list[Value] targetValues) := members[base]) {
 				for (Value targetValue <- targetValues) {
 					if (string(target) := targetValue) {
-						callGraph += <parseCallee(base, sourceLocationMapping, sourceMapping), parseFunction(target, sourceLocationMapping, sourceMapping)>;
+						Vertex callee = parseCallee(base, sourceLocationMapping, sourceMapping);
+						if (matchesNativeElement(target)) {
+							//Create builtin nodes.
+							callGraph += { <callee, builtin> | builtin <- createBuiltinNodes(target) };
+						} else {
+							callGraph += <parseCallee(base, sourceLocationMapping, sourceMapping), parseFunction(target, sourceLocationMapping, sourceMapping)>;
+						}
 					} else throw "<targetValue> is not a string";
 				}
 			} else throw "<targetValueArray> is not an array";
@@ -37,18 +43,18 @@ private JSONText parse(loc jsonFile) = parse(#JSONText, readFile(jsonFile));
 public Vertex parseCallee(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) = Callee(parseLocation(stringValue, sourceLocationMapping, sourceMapping));
 
 public Vertex parseFunction(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) {
-	if (matchesNativeElement(stringValue)) return createBuiltinNode(stringValue);
-	else return Function(parseLocation(stringValue, sourceLocationMapping, sourceMapping));
+	return Function(parseLocation(stringValue, sourceLocationMapping, sourceMapping));
 }
 
 private bool matchesNativeElement(str string) = !contains(string, "@");
-public Vertex createBuiltinNode(str string) {
-	if (isNativeTarget(string)) return Builtin(getKeyByValue(string));
+
+public set[Vertex] createBuiltinNodes(str string) {
+	if (isNativeTarget(string)) return { Builtin(key) | key <- getKeysByValue(string) };
 	list[str] splitted = split(".", string);
 	int maxIndex = size(splitted);
 	for (i <- [1..maxIndex]) {
 		str joined = intercalate(".", splitted[i..]);
-		if (isNativeTarget(joined)) return Builtin(getKeyByValue(joined));
+		if (isNativeTarget(joined)) return { Builtin(key) | key <- getKeysByValue(joined) };
 	}
 	throw "Cannot extract call to native function from <string>";
 }

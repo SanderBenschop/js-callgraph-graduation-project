@@ -2,6 +2,7 @@ module NativeFlow
 
 import analysis::graphs::Graph;
 import Map;
+import Set;
 import String;
 
 import DataStructures;
@@ -20,11 +21,13 @@ public str convertNativeName(str val) {
 	return replaceAll(replaced, "document_", "Document_prototype_");
 }
 
-public str getKeyByValue(str val) {
+public set[str] getKeysByValue(str val) {
+	set[str] keys = {};
 	for(key <- nativeFlows) {
-		if(nativeFlows[key] == val) return key;
+		if(nativeFlows[key] == val) keys += key;
 	}
-	throw "Did not find <val>";
+	if (isEmpty(keys)) throw "Did not find <val>";
+	return keys;
 }
 
 public map[str, str] nativeFlows = (
