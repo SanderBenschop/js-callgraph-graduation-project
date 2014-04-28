@@ -10,10 +10,8 @@ import analysis::graphs::Graph;
 import VertexFactory;
 import utils::Utils;
 import utils::FileUtils;
-import utils::StringUtils;
 import NativeFlow;
- import Node;
- 
+
 import DataStructures;
 
 anno Tree Tree @ original;
@@ -75,7 +73,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 			");
 	}
 
-	private str addLastCallInformation(Tree nestedCall, loc location, Tree functionExpression) {
+	private str addLastCallInformation(Tree nestedCall, loc location) {
 		str formattedLoc = formatLoc(location);
 		allCallLocations += ("\"<formattedLoc>\"");
 		return "(function() {
@@ -90,18 +88,14 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	}
 	
 	private Tree markCall(functionExpression, functionCall) {
-		if ("original" in getAnnotations(functionCall) && functionCall@original in nestedExpressions) {
+		if (functionCall in nestedExpressions) {
 			println("Call <functionCall> is nested and will thus not be wrapped.");
 			return functionCall;
 		}
+		str functionName = unparse(functionExpression);
 		loc callLoc = functionCall@\loc;
-		str newUnparsedCall = addLastCallInformation(functionCall, callLoc, functionExpression);
-		try return parse(newUnparsedCall);
-		catch e: {
-			println("The following snippet caused an error while parsing");
-			println(newUnparsedCall);
-			throw e;
-		}
+		str newUnparsedCall = addLastCallInformation(functionCall, callLoc);
+		return parse(newUnparsedCall);
 	}
 	
 	private Tree markFunctionDeclLoc(id, params, body, nl, functionLoc) {
@@ -121,9 +115,16 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		Tree newBody = parse(#Block, newUnparsedBody);
 		return (Expression)`function <Id id> (<{Id ","}* params>) <Block newBody>`;
 	}
-	Tree replacedTree = annotateOriginalTreesForNewExpression(tree);
-	replacedTree = replaceThisOccurences(replacedTree);
-	replacedTree = visit(replacedTree) {
+	
+	Tree annotatedTree = visit(tree) {
+		case (Expression)`new <Expression e>` => addOriginalToExpression(e)
+	};
+	
+	Tree replacedTree = visit(annotatedTree) { 
+		case (Expression)`this` => (Expression)`THISREFERENCE` 
+	};
+	
+	Tree markedTree = visit(replacedTree) {
 		case func:(Expression)`function (<{Id ","}* params>) <Block body>` => markNamelessFunctionExpressionLoc(params, body, func@\loc)
 		case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>` => markNamedFunctionExpressionLoc(id, params, body, func@\loc)
 		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines nl>` => markFunctionDeclLoc(id, params, body, nl, func@\loc) 
@@ -134,27 +135,13 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
 	};
 	
-	return <allFunctionLocations, allCallLocations, unparse(replacedTree)>;
+	return <allFunctionLocations, allCallLocations, unparse(markedTree)>;
 }
 
-public Tree annotateOriginalTreesForNewExpression(Tree tree) {
-	return visit(tree) {
-		case newExpression:(Expression)`new <Expression e>` => addOriginalToExpression(e)
-	}
-}
-
-public Tree addOriginalToExpression(Tree expression) {
-	expression@original = expression;
-	return expression;
-}
-
-//Needs to be first to prevent var THISREFERENCE = THISREFERENCE;
-//But this causes the wrapping of nested elements to be wrong.
-//So I just compare against the original trees.
-public Tree replaceThisOccurences(Tree tree) {
-	return visit(tree) { 
-		case (Expression)`this` => (Expression)`THISREFERENCE` 
-	};
+public Tree addOriginalToExpression(Tree e) {
+	Tree newE = e;
+	newE@original = e;
+	return (Expression)`new <Expression newE>`;
 }
 
 public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
@@ -172,27 +159,3 @@ private str getInstrumentationCode(tuple[list[str] functions, list[str] calls] i
 	filledTemplate = replaceAll(filledTemplate, "$$allCallsJoined$$", allCallsJoined);
 	return filledTemplate;
 }
-
-
-//public Maybe[Tree] extractFunctionFromCall(Tree call) = extractFunctionFromCall(call, false);
-//public Maybe[Tree] extractFunctionFromCall(Tree call, bool returnSelf) {
-//	top-down visit(call) {
-//		case newExpression:(Expression)`new <Expression e>` : return extractFunctionFromCall(e, true);
-//		case functionCallParams:(Expression)`<Id e> ( <{ Expression!comma ","}+ _> )` : return just(e);
-//		case functionCallNoParams:(Expression)`<Id e>()` : return just(e);
-//		case functionCallParams:(Expression)`<Expression e1>.<Id e2> ( <{ Expression!comma ","}+ _> )` : {
-//			Tree e = (Expression)`<Expression e1>.<Id e2>`;
-//			return just(e);
-//		}
-//		case functionCallNoParams:(Expression)`<Expression e1>.<Id e2>()` : {
-//			Tree e = (Expression)`<Expression e1>.<Id e2>`;
-//			return just(e);
-//		}
-//	}
-//	return returnSelf ? just(call) : nothing();
-//}
-
-//private bool f(Tree tree) {
-//	return (Expression)`function (<{Id ","}* params>) <Block body>` := tree ||
-//		   (Expression)`function <Id id> (<{Id ","}* params>) <Block body>` := tree;
-//}
