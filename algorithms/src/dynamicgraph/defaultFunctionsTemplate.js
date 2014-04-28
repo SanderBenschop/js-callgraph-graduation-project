@@ -5,7 +5,6 @@ var ALL_FUNCTIONS = [$$allFunctionsJoined$$];
 var COVERED_FUNCTIONS = [];
 var ALL_CALLS = [$$allCallsJoined$$];
 var COVERED_CALLS = [];
-var ALL_FUNCTION_EXPRESSIONS = {$$allFunctionExpressions$$};
 
 function GET_UNCOVERED_FUNCTIONS() {
     return ALL_FUNCTIONS.filter(function(func) {

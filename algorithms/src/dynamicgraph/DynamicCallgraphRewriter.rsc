@@ -10,50 +10,58 @@ import analysis::graphs::Graph;
 import VertexFactory;
 import utils::Utils;
 import utils::FileUtils;
+import utils::StringUtils;
 import NativeFlow;
-
+ import Node;
+ 
 import DataStructures;
 
-public void rewrite(loc location) {
-	tuple[list[str] functions, list[str] calls, map[str,Tree] functionExpressions] result = isDirectory(location) ? rewriteFolder(location) : rewriteFile(location);
+anno Tree Tree @ original;
+
+public void rewrite(loc location) = rewrite(location, {});
+public void rewrite(loc location, set[str] excludePatterns) {
+	tuple[list[str] functions, list[str] calls] result = isDirectory(location) ? rewriteFolder(location, excludePatterns) : rewriteFile(location, excludePatterns);
 	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(result));
 }
-public tuple[list[str] functions, list[str] calls, map[str,Tree] functionExpressions] rewriteFolder(loc folderLoc) = rewriteFiles(folderLoc.ls, folderLoc);
-public tuple[list[str] functions, list[str] calls, map[str,Tree] functionExpressions] rewriteFile(loc file) = rewriteFiles([file], file.parent);
+public tuple[list[str] functions, list[str] calls] rewriteFolder(loc folderLoc, set[str] excludePatterns) = rewriteFiles(folderLoc.ls, folderLoc, excludePatterns);
+public tuple[list[str] functions, list[str] calls] rewriteFile(loc file, set[str] excludePatterns) = rewriteFiles([file], file.parent, excludePatterns);
 
-public tuple[list[str] functions, list[str] calls, map[str,Tree] functionExpressions] rewriteFiles(list[loc] files, loc sourceFolderLoc) {
+public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files, loc sourceFolderLoc, set[str] excludePatterns) {
 	loc targetFolder = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/|;
 	list[str] combinedFunctionNames = [], combinedCallNames = [];
-	map[str,Tree] combinedFunctionExpressions = ();
 	for (loc fileLoc <- files) {
 		int sourceFolderNameSize = size(sourceFolderLoc.uri);
 		str targetFolderSuffix = substring(fileLoc.uri, sourceFolderNameSize);
 		if (isDirectory(fileLoc)) {
 			println("Recursing into directory <fileLoc>");
-			tuple[list[str] functions, list[str] calls, map[str,Tree] functionExpressions] recursive = rewriteFiles(fileLoc.ls, sourceFolderLoc);
+			tuple[list[str] functions, list[str] calls] recursive = rewriteFiles(fileLoc.ls, sourceFolderLoc, excludePatterns);
 			combinedFunctionNames += recursive.functions;
 			combinedCallNames += recursive.calls;
-			combinedFunctionExpressions += recursive.functionExpressions;
-		} else if (fileLoc.extension == "js") {
+		} else if (fileLoc.extension == "js" && !excluded(fileLoc.uri, excludePatterns)) {
 			println("Rewriting file <fileLoc>");
 			Tree parseTree = parse(fileLoc);
-			tuple[list[str] allFunctionNames, list[str] allCallNames, map[str,Tree] allFunctionExpressions, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
+			tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
 			writeFile(targetFolder + targetFolderSuffix, output.rewrittenSource);
 			combinedFunctionNames += output.allFunctionNames;
 			combinedCallNames += output.allCallNames;
-			combinedFunctionExpressions += output.allFunctionExpressions;
 		} else {
 			println("Copying item <fileLoc> without altering as it is not a JavaScript file");
 			copyFile(fileLoc, targetFolder + targetFolderSuffix);
 		}
 	}
-	return <combinedFunctionNames, combinedCallNames, combinedFunctionExpressions>;
+	return <combinedFunctionNames, combinedCallNames>;
 }
 
-public tuple[list[str] allFunctionNames, list[str] allCallNames, map[str,Tree] functionExpressions, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree) {
+public bool excluded(str uri, set[str] patterns) {
+	for (str pattern <- patterns) {
+		if (/<pattern>/ := uri) return true;
+	}
+	return false;
+}
+
+public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree) {
 	list[Tree] nestedExpressions = getExpressionsNestedInNewExpression(tree);
 	list[str] allFunctionLocations = [], allCallLocations = [];
-	map[str, Tree] allFunctionExpressions = ();
 		
 	private str addFunctionLocToBody(str body, loc location) {
 		str formattedLoc = formatLoc(location);
@@ -67,18 +75,6 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, map[str,Tree] f
 			");
 	}
 
-	private str addNativeCallInformation(Tree nestedCall, loc location, str nativeFunctionName) {
-		str formattedLoc = formatLoc(location);
-		allCallLocations += ("\"<formattedLoc>\"");
-		return "(function() {
-		//Native call augmented
-		var location = \"<formattedLoc>\";
-		if(COVERED_CALLS.indexOf(location) === -1) COVERED_CALLS.push(location);
-		ADD_DYNAMIC_CALL_GRAPH_EDGE(location, \"<nativeFunctionName>\");
-		return <unparse(nestedCall)>;
-		}())";
-	}
-
 	private str addLastCallInformation(Tree nestedCall, loc location, Tree functionExpression) {
 		str formattedLoc = formatLoc(location);
 		allCallLocations += ("\"<formattedLoc>\"");
@@ -87,15 +83,6 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, map[str,Tree] f
 	  	var OLD_LAST_CALL_LOC = LAST_CALL_LOC;
 	  	LAST_CALL_LOC = \"<formattedLoc>\";
 	  	if(COVERED_CALLS.indexOf(LAST_CALL_LOC) === -1) COVERED_CALLS.push(LAST_CALL_LOC);
-	  	try {
-	  		var FUNCTION_EXPRESSION = ALL_FUNCTION_EXPRESSIONS[LAST_CALL_LOC];
-	  		var EVALUATED = eval(FUNCTION_EXPRESSION);
-		  	if(IS_NATIVE_FUNCTION(EVALUATED)) {
-		  		ADD_DYNAMIC_CALL_GRAPH_EDGE(LAST_CALL_LOC, FUNCTION_EXPRESSION);
-		  	}
-	  	} catch(e) {
-	  		console.log(\"Error trying to parse expression: \" + e);
-	  	}
 	  	var result = <unparse(nestedCall)>;
 	    LAST_CALL_LOC = OLD_LAST_CALL_LOC;
 	    return result;
@@ -103,7 +90,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, map[str,Tree] f
 	}
 	
 	private Tree markCall(functionExpression, functionCall) {
-		if (functionCall in nestedExpressions) {
+		if ("original" in getAnnotations(functionCall) && functionCall@original in nestedExpressions) {
 			println("Call <functionCall> is nested and will thus not be wrapped.");
 			return functionCall;
 		}
@@ -134,31 +121,8 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, map[str,Tree] f
 		Tree newBody = parse(#Block, newUnparsedBody);
 		return (Expression)`function <Id id> (<{Id ","}* params>) <Block newBody>`;
 	}
-	
-	private void addFunctionExpression(functionExpression, functionCall) {
-		loc callLoc = functionCall@\loc;
-		str formattedLoc = formatLoc(callLoc);
-		allFunctionExpressions += (formattedLoc : functionExpression);
-	}
-	
-	visit(tree) {
-		case newExpression:(Expression)`new <Expression e>` : addFunctionExpression(e, newExpression);
-		case functionCallParams:(Expression)`<Id e> ( <{ Expression!comma ","}+ _> )` : addFunctionExpression(e, functionCallParams);
-		case functionCallNoParams:(Expression)`<Id e>()` : addFunctionExpression(e, functionCallNoParams);
-		case functionCallParams:(Expression)`<Expression e1>.<Id e2> ( <{ Expression!comma ","}+ _> )` : {
-			Tree e = (Expression)`<Expression e1>.<Id e2>`;
-			addFunctionExpression(e, functionCallParams);
-		}
-		case functionCallNoParams:(Expression)`<Expression e1>.<Id e2>()` : {
-			Tree e = (Expression)`<Expression e1>.<Id e2>`;
-			addFunctionExpression(e, functionCallNoParams);
-		}
-	}
-	
-	Tree replacedTree = visit(tree) { 
-		case (Expression)`this` => (Expression)`THISREFERENCE` 
-	};
-	
+	Tree replacedTree = annotateOriginalTreesForNewExpression(tree);
+	replacedTree = replaceThisOccurences(replacedTree);
 	replacedTree = visit(replacedTree) {
 		case func:(Expression)`function (<{Id ","}* params>) <Block body>` => markNamelessFunctionExpressionLoc(params, body, func@\loc)
 		case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>` => markNamedFunctionExpressionLoc(id, params, body, func@\loc)
@@ -170,7 +134,27 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, map[str,Tree] f
 		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
 	};
 	
-	return <allFunctionLocations, allCallLocations, allFunctionExpressions, unparse(replacedTree)>;
+	return <allFunctionLocations, allCallLocations, unparse(replacedTree)>;
+}
+
+public Tree annotateOriginalTreesForNewExpression(Tree tree) {
+	return visit(tree) {
+		case newExpression:(Expression)`new <Expression e>` => addOriginalToExpression(e)
+	}
+}
+
+public Tree addOriginalToExpression(Tree expression) {
+	expression@original = expression;
+	return expression;
+}
+
+//Needs to be first to prevent var THISREFERENCE = THISREFERENCE;
+//But this causes the wrapping of nested elements to be wrong.
+//So I just compare against the original trees.
+public Tree replaceThisOccurences(Tree tree) {
+	return visit(tree) { 
+		case (Expression)`this` => (Expression)`THISREFERENCE` 
+	};
 }
 
 public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
@@ -181,22 +165,34 @@ public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
 	return nestedExpressions;
 }
 
-private str getInstrumentationCode(tuple[list[str] functions, list[str] calls, map[str,Tree] functionExpressions] information) {
+private str getInstrumentationCode(tuple[list[str] functions, list[str] calls] information) {
 	str allFunctionsJoined = intercalate(",", information.functions), allCallsJoined = intercalate(",", information.calls);;
 	str template = readFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/defaultFunctionsTemplate.js|);
 	str filledTemplate = replaceAll(template, "$$allFunctionsJoined$$", allFunctionsJoined);
 	filledTemplate = replaceAll(filledTemplate, "$$allCallsJoined$$", allCallsJoined);
-	
-	list[str] functionExpressionJson = [];
-	for (str key <- information.functionExpressions) {
-		Tree val = information.functionExpressions[key];
-		str unparsedVal = unparse(val);
-		str unparsedEscapedVal = replaceAll(unparsedVal, "\"", "\\\"");
-		functionExpressionJson += "\"<key>\" : \"<unparsedEscapedVal>\"";
-	}
-	str allFunctionExpressionsJoined = intercalate(",", functionExpressionJson);
-	
-	filledTemplate = replaceAll(filledTemplate, "$$allFunctionExpressions$$", allFunctionExpressionsJoined);
-	
 	return filledTemplate;
 }
+
+
+//public Maybe[Tree] extractFunctionFromCall(Tree call) = extractFunctionFromCall(call, false);
+//public Maybe[Tree] extractFunctionFromCall(Tree call, bool returnSelf) {
+//	top-down visit(call) {
+//		case newExpression:(Expression)`new <Expression e>` : return extractFunctionFromCall(e, true);
+//		case functionCallParams:(Expression)`<Id e> ( <{ Expression!comma ","}+ _> )` : return just(e);
+//		case functionCallNoParams:(Expression)`<Id e>()` : return just(e);
+//		case functionCallParams:(Expression)`<Expression e1>.<Id e2> ( <{ Expression!comma ","}+ _> )` : {
+//			Tree e = (Expression)`<Expression e1>.<Id e2>`;
+//			return just(e);
+//		}
+//		case functionCallNoParams:(Expression)`<Expression e1>.<Id e2>()` : {
+//			Tree e = (Expression)`<Expression e1>.<Id e2>`;
+//			return just(e);
+//		}
+//	}
+//	return returnSelf ? just(call) : nothing();
+//}
+
+//private bool f(Tree tree) {
+//	return (Expression)`function (<{Id ","}* params>) <Block body>` := tree ||
+//		   (Expression)`function <Id id> (<{Id ","}* params>) <Block body>` := tree;
+//}
