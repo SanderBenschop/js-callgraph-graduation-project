@@ -11,6 +11,7 @@ import VertexFactory;
 import utils::Utils;
 import utils::FileUtils;
 import NativeFlow;
+import Node;
 
 import DataStructures;
 
@@ -88,7 +89,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	}
 	
 	private Tree markCall(functionExpression, functionCall) {
-		if (functionCall in nestedExpressions) {
+		if ("original" in getAnnotations(functionCall) && functionCall@original in nestedExpressions) {
 			println("Call <functionCall> is nested and will thus not be wrapped.");
 			return functionCall;
 		}
