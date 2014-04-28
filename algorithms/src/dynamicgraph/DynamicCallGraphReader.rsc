@@ -23,12 +23,14 @@ public Graph[Vertex] convertJsonToGraph(loc jsonFile, SourceLocationMapping sour
 			if (array(list[Value] targetValues) := members[base]) {
 				for (Value targetValue <- targetValues) {
 					if (string(target) := targetValue) {
-						Vertex callee = parseCallee(base, sourceLocationMapping, sourceMapping);
-						if (matchesNativeElement(target)) {
-							//Create builtin nodes.
-							callGraph += { <callee, builtin> | builtin <- createBuiltinNodes(target) };
-						} else {
-							callGraph += <parseCallee(base, sourceLocationMapping, sourceMapping), parseFunction(target, sourceLocationMapping, sourceMapping)>;
+						if (!isEmpty(target)) {
+							Vertex callee = parseCallee(base, sourceLocationMapping, sourceMapping);
+							if (matchesNativeElement(target)) {
+								//Create builtin nodes.
+								callGraph += { <callee, builtin> | builtin <- createBuiltinNodes(target) };
+							} else {
+								callGraph += <parseCallee(base, sourceLocationMapping, sourceMapping), parseFunction(target, sourceLocationMapping, sourceMapping)>;
+							}
 						}
 					} else throw "<targetValue> is not a string";
 				}
@@ -56,7 +58,8 @@ public set[Vertex] createBuiltinNodes(str string) {
 		str joined = intercalate(".", splitted[i..]);
 		if (isNativeTarget(joined)) return { Builtin(key) | key <- getKeysByValue(joined) };
 	}
-	throw "Cannot extract call to native function from <string>";
+	println("WARNING - Cannot extract call to native function from <string>");
+	return {};
 }
 
 public loc parseLocation(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) {
@@ -73,7 +76,7 @@ public loc parseLocation(str stringValue, SourceLocationMapping sourceLocationMa
 		int length = endColumnInt - startColumnInt;
 		loc sourceLocation = sourceLocationMapping[fileName];
 		return sourceLocation(startColumnInt, length, <lineNumberInt, overallStartColumn>, <endLine,overallEndColumn>);
-	} else throw "Not a valid call graph location";
+	} else throw "Not a valid call graph location : <stringValue>";
 }
 
 public int extractEndline(int startLine, str subString) {

@@ -10,7 +10,8 @@ import analysis::graphs::Graph;
 import VertexFactory;
 import utils::Utils;
 import utils::FileUtils;
-import NativeFlow;
+import utils::StringUtils;
+import NativeFlow;	
 import Node;
 
 import DataStructures;
@@ -69,20 +70,29 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 			  //Function augmented
 			  var THISREFERENCE = this;
 			  var FUNCTION_LOC = \"<formattedLoc>\";
+			  CALL_STACK.push(FUNCTION_LOC);
 			  if(COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
 			  if (LAST_CALL_LOC !== undefined) ADD_DYNAMIC_CALL_GRAPH_EDGE(LAST_CALL_LOC, FUNCTION_LOC);
 			");
 	}
 
-	private str addLastCallInformation(Tree nestedCall, loc location) {
+	private str addLastCallInformation(Tree nestedCall, loc location, Tree functionExpression) {
 		str formattedLoc = formatLoc(location);
 		allCallLocations += ("\"<formattedLoc>\"");
+		str call = unparse(nestedCall);
+		str functionExpressionString = unparse(functionExpression);
 		return "(function() {
 		//Call augmented
 	  	var OLD_LAST_CALL_LOC = LAST_CALL_LOC;
 	  	LAST_CALL_LOC = \"<formattedLoc>\";
 	  	if(COVERED_CALLS.indexOf(LAST_CALL_LOC) === -1) COVERED_CALLS.push(LAST_CALL_LOC);
-	  	var result = <unparse(nestedCall)>;
+	  	var LENGTH_BEFORE = CALL_STACK.length;
+	  	var result = <call>;
+	  	if (CALL_STACK.length === LENGTH_BEFORE) {
+	  		ADD_DYNAMIC_CALL_GRAPH_EDGE(LAST_CALL_LOC, \'<convertToDynamicTarget(functionExpressionString)>\');
+	  	} else {
+	  		CALL_STACK.pop();
+	  	}
 	    LAST_CALL_LOC = OLD_LAST_CALL_LOC;
 	    return result;
 	    }())";
@@ -95,8 +105,14 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		}
 		str functionName = unparse(functionExpression);
 		loc callLoc = functionCall@\loc;
-		str newUnparsedCall = addLastCallInformation(functionCall, callLoc);
-		return parse(newUnparsedCall);
+		str newUnparsedCall = addLastCallInformation(functionCall, callLoc, functionExpression);
+		try 
+			return parse(newUnparsedCall);
+		catch e: {
+			println("Error parsing next snippet:");
+			println(newUnparsedCall);
+			throw e;
+		}
 	}
 	
 	private Tree markFunctionDeclLoc(id, params, body, nl, functionLoc) {
@@ -118,7 +134,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	}
 	
 	Tree annotatedTree = visit(tree) {
-		case (Expression)`new <Expression e>` => addOriginalToExpression(e)
+		case newE:(Expression)`new <Expression e>` => addOriginalToExpression(e, newE@\loc)
 	};
 	
 	Tree replacedTree = visit(annotatedTree) { 
@@ -139,10 +155,14 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	return <allFunctionLocations, allCallLocations, unparse(markedTree)>;
 }
 
-public Tree addOriginalToExpression(Tree e) {
-	Tree newE = e;
-	newE@original = e;
-	return (Expression)`new <Expression newE>`;
+public Tree addOriginalToExpression(Tree e, loc newELoc) {
+	Tree replacedE = e;
+	replacedE@original = e;
+	replacedE@\loc = e@\loc;
+	
+	Tree replacedNewE = (Expression)`new <Expression replacedE>`;
+	replacedNewE@\loc = newELoc;
+	return replacedNewE;
 }
 
 public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
