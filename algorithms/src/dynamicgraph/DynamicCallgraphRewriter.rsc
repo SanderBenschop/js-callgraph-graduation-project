@@ -18,15 +18,15 @@ import DataStructures;
 
 anno Tree Tree @ original;
 
-public void rewrite(loc location) = rewrite(location, {});
-public void rewrite(loc location, set[str] excludePatterns) {
-	tuple[list[str] functions, list[str] calls] result = isDirectory(location) ? rewriteFolder(location, excludePatterns) : rewriteFile(location, excludePatterns);
+public void rewrite(loc location) = rewrite(location, {}, {});
+public void rewrite(loc location, set[str] excludePatterns, set[str] frameworkPatterns) {
+	tuple[list[str] functions, list[str] calls] result = isDirectory(location) ? rewriteFolder(location, excludePatterns, frameworkPatterns) : rewriteFile(location, excludePatterns, frameworkPatterns);
 	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(result));
 }
-public tuple[list[str] functions, list[str] calls] rewriteFolder(loc folderLoc, set[str] excludePatterns) = rewriteFiles(folderLoc.ls, folderLoc, excludePatterns);
-public tuple[list[str] functions, list[str] calls] rewriteFile(loc file, set[str] excludePatterns) = rewriteFiles([file], file.parent, excludePatterns);
+public tuple[list[str] functions, list[str] calls] rewriteFolder(loc folderLoc, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles(folderLoc.ls, folderLoc, excludePatterns, frameworkPatterns);
+public tuple[list[str] functions, list[str] calls] rewriteFile(loc file, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles([file], file.parent, excludePatterns, frameworkPatterns);
 
-public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files, loc sourceFolderLoc, set[str] excludePatterns) {
+public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files, loc sourceFolderLoc, set[str] excludePatterns, set[str] frameworkPatterns) {
 	loc targetFolder = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/|;
 	list[str] combinedFunctionNames = [], combinedCallNames = [];
 	for (loc fileLoc <- files) {
@@ -34,13 +34,15 @@ public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files,
 		str targetFolderSuffix = substring(fileLoc.uri, sourceFolderNameSize);
 		if (isDirectory(fileLoc)) {
 			println("Recursing into directory <fileLoc>");
-			tuple[list[str] functions, list[str] calls] recursive = rewriteFiles(fileLoc.ls, sourceFolderLoc, excludePatterns);
+			tuple[list[str] functions, list[str] calls] recursive = rewriteFiles(fileLoc.ls, sourceFolderLoc, excludePatterns, frameworkPatterns);
 			combinedFunctionNames += recursive.functions;
 			combinedCallNames += recursive.calls;
-		} else if (fileLoc.extension == "js" && !excluded(fileLoc.uri, excludePatterns)) {
+		} else if (fileLoc.extension == "js" && !matchesAPattern(fileLoc.uri, excludePatterns)) {
 			println("Rewriting file <fileLoc>");
 			Tree parseTree = parse(fileLoc);
-			tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree);
+			bool isFrameworkFile = matchesAPattern(fileLoc.uri, frameworkPatterns);
+			if (isFrameworkFile) println("WARNING - File <fileLoc.uri> is treated as a framework file. Only call targets will be placed. Coverage will not be counted.");
+			tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] output = rewriteForDynamicCallGraph(parseTree, isFrameworkFile);
 			writeFile(targetFolder + targetFolderSuffix, output.rewrittenSource);
 			combinedFunctionNames += output.allFunctionNames;
 			combinedCallNames += output.allCallNames;
@@ -52,26 +54,26 @@ public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files,
 	return <combinedFunctionNames, combinedCallNames>;
 }
 
-public bool excluded(str uri, set[str] patterns) {
+public bool matchesAPattern(str uri, set[str] patterns) {
 	for (str pattern <- patterns) {
 		if (/<pattern>/ := uri) return true;
 	}
 	return false;
 }
 
-public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree) {
+public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree, bool isFrameworkFile) {
 	list[Tree] nestedExpressions = getExpressionsNestedInNewExpression(tree);
 	list[str] allFunctionLocations = [], allCallLocations = [];
 		
 	private str addFunctionLocToBody(str body, loc location) {
 		str formattedLoc = formatLoc(location);
-		allFunctionLocations += ("\"<formattedLoc>\"");
+		if (!isFrameworkFile) allFunctionLocations += ("\"<formattedLoc>\"");
 		return replaceFirst(body, "{", "{
 			  //Function augmented
 			  var THISREFERENCE = this;
 			  var FUNCTION_LOC = \"<formattedLoc>\";
 			  CALL_STACK.push(FUNCTION_LOC);
-			  if(COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
+			  if(<!isFrameworkFile> && COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
 			  if (LAST_CALL_LOC !== undefined) ADD_DYNAMIC_CALL_GRAPH_EDGE(LAST_CALL_LOC, FUNCTION_LOC);
 			");
 	}
@@ -99,7 +101,10 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	}
 	
 	private Tree markCall(functionExpression, functionCall) {
-		if ("original" in getAnnotations(functionCall) && functionCall@original in nestedExpressions) {
+		if (isFrameworkFile) {
+			println("Call <functionCall> is a framework call and will thus not be wrapped.");
+			return functionCall;
+		} else if ("original" in getAnnotations(functionCall) && functionCall@original in nestedExpressions) {
 			println("Call <functionCall> is nested and will thus not be wrapped.");
 			return functionCall;
 		}
@@ -132,7 +137,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		Tree newBody = parse(#Block, newUnparsedBody);
 		return (Expression)`function <Id id> (<{Id ","}* params>) <Block newBody>`;
 	}
-	
+		
 	Tree annotatedTree = visit(tree) {
 		case newE:(Expression)`new <Expression e>` => addOriginalToExpression(e, newE@\loc)
 	};
