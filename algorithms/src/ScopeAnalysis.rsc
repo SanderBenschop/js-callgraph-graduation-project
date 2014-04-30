@@ -8,7 +8,7 @@ import EcmaScript;
 import IO;
 import String;
 
-//Rewrite to fold
+//TODO: Rewrite to fold
 public SymbolTableMap createSymbolTableMap(list[Tree] trees) {
 	SymbolTableMap mergedMap = ();
 	for (Tree tree <- trees) {
@@ -28,20 +28,39 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	println("Creating symbol map");
 	SymbolMap symbolMap = ();
 	
-	private void annotateVariableDecl(va, id, expression) {
-		annotateVariableDecl(va, id);
+	private void annotateVariableDecl(id, expression) {
+		annotateVariableDecl(id);
 		doVisit(expression);
 	}
 	
-	private void annotateVariableDecl(va, id) {
-		println("Annotation variableDeclaration <va> with scope.");
+	private void annotateVariableDecl(id) {
 		str name = unparse(id);
 		symbolMap += (name : declaration(id@\loc));
 		symbolTableMap += (id@\loc : createSymbolTable(symbolMap, parent));
 	}
 	
+	private void annotateVariableDeclarations(variableDeclarations) {
+		for (element <- variableDeclarations) {
+			if ((VariableDeclaration)`<Id id>` := element) {
+				annotateVariableDecl(id);
+			} else if ((VariableDeclaration)`<Id id> = <Expression expression>` := element) {
+				annotateVariableDecl(id, expression);
+			}
+		}
+	}
+	
+	private void annotateVariableDeclarationsNoIn(variableDeclarationsNoIn) {
+		for (element <- variableDeclarationsNoIn) {
+			if ((VariableDeclarationNoIn)`<Id id>` := element) {
+				annotateVariableDecl(id);
+			} else if ((VariableDeclarationNoIn)`<Id id> = <Expression expression>` := element) {
+				annotateVariableDecl(id, expression);
+			}
+		}
+	}
+	
 	private void annotateElementWithCurrentScope(Tree element) {
-		println("Annotating <element> with current scope");
+		println("Annotating <element> at loc <element@\loc> with current scope");
 		symbolTableMap += (element@\loc : createSymbolTable(symbolMap, parent));
 	}
 	
@@ -67,15 +86,39 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	}
 	
 	private void doVisit(visitTree) {
-		top-down-break visit(visitTree) {
-			case varDecl:(VariableDeclaration)`<Id id>` : annotateVariableDecl(varDecl, id);
-			case varDecl:(VariableDeclaration)`<Id id> = <Expression expression>` : annotateVariableDecl(varDecl, id, expression);
-			case varDecl:(VariableDeclarationNoIn)`<Id id>` : annotateVariableDecl(varDecl, id);
-			case varDecl:(VariableDeclarationNoIn)`<Id id> = <Expression expression>` : annotateVariableDecl(varDecl, id, expression);
-
+		top-down-break visit(visitTree) {		
+			
+			case varDeclNoSemi: (Statement)`var <{VariableDeclaration ","}+ declarations>` : annotateVariableDeclarations(declarations);
+			case varDeclSemi: (Statement)`var <{VariableDeclaration ","}+ declarations>;` : annotateVariableDeclarations(declarations);
+			
+			case forDoDeclarations:(Statement)`for ( var <{VariableDeclarationNoIn ","}+ declarations> ; <{Expression ","}* conditions> ; <{Expression ","}* loopOperations> ) <Statement statements>` : {
+				annotateVariableDeclarationsNoIn(declarations);
+				doVisit(conditions);
+				doVisit(loopOperations);
+				doVisit(statements);
+			}
+			case forInDeclaration:(Statement)`for ( var <Id id> in <Expression expression> ) <Statement statements>` : {
+				annotateVariableDecl(id);
+				doVisit(expression);
+				doVisit(statements);
+			}
+			
+			//TODO: if they aren't declarations with a var statement, still they need the scope map.
+			
 			case (Expression)`<Id id>` : annotateElementWithCurrentScope(id);
 			case this:(Expression)`this` : annotateElementWithCurrentScope(this);
-
+			
+			case varDecl:(VariableDeclaration)`<Id id>` : annotateElementWithCurrentScope(id);
+			case varDecl:(VariableDeclarationNoIn)`<Id id>` : annotateElementWithCurrentScope(id);
+			case varDecl:(VariableDeclaration)`<Id id> = <Expression expression>` : {
+				annotateElementWithCurrentScope(id);
+				doVisit(expression);
+			}
+			case varDecl:(VariableDeclarationNoIn)`<Id id> = <Expression expression>` : {
+				annotateElementWithCurrentScope(id);
+				doVisit(expression);
+			}
+			
 			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), func@\loc, params, body); 
 			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), func@\loc, params, body);
 			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", func@\loc, params, body);

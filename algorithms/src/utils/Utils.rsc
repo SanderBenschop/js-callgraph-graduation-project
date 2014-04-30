@@ -33,7 +33,7 @@ public list[Tree] extractArguments(call) {
 	} else if ((Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )` := call) {
 		return iterableToTreeList(args);
 	} else if ((Expression)`new <Expression e>` := call) {
-		return extractArguments(e);
+		return ((Expression)`<Expression _> ( <{ Expression!comma ","}+ args> )` := e) ? iterableToTreeList(args) : [];
 	}
 	throw "Passed arugment <call> is not a call";
 }

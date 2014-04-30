@@ -12,7 +12,12 @@ public Vertex createVertex(element, symbolTableMap) {
 	private Vertex processId(Id id) = processId(unparse(id));
 	
 	private Vertex processId(str id) {
-		SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
+		try 
+			SymbolTable elementSymbolTable = symbolTableMap[elementLocation];
+		catch e: {
+			println("There is no symbolTableMap for loc <elementLocation>");
+			throw e;
+		}
 		Maybe[Identifier] foundId = find(id, elementSymbolTable);
 		if (!isRootSymbolTable(elementSymbolTable) && just(declaration(location)) := foundId) {
 			return Variable(id, location);

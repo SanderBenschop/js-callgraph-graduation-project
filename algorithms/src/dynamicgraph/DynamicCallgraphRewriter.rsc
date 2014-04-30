@@ -11,6 +11,7 @@ import VertexFactory;
 import utils::Utils;
 import utils::FileUtils;
 import utils::StringUtils;
+import utils::GraphUtils;
 import NativeFlow;	
 import Node;
 
@@ -52,13 +53,6 @@ public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files,
 		}
 	}
 	return <combinedFunctionNames, combinedCallNames>;
-}
-
-public bool matchesAPattern(str uri, set[str] patterns) {
-	for (str pattern <- patterns) {
-		if (/<pattern>/ := uri) return true;
-	}
-	return false;
 }
 
 public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree, bool isFrameworkFile) {
