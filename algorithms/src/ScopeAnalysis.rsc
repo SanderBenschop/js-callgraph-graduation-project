@@ -65,24 +65,27 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	}
 	
 
-	private void annotateFunction(str optId, loc functionLoc, params, body) {
+	private void annotateFunction(str optId, loc functionLoc, params, body) {		
 		if (!isEmpty(optId)) {
 			println("Adding function <optId> to symbolMap.");
 			symbolMap += (optId : declaration(functionLoc));
 		}
 		
-		//Add 'this' to scope.
-		symbolMap += ("this" : parameter(functionLoc, 0));
-
+		SymbolMap oldSymbolMap = symbolMap;
 		int i = 1;
 		for (Id param <- params) {
 			str name = unparse(param);
 			symbolMap += (name : parameter(functionLoc, i));
 			i += 1;
 		}
-				
+		
+		//Add 'this' to scope.
+		symbolMap += ("this" : parameter(functionLoc, 0));
+		
 		println("Recursing into body of function");
 		symbolTableMap += createSymbolTableMap(body, createSymbolTable(symbolMap, parent));
+		println("Finished recursing into function body, restoring symbol map.");
+		symbolMap = oldSymbolMap;
 	}
 	
 	private void doVisit(visitTree) {

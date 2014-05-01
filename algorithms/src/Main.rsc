@@ -1,4 +1,4 @@
-module Main
+	module Main
 
 import analysis::graphs::Graph;
 
