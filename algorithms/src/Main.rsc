@@ -1,4 +1,4 @@
-	module Main
+module Main
 
 import analysis::graphs::Graph;
 
@@ -11,6 +11,7 @@ public Graph[Vertex] createPessimisticFlowGraph(source) = newGraph(source, [with
 public Graph[Vertex] createPessimisticFlowGraphTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure]);
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createPessimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure], andExtractPessimisticCallGraph);
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createCleanPessimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure, andRemoveTreeAnnotations], andExtractPessimisticCallGraph);
+public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createCleanPessimisticCallGraphWithoutTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, andRemoveTreeAnnotations], andExtractPessimisticCallGraph);
 
 public Graph[Vertex] createCommonFlowGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withCommonInterproceduralFlow]);
 public Graph[Vertex] createCommonFlowGraphWithoutNatives(source) = newGraph(source, [withIntraproceduralFlow, withCommonInterproceduralFlow]);

@@ -24,6 +24,23 @@ import String;
 	}
 */
 
+/*
+	TODO: Variable hoisting? Does this matter?
+	
+	The following alerts undefined:
+	function f() {
+	    alert(a);
+	    var a = 2;
+	}
+	f();
+	
+	The following throws a reference error:
+	function f() {
+	    alert(a);
+	}
+	f();
+ */
+
 //TODO: Rewrite to fold
 public SymbolTableMap createSymbolTableMap(list[Tree] trees) {
 	SymbolTableMap mergedMap = ();
@@ -81,7 +98,11 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	}
 	
 
-	private void annotateFunction(str optId, loc functionLoc, params, body) {		
+	/*
+		Returns the full symbolMap which will be available inside the function, but reverts the global map
+		so the parameters and "this" don't leak out.
+	 */
+	private void annotateFunction(str optId, loc functionLoc, params, Maybe[Block] optionalBody) {
 		if (!isEmpty(optId)) {
 			println("Adding function <optId> to symbolMap.");
 			symbolMap += (optId : declaration(functionLoc));
@@ -97,13 +118,28 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		
 		symbolMap += ("this" : parameter(functionLoc, 0));
 		
-		println("Recursing into body of function");
-		symbolTableMap += createSymbolTableMap(body, createSymbolTable(symbolMap, parent));
-		println("Finished recursing into function body, restoring symbol map.");
+		if (just(body) := optionalBody) {
+			symbolTableMap += createSymbolTableMap(body, createSymbolTable(symbolMap, parent));
+		}
+		
 		symbolMap = oldSymbolMap;
 	}
 	
-	private void doVisit(visitTree) {
+	private Tree hoistFunctionDeclarations(visitTree) = top-down-break visit(visitTree) {
+		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>` : {
+			println("Adding function <id> to symbolMap.");
+			symbolMap += (unparse(id) : declaration(func@\loc));
+		}
+		case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: {
+			//Break
+		};
+		case func:(Expression)`function (<{Id ","}* params>) <Block body>`: {
+			//Break			
+		};
+	};
+	
+	hoistFunctionDeclarations(tree);
+	private void doVisit(visitTree) {	
 		top-down-break visit(visitTree) {
 			
 			case varDeclNoSemi: (Statement)`var <{VariableDeclaration ","}+ declarations>` : annotateVariableDeclarations(declarations);
@@ -136,10 +172,9 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 				annotateElementWithCurrentScope(id);
 				doVisit(expression);
 			}
-			
-			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), func@\loc, params, body); 
-			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), func@\loc, params, body);
-			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", func@\loc, params, body);
+			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), func@\loc, params, just(body));
+			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), func@\loc, params, just(body));
+			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", func@\loc, params, just(body));
 		}
 	}
 	
