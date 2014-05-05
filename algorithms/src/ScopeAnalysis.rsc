@@ -72,12 +72,14 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		symbolTableMap += (id@\loc : createSymbolTable(symbolMap, parent));
 	}
 	
-	private void annotateVariableDeclarations(variableDeclarations) {
+	private void annotateVariableDeclarations(variableDeclarations) = annotateVariableDeclarations(variableDeclarations, true);
+	private void annotateVariableDeclarations(variableDeclarations, bool recurse) {
 		for (element <- variableDeclarations) {
 			if ((VariableDeclaration)`<Id id>` := element) {
 				annotateVariableDecl(id);
 			} else if ((VariableDeclaration)`<Id id> = <Expression expression>` := element) {
-				annotateVariableDecl(id, expression);
+				if (recurse) annotateVariableDecl(id, expression);
+				else annotateVariableDecl(id);
 			}
 		}
 	}
@@ -125,7 +127,9 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		symbolMap = oldSymbolMap;
 	}
 	
-	private Tree hoistFunctionDeclarations(visitTree) = top-down-break visit(visitTree) {
+	top-down-break visit(tree) {
+		case varDeclNoSemi: (Statement)`var <{VariableDeclaration ","}+ declarations>` : annotateVariableDeclarations(declarations, false);
+		case varDeclSemi: (Statement)`var <{VariableDeclaration ","}+ declarations>;` : annotateVariableDeclarations(declarations, false);
 		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>` : {
 			println("Adding function <id> to symbolMap.");
 			symbolMap += (unparse(id) : declaration(func@\loc));
@@ -136,9 +140,8 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		case func:(Expression)`function (<{Id ","}* params>) <Block body>`: {
 			//Break			
 		};
-	};
+	}
 	
-	hoistFunctionDeclarations(tree);
 	private void doVisit(visitTree) {	
 		top-down-break visit(visitTree) {
 			
