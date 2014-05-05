@@ -37,21 +37,18 @@ data Identifier
 	| parameter(loc enclosingFunctionLocation, int index)
 	;
 
-public Maybe[Identifier] find(str name, child(map[str, Identifier] symbolMap, SymbolTable parent)) {
+public Maybe[tuple[Identifier id, bool globalScope]] find(str name, child(map[str, Identifier] symbolMap, SymbolTable parent)) {
 	if (name in symbolMap) {
-		return just(symbolMap[name]);
+		return just(<symbolMap[name], false>);
 	} else {
 		return find(name, parent);
 	}
 }
 
-public Maybe[Identifier] find(str name, root(map[str, Identifier] symbolMap)) {
+public Maybe[tuple[Identifier id, bool globalScope]] find(str name, root(map[str, Identifier] symbolMap)) {
 	if (name in symbolMap) {
-		return just(symbolMap[name]);
+		return just(<symbolMap[name], true>);
 	} else {
 		return nothing();
 	}
 }
-
-public bool isRootSymbolTable(root(_)) = true;
-public default bool isRootSymbolTable(SymbolTable _) = false;

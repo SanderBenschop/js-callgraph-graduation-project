@@ -18,10 +18,10 @@ public Vertex createVertex(element, symbolTableMap) {
 			println("There is no symbolTableMap for loc <elementLocation>");
 			throw e;
 		}
-		Maybe[Identifier] foundId = find(id, elementSymbolTable);
-		if (!isRootSymbolTable(elementSymbolTable) && just(declaration(location)) := foundId) {
+		Maybe[tuple[Identifier id, bool globalScope]] foundId = find(id, elementSymbolTable);
+		if (just(<declaration(location), false>) := foundId) {
 			return Variable(id, location);
-		} else if (just(parameter(enclosingFunctionLocation, index)) := foundId) {
+		} else if (just(<parameter(enclosingFunctionLocation, index), _>) := foundId) {
 			return Parameter(enclosingFunctionLocation, index);
 		}
 		return Property(id);

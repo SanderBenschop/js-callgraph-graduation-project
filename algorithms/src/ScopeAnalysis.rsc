@@ -8,6 +8,22 @@ import EcmaScript;
 import IO;
 import String;
 
+/*
+	TODO: make function declaration order unimportant.
+	This will print "Hello World":
+	
+	y();
+	function y() {
+	    console.log("Hello World");
+	}
+	
+	But this won't:
+	y();
+	y = function() {
+	    console.log("Hello World");
+	}
+*/
+
 //TODO: Rewrite to fold
 public SymbolTableMap createSymbolTableMap(list[Tree] trees) {
 	SymbolTableMap mergedMap = ();
@@ -79,7 +95,6 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 			i += 1;
 		}
 		
-		//Add 'this' to scope.
 		symbolMap += ("this" : parameter(functionLoc, 0));
 		
 		println("Recursing into body of function");
@@ -89,7 +104,7 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 	}
 	
 	private void doVisit(visitTree) {
-		top-down-break visit(visitTree) {		
+		top-down-break visit(visitTree) {
 			
 			case varDeclNoSemi: (Statement)`var <{VariableDeclaration ","}+ declarations>` : annotateVariableDeclarations(declarations);
 			case varDeclSemi: (Statement)`var <{VariableDeclaration ","}+ declarations>;` : annotateVariableDeclarations(declarations);
