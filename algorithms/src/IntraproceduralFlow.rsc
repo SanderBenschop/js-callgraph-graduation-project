@@ -55,11 +55,13 @@ public Graph[Vertex] getIntraproceduralFlow(trees, SymbolTableMap symbolTableMap
 			graph += <createFunctionVertex(functionExprNameless), createExpressionVertex(functionExprNameless)>;
 		}
 		case functionExprNamed:(Expression)`function <Id id> (<{Id ","}* _>) <Block _>`: {
+			SymbolTable symbolTable = symbolTableMap[functionExprNamed@\loc];
 			graph += <createFunctionVertex(functionExprNamed), createExpressionVertex(functionExprNamed)>;
-			graph += <createFunctionVertex(functionExprNamed), createVariableVertex(id, functionExprNamed)>;
+			graph += <createFunctionVertex(functionExprNamed), createFunctionTargetVertex(id, functionExprNamed, symbolTable)>;
 		}
 		case functionDecl:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: {
-			graph += <createFunctionVertex(functionDecl), createVariableVertex(id, functionDecl)>;
+			SymbolTable symbolTable = symbolTableMap[functionDecl@\loc];
+			graph += <createFunctionVertex(functionDecl), createFunctionTargetVertex(id, functionDecl, symbolTable)>;
 		}
 	}
 	return graph;

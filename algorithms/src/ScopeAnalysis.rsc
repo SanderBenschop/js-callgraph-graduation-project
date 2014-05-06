@@ -75,11 +75,12 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		}
 	}
 	
-	private void annotateElementWithCurrentScope(Tree element) {
-		println("Annotating <element> at loc <element@\loc> with current scope");
-		symbolTableMap += (element@\loc : createSymbolTable(symbolMap, parent));
-	}
+	private void annotateElementWithCurrentScope(Tree element) = annotateElementWithCurrentScope(element@\loc);
 	
+	private void annotateElementWithCurrentScope(loc elementLoc) {
+		println("Annotating element at loc <elementLoc> with current scope");
+		symbolTableMap += (elementLoc : createSymbolTable(symbolMap, parent));
+	}
 
 	private void annotateFunction(str optId, loc functionLoc, params, body) {		
 		if (!isEmpty(optId)) {
@@ -101,6 +102,9 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 		symbolTableMap += createSymbolTableMap(body, createSymbolTable(symbolMap, parent));
 		println("Finished recursing into function body, restoring symbol map.");
 		symbolMap = oldSymbolMap;
+		
+		//Add the scope to the function so the algorithm can see if a function is in global scope or not.
+		annotateElementWithCurrentScope(functionLoc);
 	}
 	
 	private void doVisit(visitTree) {
