@@ -4,6 +4,7 @@ import EcmaScript;
 import util::Maybe;
 import ParseTree;
 import IO;
+import Configuration;
 
 import DataStructures;
 
@@ -43,6 +44,13 @@ public Vertex createFunctionVertex(element) {
 
 public Vertex createExpressionVertex(element) {
 	return Expression(element@\loc);
+}
+
+public Vertex createFunctionTargetVertex(name, element, SymbolTable symbolTable) {
+	if (globalFunctionAsProperties && root(_) := symbolTable) {
+		return createPropertyVertex(name);
+	}
+	return createVariableVertex(name, element);
 }
 
 public Vertex createVariableVertex(name, element) {
