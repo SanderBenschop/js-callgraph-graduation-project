@@ -76,6 +76,11 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 			// Return statements
 			case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
 			case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);
+			case Statement s: {
+				if (returnExpNoSemiBlockEnd(Expression e, _) := s) {
+					processR10(s, e);
+				} else fail;
+			}
 		}
 	}
 	doVisit(trees);
@@ -109,6 +114,11 @@ private map [loc, loc] getEnclosingFunctionLocations(trees) {
 			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: markFunction(func, body);
 			case returnExpSemi:(Statement)`return <Expression e>;`: markReturn(returnExpSemi, e);
 			case returnExpNoSemi:(Statement)`return <Expression e>`: markReturn(returnExpNoSemi, e);
+			case Statement s: {
+				if (returnExpNoSemiBlockEnd(Expression e, _) := s) {
+					markReturn(s, e);
+				} else fail;
+			}
 		}
 	}
 	
