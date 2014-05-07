@@ -17,16 +17,21 @@ import utils::Utils;
 
 public Graph[Vertex] newGraph(source, list[Graph[Vertex] (Graph[Vertex], Tree, SymbolTableMap)] intermediateOperations) = newGraph(source, intermediateOperations, andDoNothing);
 
-public &T newGraph(source, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
-	trees = parseAll(source);
+public &T newGraph(list[Tree] trees, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
 	SymbolTableMap symbolTableMap = createSymbolTableMap(trees);
-	
 	Graph[Vertex] graph = {};
 	for (intermediateOperation <- intermediateOperations) {
 		graph = intermediateOperation(graph, trees, symbolTableMap);
 	}
 	return finalOperation(graph);
 }
+
+public &T newGraph(list[&U] source, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
+	list[Tree] trees = parseAll(source);
+	return newGraph(trees, intermediateOperations, finalOperation);
+}
+
+public &T newGraph(source, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) = newGraph([source], intermediateOperations, finalOperation);
 
 public Graph[Vertex] withNativeFlow(Graph[Vertex] graph, _, SymbolTableMap _) = graph + createNativeFlowGraph();
 public Graph[Vertex] withIntraproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getIntraproceduralFlow(trees, symbolTableMap);

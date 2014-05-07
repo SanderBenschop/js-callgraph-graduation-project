@@ -17,6 +17,7 @@ public Graph[Vertex] createCommonFlowGraph(source) = newGraph(source, [withNativ
 public Graph[Vertex] createCommonFlowGraphWithoutNatives(source) = newGraph(source, [withIntraproceduralFlow, withCommonInterproceduralFlow]);
 
 public Graph[Vertex] createOptimisticFlowGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow]);
+public Graph[Vertex] createOptimisticFlowGraphTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure]);
 public Graph[Vertex] createOptimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure, andExtractOptimisticCallGraph]);
 public Graph[Vertex] createCleanOptimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure, andExtractOptimisticCallGraph, andRemoveTreeAnnotations]);
 public Graph[Vertex] createCleanOptimisticCallGraphWithoutTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, andExtractOptimisticCallGraph, andRemoveTreeAnnotations]);
