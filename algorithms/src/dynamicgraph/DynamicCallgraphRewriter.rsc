@@ -69,6 +69,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 			  CALL_STACK.push(FUNCTION_LOC);
 			  if(<!isFrameworkFile> && COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
 			  if (LAST_CALL_LOC !== undefined) ADD_DYNAMIC_CALL_GRAPH_EDGE(LAST_CALL_LOC, FUNCTION_LOC);
+			  LAST_CALL_LOC = undefined; //Reset for nested calls
 			");
 	}
 
