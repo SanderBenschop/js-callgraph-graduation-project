@@ -13,9 +13,9 @@ import NativeFlow;
 public alias SourceLocationMapping = map[str, loc];
 public alias SourceMapping = map[str, str];
 
-public Graph[Vertex] convertJsonToGraph(loc jsonFile, SourceLocationMapping sourceLocationMapping) {
+public Graph[str] convertJsonToGraph(loc jsonFile, SourceLocationMapping sourceLocationMapping) {
 	SourceMapping sourceMapping = createSourceMapping(sourceLocationMapping);
-	Graph[Vertex] callGraph = {};
+	Graph[str] callGraph = {};
 	JSONText cst = parse(#JSONText, jsonFile);
 	Value ast = buildAST(cst);
 	if (object(map[str memberName, Value memberValue] members) := ast) {
@@ -24,12 +24,13 @@ public Graph[Vertex] convertJsonToGraph(loc jsonFile, SourceLocationMapping sour
 				for (Value targetValue <- targetValues) {
 					if (string(target) := targetValue) {
 						if (!isEmpty(target)) {
-							Vertex callee = parseCallee(base, sourceLocationMapping, sourceMapping);
+							str callee = "Callee(<base>)";
 							if (matchesNativeElement(target)) {
 								//Create builtin nodes.
 								callGraph += { <callee, builtin> | builtin <- createBuiltinNodes(target) };
 							} else {
-								callGraph += <parseCallee(base, sourceLocationMapping, sourceMapping), parseFunction(target, sourceLocationMapping, sourceMapping)>;
+								str target = "Func(<target>)";
+								callGraph += <callee, target>;
 							}
 						}
 					} else throw "<targetValue> is not a string";
@@ -50,37 +51,16 @@ public Vertex parseFunction(str stringValue, SourceLocationMapping sourceLocatio
 
 private bool matchesNativeElement(str string) = !contains(string, "@");
 
-public set[Vertex] createBuiltinNodes(str string) {
-	if (isNativeTarget(string)) return { Builtin(key) | key <- getKeysByValue(string) };
+public set[str] createBuiltinNodes(str string) {
+	if (isNativeTarget(string)) return { "Builtin(<key>)" | key <- getKeysByValue(string) };
 	list[str] splitted = split(".", string);
 	int maxIndex = size(splitted);
 	for (i <- [1..maxIndex]) {
 		str joined = intercalate(".", splitted[i..]);
-		if (isNativeTarget(joined)) return { Builtin(key) | key <- getKeysByValue(joined) };
+		if (isNativeTarget(joined)) return { "Builtin(<key>)" | key <- getKeysByValue(joined) };
 	}
 	println("WARNING - Cannot extract call to native function from <string>");
 	return {};
-}
-
-public loc parseLocation(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) {
-	if (/<fileName:.*>\.js@<lineNumber:\d+>:<startColumn:\d+>-<endColumn:\d+>/ := stringValue) {
-		int startColumnInt = toInt(startColumn), endColumnInt = toInt(endColumn), lineNumberInt = toInt(lineNumber);
-		str source = sourceMapping[fileName];
-		//str firstChar = stringChar(charAt(source, startColumnInt)), lastChar = stringChar(charAt(source, endColumnInt));
-		str subString = substring(source, startColumnInt, endColumnInt);
-		int endLine = extractEndline(lineNumberInt, subString);
-		str firstLine = extractLine(source, lineNumberInt), lastLine = extractLine(source, endLine);
-		str lastLineSubstring = extractLastLine(subString);
-		int overallStartColumn = findFirst(firstLine, extractFirstLine(subString)), overallEndColumn = findLast(lastLine, lastLineSubstring) + size(lastLineSubstring);
-		overallEndColumn = overallEndColumn != -1 ? overallEndColumn : size(subString) - 1;
-		int length = endColumnInt - startColumnInt;
-		loc sourceLocation = sourceLocationMapping[fileName];
-		return sourceLocation(startColumnInt, length, <lineNumberInt, overallStartColumn>, <endLine,overallEndColumn>);
-	} else throw "Not a valid call graph location : <stringValue>";
-}
-
-public int extractEndline(int startLine, str subString) {
-	return startLine + countLines(subString) - 1;
 }
 
 public SourceMapping createSourceMapping(map[str, loc] sourceLocationMapping) {
@@ -91,19 +71,4 @@ public SourceMapping createSourceMapping(map[str, loc] sourceLocationMapping) {
 	    sourceMapping += (fileName : source);
 	}
 	return sourceMapping;
-}
-
-public str extractFirstLine(str source) = extractLine(source, 1);
-public str extractLastLine(str source) {
-	int lastLine = countLines(source);
-	return extractLine(source, lastLine);
-}
-
-public str extractLine(str source, int lineNumber) {
-	list[str] lines = split("\n", source);
-	return lines[lineNumber - 1];
-}
-
-public int countLines(str source) {
-	return size(findAll(source, "\n")) + 1;
 }
