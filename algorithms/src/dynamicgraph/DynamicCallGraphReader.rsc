@@ -10,11 +10,20 @@ import analysis::graphs::Graph;
 import ParseTree;
 import NativeFlow;
 
-public alias SourceLocationMapping = map[str, loc];
-public alias SourceMapping = map[str, str];
+public Graph[str] convertJsonToGraph(loc jsonFile) {
+	set[str] createBuiltinNodes(str string) {
+		if (isNativeTarget(string)) return { "Builtin(<key>)" | key <- getKeysByValue(string) };
+		list[str] splitted = split(".", string);
+		int maxIndex = size(splitted);
+		for (i <- [1..maxIndex]) {
+			str joined = intercalate(".", splitted[i..]);
+			if (isNativeTarget(joined)) return { "Builtin(<key>)" | key <- getKeysByValue(joined) };
+		}
+		if (isNativeBase(string)) return {"Builtin(<nativeFlows[string]>)"};
+		println("WARNING - Cannot extract call to native function from <string> for json file <jsonFile>");
+		return {};
+	}
 
-public Graph[str] convertJsonToGraph(loc jsonFile, SourceLocationMapping sourceLocationMapping) {
-	SourceMapping sourceMapping = createSourceMapping(sourceLocationMapping);
 	Graph[str] callGraph = {};
 	JSONText cst = parse(#JSONText, jsonFile);
 	Value ast = buildAST(cst);
@@ -43,32 +52,4 @@ public Graph[str] convertJsonToGraph(loc jsonFile, SourceLocationMapping sourceL
 
 private JSONText parse(loc jsonFile) = parse(#JSONText, readFile(jsonFile));
 
-public Vertex parseCallee(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) = Callee(parseLocation(stringValue, sourceLocationMapping, sourceMapping));
-
-public Vertex parseFunction(str stringValue, SourceLocationMapping sourceLocationMapping, SourceMapping sourceMapping) {
-	return Function(parseLocation(stringValue, sourceLocationMapping, sourceMapping));
-}
-
 private bool matchesNativeElement(str string) = !contains(string, "@");
-
-public set[str] createBuiltinNodes(str string) {
-	if (isNativeTarget(string)) return { "Builtin(<key>)" | key <- getKeysByValue(string) };
-	list[str] splitted = split(".", string);
-	int maxIndex = size(splitted);
-	for (i <- [1..maxIndex]) {
-		str joined = intercalate(".", splitted[i..]);
-		if (isNativeTarget(joined)) return { "Builtin(<key>)" | key <- getKeysByValue(joined) };
-	}
-	println("WARNING - Cannot extract call to native function from <string>");
-	return {};
-}
-
-public SourceMapping createSourceMapping(map[str, loc] sourceLocationMapping) {
-	SourceMapping sourceMapping = ();
-	for (str fileName <- sourceLocationMapping) {
-	    loc sourceLocation = sourceLocationMapping[fileName];
-	    str source = readFile(sourceLocation);
-	    sourceMapping += (fileName : source);
-	}
-	return sourceMapping;
-}

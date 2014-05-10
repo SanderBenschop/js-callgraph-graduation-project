@@ -13,7 +13,7 @@ import DataStructures;
 public Graph[Vertex] createNativeFlowGraph() = { <Builtin(key), Property(nativeFlows[key])> | str key <- nativeFlows };
 public bool isNativeTarget(str val) = val in range(nativeFlows);
 public bool isNativeElement(str val) = isNativeTarget(val) || isNativeBase(val);
-private bool isNativeBase(str val) = convertNativeName(val) in domain(nativeFlows);
+public bool isNativeBase(str val) = convertNativeName(val) in domain(nativeFlows);
 
 public str convertNativeName(str val) {
 	str replaced = replaceAll(val, ".", "_");
