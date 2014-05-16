@@ -32,10 +32,43 @@ function ADD_DYNAMIC_CALL_GRAPH_EDGE(base, target) {
     }
 }
 
-//Source: StackOverflow
-//http://stackoverflow.com/questions/6598945/detect-if-function-is-native-to-browser
-function IS_NATIVE_FUNCTION(f) {
-   return !!f && (typeof f).toLowerCase() == 'function' 
-   && (f === Function.prototype 
-   || /^\s*function\s*(\b[a-z$_][a-z0-9$_]*\b)*\s*\((|([a-z$_][a-z0-9$_]*)(\s*,[a-z$_][a-z0-9$_]*)*)\)\s*{\s*\[native code\]\s*}\s*$/i.test(String(f)));
+function MERGE_COVERED_FUNCTIONS(NEW_COVERED_FUNCTIONS) {
+    COVERED_FUNCTIONS = COVERED_FUNCTIONS.concat(NEW_COVERED_FUNCTIONS);
+}
+
+function MERGE_COVERED_CALLS(NEW_COVERED_CALLS) {
+    COVERED_CALLS = COVERED_CALLS.concat(NEW_COVERED_CALLS);
+}
+
+function MERGE_CALL_MAP(NEW_CALL_MAP) {
+    for (var PROPERTY in NEW_CALL_MAP) {
+        if (CALL_MAP[PROPERTY]) {
+            //Merge arrays
+            CALL_MAP[PROPERTY] = CALL_MAP[PROPERTY].concat(NEW_CALL_MAP[PROPERTY]);
+        } else {
+            CALL_MAP[PROPERTY] = NEW_CALL_MAP[PROPERTY];
+        }
+    }
+}
+
+function STRINGIFY(obj) {
+    var t = typeof (obj);
+    if (t != "object" || obj === null) {
+// simple data type
+        if (t == "string") obj = '"' + obj + '"';
+        return String(obj);
+    } else {
+// recurse array or object
+        var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+        for (n in obj) {
+            v = obj[n];
+            t = typeof(v);
+            if (obj.hasOwnProperty(n)) {
+                if (t == "string") v = '"' + v + '"'; else if (t == "object" && v !== null) v = STRINGIFY(v);
+                json.push((arr ? "" : '"' + n + '":') + String(v));
+            }
+        }
+        return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+    }
 }

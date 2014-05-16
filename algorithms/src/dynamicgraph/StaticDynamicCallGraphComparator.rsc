@@ -12,12 +12,6 @@ import utils::GraphUtils;
 import Configuration;
 import Relation;
 
-public void printStatisticsWithoutNatives(Graph[str] staticCG, Graph[str] dynamicCG) {
-	Graph[str] filteredStaticCG = filterNatives(staticCG);
-	Graph[str] filteredDynamicCG = filterNatives(dynamicCG);
-	printStatistics(filteredStaticCG, filteredDynamicCG);
-}
-
 public Graph[str] filterNatives(Graph[str] graph) = { tup | tuple[str base, str target] tup <- graph, !startsWith(tup.target, "Builtin") };
 
 public void printStatistics(Graph[Vertex] staticCG, loc dynamicCallMapLoc) {
@@ -37,11 +31,16 @@ public void printStatistics(Graph[str] staticCG, Graph[str] dynamicCG) {
 }
 
 public real calculatePrecision(Graph[str] staticCG, Graph[str] dynamicCG) {
+	if (filterNativeFunctions) {
+		staticCG = filterNatives(staticCG);
+		dynamicCG = filterNatives(dynamicCG);
+	}
+
 	real intersection, staticCallGraphSize;
 	if (compareCallTargetsOnly) {
-		set[str] staticDomain = domain(staticCG), dynamicDomain = domain(dynamicCG);
-		intersection = toReal(size(dynamicDomain & staticDomain));
-		staticCallGraphSize = toReal(size(staticDomain));
+		set[str] staticrange = range(staticCG), dynamicrange = range(dynamicCG);
+		intersection = toReal(size(dynamicrange & staticrange));
+		staticCallGraphSize = toReal(size(staticrange));
 	} else {
 		intersection = toReal(size(dynamicCG & staticCG));
 		staticCallGraphSize = toReal(size(staticCG));

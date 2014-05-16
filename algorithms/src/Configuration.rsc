@@ -10,3 +10,6 @@ public bool globalFunctionAsProperties = true;
 //In the paper it seems that this is what they've done.
 //It does repress information however, which helps to increase the precision.
 public bool compareCallTargetsOnly = true;
+
+//If set to true, native functions are not counted when comparing call graphs.
+public bool filterNativeFunctions = false;

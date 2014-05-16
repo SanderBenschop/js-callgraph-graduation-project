@@ -65,6 +65,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		return replaceFirst(body, "{", "{
 			  //Function augmented
 			  var THISREFERENCE = this;
+			  //var ARGUMENTS_REFERENCE = arguments;
 			  var FUNCTION_LOC = \"<formattedLoc>\";
 			  CALL_STACK.push(FUNCTION_LOC);
 			  if(<!isFrameworkFile> && COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);
@@ -84,14 +85,14 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	  	LAST_CALL_LOC = \"<formattedLoc>\";
 	  	if(COVERED_CALLS.indexOf(LAST_CALL_LOC) === -1) COVERED_CALLS.push(LAST_CALL_LOC);
 	  	var LENGTH_BEFORE = CALL_STACK.length;
-	  	var result = <call>;
+	  	var WRAPPED_CALL_RESULT = <call>;
 	  	if (CALL_STACK.length === LENGTH_BEFORE) {
 	  		ADD_DYNAMIC_CALL_GRAPH_EDGE(LAST_CALL_LOC, \'<convertToDynamicTarget(functionExpressionString)>\');
 	  	} else {
 	  		CALL_STACK.pop();
 	  	}
 	    LAST_CALL_LOC = OLD_LAST_CALL_LOC;
-	    return result;
+	    return WRAPPED_CALL_RESULT;
 	    }())";
 	}
 	
@@ -139,6 +140,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	
 	Tree replacedTree = visit(annotatedTree) { 
 		case (Expression)`this` => (Expression)`THISREFERENCE` 
+		//case (Id)`arguments` => (Id)`ARGUMENTS_REFERENCE`
 	};
 	
 	Tree markedTree = visit(replacedTree) {

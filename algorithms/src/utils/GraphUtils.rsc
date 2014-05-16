@@ -10,6 +10,10 @@ public Graph[Vertex] filterFrameworkEdges(Graph[Vertex] graph, set[str] patterns
 	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, !matchesAPattern(tup.callee, patterns)};
 }
 
+public Graph[str] filterFrameworkEdgesInclusive(Graph[str] graph, set[str] patterns) {
+	return {tup | tuple[str callee, str target] tup <- graph, matchesAPattern(tup.callee, patterns) && matchesAPattern(tup.target, patterns)};
+}
+
 public bool matchesAPattern(Vertex callee, set[str] patterns) {
 	if (Callee(location) := callee) {
 		return matchesAPattern(location.uri, patterns);
