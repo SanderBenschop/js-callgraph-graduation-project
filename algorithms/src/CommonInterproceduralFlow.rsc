@@ -9,8 +9,12 @@ import ParseTree;
 import analysis::graphs::Graph;
 import VertexFactory;
 import utils::Utils;
+import utils::GraphUtils;
 
 import DataStructures;
+
+//TODO: removed hard coding
+set[str] ignored = {};
 
 public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTableMap) {
 	Graph[Vertex] graph = {};
@@ -83,7 +87,9 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 			}
 		}
 	}
-	doVisit(trees);
+	set[Tree] nonIgnoredTrees = {tree | tree <- trees, !matchesAPattern(tree@\loc, ignored) };
+	println("WARNING - Ignoring <trees - nonIgnoredTrees>");
+	doVisit(nonIgnoredTrees);
 	
 	return graph;
 }

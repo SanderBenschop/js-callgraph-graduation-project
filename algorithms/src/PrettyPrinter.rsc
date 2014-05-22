@@ -32,6 +32,21 @@ public str prettyPrintGraph(Graph[Vertex] graph, bool sortIt, bool flowGraphStyl
 	return joined;
 }
 
+//TODO: Remove duplication
+public str prettyPrintGraph(Graph[str] graph, bool sortIt) {
+	list[str] lines = [];
+		for (str base <- domain(graph)) {
+		set[str] targets = graph[base];
+		for (str target <- targets) {
+			lines += "<base> -\> <target>";
+		}
+	}
+	if (sortIt) lines = sort(lines);
+	str joined = intercalate("\n", lines);
+	println(joined);
+	return joined;
+}
+
 private str flowGraphFormatVertex(Vertex vertex) {
 	switch(vertex) {
 		case Expression(loc position) : {

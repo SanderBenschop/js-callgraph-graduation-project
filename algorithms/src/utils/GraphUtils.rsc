@@ -10,6 +10,10 @@ public Graph[Vertex] filterFrameworkEdges(Graph[Vertex] graph, set[str] patterns
 	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, !matchesAPattern(tup.callee, patterns)};
 }
 
+public Graph[Vertex] filterNativeEdges(Graph[Vertex] graph) {
+	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, Builtin(_) !:= tup.target};
+}
+
 public Graph[str] filterFrameworkEdgesInclusive(Graph[str] graph, set[str] patterns) {
 	return {tup | tuple[str callee, str target] tup <- graph, matchesAPattern(tup.callee, patterns) && matchesAPattern(tup.target, patterns)};
 }
@@ -21,6 +25,7 @@ public bool matchesAPattern(Vertex callee, set[str] patterns) {
 	throw "Not a callee";
 }
 
+public bool matchesAPattern(loc location, set[str] patterns) = matchesAPattern(location.uri, patterns);
 public bool matchesAPattern(str uri, set[str] patterns) {
 	for (str pattern <- patterns) {
 		if (/<pattern>/ := uri) return true;
