@@ -73,6 +73,15 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 			  LAST_CALL_LOC = undefined; //Reset for nested calls
 			");
 	}
+	
+	private Tree addThisReferenceToBody(Tree body) {
+		str unparsedBody = unparse(body);
+		str newUnparsedBody = replaceFirst(unparsedBody, "{", "{
+			//Property accessor augmented
+			var THISREFERENCE = this;
+		");
+		return parse(#Block, newUnparsedBody);
+	}
 
 	private str addLastCallInformation(Tree nestedCall, loc location, Tree functionExpression) {
 		str formattedLoc = formatLoc(location);
@@ -133,6 +142,16 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		Tree newBody = parse(#Block, newUnparsedBody);
 		return (Expression)`function <Id id> (<{Id ","}* params>) <Block newBody>`;
 	}
+	
+	private Tree markGetterProperty(PropertyName name, Block body) {
+		Tree newBody = addThisReferenceToBody(body);
+		return (PropertyAssignment)`get <PropertyName name> () <Block newBody>`;
+	}
+	
+	private Tree markSetterProperty(PropertyName name, Id id, Block body) {
+		Tree newBody = addThisReferenceToBody(body);
+		return (PropertyAssignment)`set <PropertyName name> (<Id id>) <Block newBody>`;
+	}
 		
 	Tree annotatedTree = visit(tree) {
 		case newE:(Expression)`new <Expression e>` => addOriginalToExpression(e, newE@\loc)
@@ -152,6 +171,9 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		
 		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ _> )` => markCall(e, functionCallParams)
 		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
+	
+		case (PropertyAssignment)`get <PropertyName name> () <Block body>` => markGetterProperty(name, body)
+		case (PropertyAssignment)`set <PropertyName name> (<Id id>) <Block body>` => markSetterProperty(name, id, body)
 	};
 	
 	return <allFunctionLocations, allCallLocations, unparse(markedTree)>;
