@@ -7,9 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.eclipse.imp.pdb.facts.ISourceLocation;
+import org.eclipse.imp.pdb.facts.IString;
 import org.eclipse.imp.pdb.facts.IValueFactory;
 import org.rascalmpl.interpreter.IEvaluatorContext;
 import org.rascalmpl.interpreter.utils.RuntimeExceptionFactory;
+import org.rascalmpl.values.ValueFactoryFactory;
 
 public class JavaUtils {
 
@@ -29,5 +31,12 @@ public class JavaUtils {
         } catch (IOException e) {
             throw RuntimeExceptionFactory.io(values.string(e.getMessage()), ctx.getCurrentAST(), null);
         }
+    }
+    
+    public IString regexReplace(IString source, IString pattern, IString replacement, IEvaluatorContext ctx) {
+        String sourceValue = source.getValue(), 
+               patternValue = pattern.getValue(),
+               replacementValue = replacement.getValue();
+        return ValueFactoryFactory.getValueFactory().string(sourceValue.replaceAll(patternValue, replacementValue));
     }
 }

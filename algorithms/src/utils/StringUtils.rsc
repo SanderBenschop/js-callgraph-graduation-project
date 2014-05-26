@@ -14,10 +14,15 @@ public str convertToDynamicTarget(str source) {
 		return ""; //Definately not a native call target.
 	}
 	str replaced = escape(source,  ("\'" : "\\\'"));
-	replaced = replaceAll(replaced, "()", "");
+	replaced = regexReplace(replaced, "\\(.*\\)", "");
+	
 	return removeNewLines(replaced);
 }
 
 public str removeNewLines(str source) {
 	return replaceAll(source, "\n", "");
 }
+
+@javaClass{utils.JavaUtils}
+@reflect
+public java str regexReplace(str source, str pattern, str replacement);
