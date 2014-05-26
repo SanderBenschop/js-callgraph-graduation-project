@@ -14,7 +14,7 @@ public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] 
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createCleanPessimisticCallGraphWithoutTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, andRemoveTreeAnnotations], andExtractPessimisticCallGraph);
 
 public Graph[Vertex] createCommonFlowGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withCommonInterproceduralFlow]);
-public Graph[Vertex] createCommonFlowGraphWithoutNatives(source) = newGraph(source, [withIntraproceduralFlow, withCommonInterproceduralFlow]);
+public Graph[Vertex] createCommonFlowGraphWithoutNatives(source) = newGraph(source, [withIntraproceduralFlow, withCommonInterproceduralFlow, andRemoveTreeAnnotations]);
 
 public Graph[Vertex] createOptimisticFlowGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow]);
 public Graph[Vertex] createOptimisticFlowGraphTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure]);

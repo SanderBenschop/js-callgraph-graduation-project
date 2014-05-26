@@ -13,12 +13,9 @@ import utils::GraphUtils;
 
 import DataStructures;
 
-//TODO: removed hard coding
-set[str] ignored = {};
-
+//TODO: maybe do something with ignoring framework stuff here.
 public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTableMap) {
 	Graph[Vertex] graph = {};
-	map [loc, loc] returnToFunctionMap = getEnclosingFunctionLocations(trees);
 	
 	private void processR8(Tree \node, Tree function, arguments) {
 		loc nodeLoc = \node@\loc;
@@ -51,12 +48,17 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 		}
 	}
 	
-	private void processR10(Tree element, Tree e) {
+	private void processR10(Tree returnStatement, Tree e) {
 		//Innermost enclosing function containing the return statement.
-		loc enclosingFunctionLocation = returnToFunctionMap[element@\loc];
-		graph += <createVertex(e, symbolTableMap), Return(enclosingFunctionLocation)>;
+		SymbolTable symbolTable = symbolTableMap[returnStatement@\loc];
+		Maybe[tuple[Identifier id, bool globalScope]] thisReference = find("this", symbolTable);
 		
-		doVisit(e);
+		if (just(<Identifier id, _>) := thisReference) {
+			if (parameter(loc enclosingFunctionLocation, _) := id) {
+				graph += <createVertex(e, symbolTableMap), Return(enclosingFunctionLocation)>;
+				doVisit(e);
+			} else throw "\'This\' reference is not a parameter";
+		} else throw "\'This\' reference not found on symbol map when looking for enclosing function of <returnStatement>.";
 	}
 	
 	private void doVisit(parseTrees) {
@@ -87,48 +89,9 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 			}
 		}
 	}
-	set[Tree] nonIgnoredTrees = {tree | tree <- trees, !matchesAPattern(tree@\loc, ignored) };
-	println("WARNING - Ignoring <trees - nonIgnoredTrees>");
-	doVisit(nonIgnoredTrees);
-	
-	return graph;
-}
-
-//Returns a map of the location of the  statement with expressions to the inner-most function enclosing them.
-private map [loc, loc] getEnclosingFunctionLocations(trees) {
-	map [loc, loc] returnToFunctionMap = ();
-	loc lastSeenFunction = |nothing:///|;
-	
-	private void markFunction(function, body) {
-		println("Marking function <function>");
-		loc oldLastSeen = lastSeenFunction;
-		lastSeenFunction = function@\loc;
-		doVisit(body);
-		lastSeenFunction = oldLastSeen;
-	}
-	
-	private void markReturn(returnStatement, expression) {
-		println("Marking return <returnStatement> to last seen function <lastSeenFunction>");
-		returnToFunctionMap += (returnStatement@\loc : lastSeenFunction);
-		doVisit(expression);
-	}
-	
-	private void doVisit(parseTree) {
-		top-down-break visit(parseTree) {
-			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : markFunction(func, body); 
-			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: markFunction(func, body);
-			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: markFunction(func, body);
-			case returnExpSemi:(Statement)`return <Expression e>;`: markReturn(returnExpSemi, e);
-			case returnExpNoSemi:(Statement)`return <Expression e>`: markReturn(returnExpNoSemi, e);
-			case Statement s: {
-				if (returnExpNoSemiBlockEnd(Expression e, _) := s) {
-					markReturn(s, e);
-				} else fail;
-			}
-		}
-	}
-	
+	//set[Tree] nonIgnoredTrees = {tree | tree <- trees, !matchesAPattern(tree@\loc, ignored) };
+	//println("WARNING - Ignoring <trees - nonIgnoredTrees>");
 	doVisit(trees);
 	
-	return returnToFunctionMap;
+	return graph;
 }

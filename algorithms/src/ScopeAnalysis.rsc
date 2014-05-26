@@ -8,40 +8,6 @@ import EcmaScript;
 import IO;
 import String;
 
-/*
-	TODO: make function declaration order unimportant.
-	This will print "Hello World":
-	
-	y();
-	function y() {
-	    console.log("Hello World");
-	}
-	
-	But this won't:
-	y();
-	y = function() {
-	    console.log("Hello World");
-	}
-*/
-
-/*
-	TODO: Variable hoisting? Does this matter?
-	
-	The following alerts undefined:
-	function f() {
-	    alert(a);
-	    var a = 2;
-	}
-	f();
-	
-	The following throws a reference error:
-	function f() {
-	    alert(a);
-	}
-	f();
- */
-
-//TODO: Rewrite to fold
 public SymbolTableMap createSymbolTableMap(list[Tree] trees) {
 	SymbolTableMap mergedMap = ();
 	for (Tree tree <- trees) {
@@ -179,6 +145,24 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 				annotateElementWithCurrentScope(id);
 				doVisit(expression);
 			}
+			
+			// Return statements
+			// TODO: remove duplication
+			case returnExpSemi:(Statement)`return <Expression expression>;`: {
+				annotateElementWithCurrentScope(returnExpSemi);
+				doVisit(expression);
+			}
+			case returnExpNoSemi:(Statement)`return <Expression expression>`: {
+				annotateElementWithCurrentScope(returnExpNoSemi);
+				doVisit(expression);
+			}
+			case Statement s: {
+				if (returnExpNoSemiBlockEnd(Expression expression, _) := s) {
+					annotateElementWithCurrentScope(s);
+					doVisit(expression);
+				} else fail;
+			}
+			
 			case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* params>) <Block body> <ZeroOrMoreNewLines _>` : annotateFunction(unparse(id), func@\loc, params, just(body));
 			case func:(Expression)`function <Id id> (<{Id ","}* params>) <Block body>`: annotateFunction(unparse(id), func@\loc, params, just(body));
 			case func:(Expression)`function (<{Id ","}* params>) <Block body>`: annotateFunction("", func@\loc, params, just(body));
