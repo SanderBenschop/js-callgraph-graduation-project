@@ -1,0 +1,18 @@
+import ValueIO;
+import analysis::graphs::Graph;
+import DataStructures;
+
+tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] pessPdf = readBinaryValueFile(#tuple[Graph[Vertex], set[Vertex] ,set[Vertex]], |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/pdfjs/pessimisticPacman.bin|);
+optPdf = readBinaryValueFile(#Graph[Vertex], |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/pdfjs/optimisticPacman.bin|);
+
+loc callMapLoc = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/pdfjs/callgraph.json|;
+printStatistics(pessPdf.calls, callMapLoc);
+printStatistics(optPdf, callMapLoc);
+
+dynPdf = convertJsonToGraph(callMapLoc);
+
+Met natives:
+
+The precision is 73.3752620500%
+The recall is 84.1346153800%
+ok

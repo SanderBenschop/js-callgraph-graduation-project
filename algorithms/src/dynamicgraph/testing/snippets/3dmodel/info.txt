@@ -1,0 +1,28 @@
+modelLijstje = [
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/design.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/main.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/transform.js|
+];
+
+pesModel = createCleanPessimisticCallGraph(modelLijstje);
+optModel = createCleanOptimisticCallGraph(modelLijstje);
+
+loc callMap = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/callmap4.json|;
+
+printStatistics(pesModel.calls, callMap);
+printStatistics(optMod	el, callMap);
+
+dynModel = convertJsonToGraph(callMap);
+filteredPesModelString = convertVertexGraphToStringGraph(pesModel.calls);
+filteredOptModelString = convertVertexGraphToStringGraph(optModel);
+
+pesModelNoNatives = filterNativeEdges(pesModel.calls)
+pesModelNoNativesString = convertVertexGraphToStringGraph(pesModelNoNatives);
+
+Missing in static (optimistic en pessimistic):
+Graph[str]: {<"Callee(main.js@176:6110-6145)","Func(main.js@203:7120-7189)">}
+visible_polygons.sort(sortfunction) -> 
+function sortfunction(a, b) {
+    return (b.distance - a.distance);
+}
+Logisch want de call-back gaat via native code.

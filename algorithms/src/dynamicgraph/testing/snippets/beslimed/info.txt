@@ -1,0 +1,32 @@
+slimeLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/game.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/mootools-beta-1.js|];
+
+pesSlime = createCleanPessimisticCallGraph(slimeLijstje);
+
+optSlime = createCleanOptimisticCallGraph(slimeLijstje);
+
+import utils::GraphUtils;
+filteredPesSlime = filterFrameworkEdges(pesSlime.calls, {"mootools"});
+filteredOptSlime = filterFrameworkEdges(optSlime, {"mootools"});
+
+printStatistics(filteredPesSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
+printStatistics(filteredOptSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
+
+dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|, slimeMapje);
+
+filteredPesSlimeString = convertVertexGraphToStringGraph(filteredPesSlime);
+dynMinusFilteredPes = dynSlime - filteredPesSlimeString;
+filteredPesMinusDyn = filteredPesSlimeString - dynSlime;
+
+filteredOptSlimeString = convertVertexGraphToStringGraph(filteredPesSlime);
+dynMinusFilteredOpt = dynSlime - filteredOptSlimeString;
+filteredOptMinusDyn = filteredOptSlimeString - dynSlime;
+
+// convertJsonToGraph(|file:///home/sander/beslimedDynSubset.json|, slimeMapje)
+
+pessimistic filtered:
+The precision is 42.1641791000%
+The recall is 92.6229508200%
+
+optimistic filtered:
+The precision is 15.5743024000%
+The recall is 98.3606557400%

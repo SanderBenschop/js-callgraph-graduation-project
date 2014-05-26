@@ -1,0 +1,30 @@
+flotrLijstje = [
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/prepared/examples/examples.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/prepared/flotr/flotr-0.2.0-alpha.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/prepared/flotr/lib/canvas2image.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/prepared/flotr/lib/canvastext.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/prepared/flotr/lib/prototype-1.6.0.2.js|
+];
+
+pesFlotr = createCleanPessimisticCallGraph(flotrLijstje);
+optflotr = createCleanOptimisticCallGraph(flotrLijstje);
+
+printStatistics(pesFlotr.calls, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
+printStatistics(optflotr, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
+
+filteredPesFlotr = filterFrameworkEdges(pesFlotr.calls, {"prototype", "canvas"});
+filteredOptFlotr = filterFrameworkEdges(optflotr, {"prototype", "canvas"});
+
+printStatistics(filteredPesFlotr, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
+printStatistics(filteredOptFlotr, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
+
+pesFlotrString = convertVertexGraphToStringGraph(pesFlotr.calls);
+filteredPesFlotrString = convertVertexGraphToStringGraph(filteredPesFlotr);
+dynFlotr = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
+
+pesje = createCleanPessimisticCallGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/prepared/flotr/flotr-0.2.0-alpha.js|);
+pesjeStr = convertVertexGraphToStringGraph(pesje.calls);
+
+filteredDynFlotr = filterFrameworkEdgesInclusive(dynFlotr, {"flotr"})
+
+printStatistics(pesjeStr, filteredDynFlotr);
