@@ -11,7 +11,7 @@ public Graph[Vertex] filterFrameworkEdges(Graph[Vertex] graph, set[str] patterns
 }
 
 public Graph[Vertex] filterNativeEdges(Graph[Vertex] graph) {
-	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, Builtin(_) !:= tup.target};
+	return {tup | tuple[Vertex left, Vertex right] tup <- graph, Builtin(_) !:= tup.left && Builtin(_) !:= tup.right};
 }
 
 public Graph[str] filterFrameworkEdgesInclusive(Graph[str] graph, set[str] patterns) {

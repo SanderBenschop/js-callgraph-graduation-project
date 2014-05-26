@@ -13,3 +13,5 @@ public bool compareCallTargetsOnly = true;
 
 //If set to true, native functions are not counted when comparing call graphs.
 public bool filterNativeFunctions = false;
+
+//Settings used for analysis: globalFunctionAsProperties = true, compareCallTargetsOnly = true/false in two runs, filterNativeFunctions = false

@@ -22,7 +22,7 @@ public Graph[Vertex] getPessimisticInterproceduralFlow(trees) {
 	return graph;
 }
 
-private Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
+public Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 	Graph[Vertex] oneShotClosureEdges = {};
 	//TODO: rename call as this is actually the part before the call and it's confusing
 	for (tuple[Tree call, Tree closure] oneShotClosure <- oneShotClosures) {
@@ -38,7 +38,7 @@ private Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 	return oneShotClosureEdges;
 }
 
-private Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
+public Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 	Graph[Vertex] unresolvedEdges = {};
 	for (Tree unresolvedCallSite <- unresolvedCallSites) {
 		loc callSiteLocation = unresolvedCallSite@\loc;
@@ -52,7 +52,7 @@ private Graph[Vertex] unresolvedEdges(list[Tree] unresolvedCallSites) {
 	return unresolvedEdges;
 }
 
-private Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
+public Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	Graph[Vertex] escapingEdges = {};
 	for (Tree escapingFunction <- escapingFunctions) {
 		loc escapingFunctionLocation = escapingFunction@\loc;
@@ -67,7 +67,7 @@ private Graph[Vertex] escapingEdges(list[Tree] escapingFunctions) {
 	return escapingEdges;
 }
 
-private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functionsInsideClosures] analyseCallSites(trees) {
+public tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functionsInsideClosures] analyseCallSites(trees) {
 	lrel[Tree, Tree] oneShot = [];
 	list[Tree] unresolved = [], functionsInsideClosures = [];
 	private void analyseCall(call, closure) {
@@ -89,7 +89,7 @@ private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functi
 	return <oneShot, unresolved, functionsInsideClosures>;
 }
 
-private list[Tree] getEscapingFunctions(trees, list[Tree] functionsInsideClosures) {
+public list[Tree] getEscapingFunctions(trees, list[Tree] functionsInsideClosures) {
 	list[Tree] escaping = [];
 	visit(trees) {
 		case functionExprNameless:(Expression)`function (<{Id ","}* _>) <Block _>`: {

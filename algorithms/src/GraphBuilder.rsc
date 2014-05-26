@@ -10,6 +10,7 @@ import IntraproceduralFlow;
 import CommonInterproceduralFlow;
 import PessimisticInterproceduralFlow;
 import OptimisticInterproceduralFlow;
+import OptimisticInterproceduralFlow2;
 import OptimisticTransitiveClosure;
 import CallGraphExtractor;
 import ScopeAnalysis;
@@ -40,6 +41,8 @@ public Graph[Vertex] withPessimisticInterproceduralFlow(Graph[Vertex] graph, tre
 public Graph[Vertex] withCommonInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getCommonInterproceduralFlow(trees, symbolTableMap);
 
 public Graph[Vertex] withOptimisticTransitiveClosure(Graph[Vertex] graph, _, SymbolTableMap _) = getOptimisticTransitiveClosure(graph);
+
+public Graph[Vertex] withAlternativeOptimisticInterproceduralFlowAndExtraction(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = getOptimisticInterproceduralFlow2(trees, (graph + getCommonInterproceduralFlow(trees, symbolTableMap)));
 
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] andExtractPessimisticCallGraph(Graph[Vertex] graph) = extractPessimisticCallGraph(graph);
 public Graph[Vertex] andExtractOptimisticCallGraph(Graph[Vertex] graph, _, SymbolTableMap _) = extractOptimisticCallGraph(graph);
