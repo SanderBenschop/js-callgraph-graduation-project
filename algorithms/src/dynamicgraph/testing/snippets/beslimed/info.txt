@@ -8,10 +8,18 @@ import utils::GraphUtils;
 filteredPesSlime = filterFrameworkEdges(pesSlime.calls, {"mootools"});
 filteredOptSlime = filterFrameworkEdges(optSlime, {"mootools"});
 
+printStatistics(pesSlime.calls, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
+printStatistics(optSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
+
 printStatistics(filteredPesSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
 printStatistics(filteredOptSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
 
-dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|, slimeMapje);
+//Only analyzing the game.js file, not the mootools framework.
+printStatistics(createCleanPessimisticCallGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/game.js|).calls, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7-filtered.json|);
+
+
+dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
+filteredDynSlime = filterFrameworkEdgesInclusive(dynSlime, {"game"})
 
 filteredPesSlimeString = convertVertexGraphToStringGraph(filteredPesSlime);
 dynMinusFilteredPes = dynSlime - filteredPesSlimeString;

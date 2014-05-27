@@ -13,8 +13,12 @@ import utils::GraphUtils;
 
 import DataStructures;
 
-//TODO: maybe do something with ignoring framework stuff here.
-public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTableMap) {
+public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTableMap) = getCommonInterproceduralFlow(trees, symbolTableMap, {});
+
+/**
+ * 
+ */
+public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTableMap, set[str] frameworkPatterns) {
 	Graph[Vertex] graph = {};
 	
 	private void processR8(Tree \node, Tree function, arguments) {
@@ -27,7 +31,7 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 		}
 		graph += <Result(nodeLoc), Expression(nodeLoc)>;
 		
-		//TODO: optimize, this is to get the largest expressions
+		//TODO: optimize, this is to get the largest expressions (using a top-down visit)
 		doVisit(\function);
 		for (argument <- arguments) {
 			doVisit(argument);
@@ -89,9 +93,9 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 			}
 		}
 	}
-	//set[Tree] nonIgnoredTrees = {tree | tree <- trees, !matchesAPattern(tree@\loc, ignored) };
-	//println("WARNING - Ignoring <trees - nonIgnoredTrees>");
-	doVisit(trees);
+	set[Tree] nonIgnoredTrees = {tree | tree <- trees, !matchesAPattern(tree@\loc, frameworkPatterns) };
+	println("WARNING - Ignoring <trees - nonIgnoredTrees>");
+	doVisit(nonIgnoredTrees);
 	
 	return graph;
 }

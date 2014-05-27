@@ -5,19 +5,24 @@ import analysis::graphs::Graph;
 import DataStructures;
 import GraphBuilder;
 
-public Graph[Vertex] createIntraProceduralFlowGraph(source) = newGraph(source, [withIntraproceduralFlow]);
-public Graph[Vertex] createIntraProceduralFlowGraphNF(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow]);
-public Graph[Vertex] createPessimisticFlowGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow]);
-public Graph[Vertex] createPessimisticFlowGraphTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure]);
-public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createPessimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure], andExtractPessimisticCallGraph);
-public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createCleanPessimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure, andRemoveTreeAnnotations], andExtractPessimisticCallGraph);
-public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createCleanPessimisticCallGraphWithoutTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, andRemoveTreeAnnotations], andExtractPessimisticCallGraph);
+private set[str] noFilter = {};
 
-public Graph[Vertex] createCommonFlowGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withCommonInterproceduralFlow]);
-public Graph[Vertex] createCommonFlowGraphWithoutNatives(source) = newGraph(source, [withIntraproceduralFlow, withCommonInterproceduralFlow, andRemoveTreeAnnotations]);
+//Intraprocedural flow
+public Graph[Vertex] createIntraProceduralFlowGraph(source) = newGraph(source, noFilter, [withIntraproceduralFlow]);
+public Graph[Vertex] createIntraProceduralFlowGraphWithNatives(source) = newGraph(source, noFilter, [withNativeFlow, withIntraproceduralFlow]);
 
-public Graph[Vertex] createOptimisticFlowGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow]);
-public Graph[Vertex] createOptimisticFlowGraphTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure]);
-public Graph[Vertex] createOptimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure, andExtractOptimisticCallGraph]);
-public Graph[Vertex] createCleanOptimisticCallGraph(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure, andExtractOptimisticCallGraph, andRemoveTreeAnnotations]);
-public Graph[Vertex] createCleanOptimisticCallGraphWithoutTC(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, andExtractOptimisticCallGraph, andRemoveTreeAnnotations]);
+//Interprocedural flow
+public Graph[Vertex] createCommonFlowGraph(source) = newGraph(source, noFilter, [withIntraproceduralFlow, withCommonInterproceduralFlow, andRemoveTreeAnnotations]);
+
+public Graph[Vertex] createPessimisticFlowGraph(source) = newGraph(source, noFilter, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow]);
+public Graph[Vertex] createPessimisticFlowGraphTC(source) = newGraph(source, noFilter, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure]);
+
+public Graph[Vertex] createOptimisticFlowGraph(source) = newGraph(source, noFilter, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow]);
+public Graph[Vertex] createOptimisticFlowGraphTC(source) = newGraph(source, noFilter, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure]);
+
+//Call graphs
+public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createPessimisticCallGraph(source) = createPessimisticCallGraph(source, noFilter);
+public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] createPessimisticCallGraph(source, frameworkPatterns) = newGraph(source, frameworkPatterns, [withNativeFlow, withIntraproceduralFlow, withPessimisticInterproceduralFlow, withOptimisticTransitiveClosure, andRemoveTreeAnnotations], andExtractPessimisticCallGraph);
+
+public Graph[Vertex] createOptimisticCallGraph(source) = createOptimisticCallGraph(source, noFilter);
+public Graph[Vertex] createOptimisticCallGraph(source, set[str] frameworkPatterns) = newGraph(source, frameworkPatterns, [withNativeFlow, withIntraproceduralFlow, withOptimisticInterproceduralFlow, withOptimisticTransitiveClosure, andExtractOptimisticCallGraph, andRemoveTreeAnnotations]);

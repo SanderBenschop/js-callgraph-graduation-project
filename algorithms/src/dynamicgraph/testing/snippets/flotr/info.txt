@@ -6,14 +6,16 @@ flotrLijstje = [
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/prepared/flotr/lib/prototype-1.6.0.2.js|
 ];
 
-pesFlotr = createCleanPessimisticCallGraph(flotrLijstje);
-optflotr = createCleanOptimisticCallGraph(flotrLijstje);
+pesFlotr = createPessimisticCallGraph(flotrLijstje);
+optflotr = createOptimisticCallGraph(flotrLijstje);
 
 printStatistics(pesFlotr.calls, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
 printStatistics(optflotr, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
 
 filteredPesFlotr = filterFrameworkEdges(pesFlotr.calls, {"prototype", "canvas"});
 filteredOptFlotr = filterFrameworkEdges(optflotr, {"prototype", "canvas"});
+
+filteredPesFlotr2 = createCleanPessimisticCallGraph(flotrLijstje, {"prototype", "canvas"});
 
 printStatistics(filteredPesFlotr, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);
 printStatistics(filteredOptFlotr, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/flotr/callmapRun2.json|);

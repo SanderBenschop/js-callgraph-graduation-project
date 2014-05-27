@@ -15,31 +15,31 @@ import CallGraphExtractor;
 import ScopeAnalysis;
 import utils::Utils;
 
-public Graph[Vertex] newGraph(source, list[Graph[Vertex] (Graph[Vertex], Tree, SymbolTableMap)] intermediateOperations) = newGraph(source, intermediateOperations, andDoNothing);
+public Graph[Vertex] newGraph(source, frameworkPatterns, intermediateOperations) = newGraph(source, frameworkPatterns, intermediateOperations, andDoNothing);
 
-public &T newGraph(list[Tree] trees, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
+public &T newGraph(list[Tree] trees, set[str] frameworkPatterns, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap, set[str])] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
 	SymbolTableMap symbolTableMap = createSymbolTableMap(trees);
 	Graph[Vertex] graph = {};
 	for (intermediateOperation <- intermediateOperations) {
-		graph = intermediateOperation(graph, trees, symbolTableMap);
+		graph = intermediateOperation(graph, trees, symbolTableMap, frameworkPatterns);
 	}
 	return finalOperation(graph);
 }
 
-public &T newGraph(list[&U] source, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
+public &T newGraph(list[&U] source, set[str] frameworkPatterns, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap, set[str])] intermediateOperations, &T (Graph[Vertex]) finalOperation) {
 	list[Tree] trees = parseAll(source);
-	return newGraph(trees, intermediateOperations, finalOperation);
+	return newGraph(trees, frameworkPatterns, intermediateOperations, finalOperation);
 }
 
-public &T newGraph(source, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap)] intermediateOperations, &T (Graph[Vertex]) finalOperation) = newGraph([source], intermediateOperations, finalOperation);
+public &T newGraph(source, set[str] frameworkPatterns, list[Graph[Vertex] (Graph[Vertex], value, SymbolTableMap, set[str])] intermediateOperations, &T (Graph[Vertex]) finalOperation) = newGraph([source], frameworkPatterns, intermediateOperations, finalOperation);
 
-public Graph[Vertex] withNativeFlow(Graph[Vertex] graph, _, SymbolTableMap _) = graph + createNativeFlowGraph();
-public Graph[Vertex] withIntraproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getIntraproceduralFlow(trees, symbolTableMap);
-public Graph[Vertex] withOptimisticInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) =  getOptimisticInterproceduralFlow(trees, (graph + getCommonInterproceduralFlow(trees, symbolTableMap)));
-public Graph[Vertex] withPessimisticInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getPessimisticInterproceduralFlow(trees) + getCommonInterproceduralFlow(trees, symbolTableMap);
-public Graph[Vertex] withCommonInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap) = graph + getCommonInterproceduralFlow(trees, symbolTableMap);
+public Graph[Vertex] withNativeFlow(Graph[Vertex] graph, _, _, _) = graph + createNativeFlowGraph();
+public Graph[Vertex] withIntraproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap, _) = graph + getIntraproceduralFlow(trees, symbolTableMap);
+public Graph[Vertex] withOptimisticInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap, set[str] frameworkPatterns) =  getOptimisticInterproceduralFlow(trees, (graph + getCommonInterproceduralFlow(trees, symbolTableMap, frameworkPatterns)));
+public Graph[Vertex] withPessimisticInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap, set[str] frameworkPatterns) = graph + getPessimisticInterproceduralFlow(trees) + getCommonInterproceduralFlow(trees, symbolTableMap, frameworkPatterns);
+public Graph[Vertex] withCommonInterproceduralFlow(Graph[Vertex] graph, trees, SymbolTableMap symbolTableMap, set[str] frameworkPatterns) = graph + getCommonInterproceduralFlow(trees, symbolTableMap, frameworkPatterns);
 
-public Graph[Vertex] withOptimisticTransitiveClosure(Graph[Vertex] graph, _, SymbolTableMap _) = getOptimisticTransitiveClosure(graph);
+public Graph[Vertex] withOptimisticTransitiveClosure(Graph[Vertex] graph, _, SymbolTableMap _, _) = getOptimisticTransitiveClosure(graph);
 
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] andExtractPessimisticCallGraph(Graph[Vertex] graph) = extractPessimisticCallGraph(graph);
 public Graph[Vertex] andExtractOptimisticCallGraph(Graph[Vertex] graph, _, SymbolTableMap _) = extractOptimisticCallGraph(graph);
