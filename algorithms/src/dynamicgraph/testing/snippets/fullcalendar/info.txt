@@ -1,0 +1,1 @@
+rewrite(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/fullcalendar/prepared/|, {"gcal"}, {"jquery"});

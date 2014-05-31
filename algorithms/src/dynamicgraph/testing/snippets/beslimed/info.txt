@@ -11,11 +11,16 @@ filteredOptSlime = filterFrameworkEdges(optSlime, {"mootools"});
 printStatistics(filteredPesSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
 printStatistics(filteredOptSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
 
-dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|, slimeMapje);
+dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
 
 filteredPesSlimeString = convertVertexGraphToStringGraph(filteredPesSlime);
 dynMinusFilteredPes = dynSlime - filteredPesSlimeString;
 filteredPesMinusDyn = filteredPesSlimeString - dynSlime;
+nonNativeDiffs = filterNativeEdges(filteredPesMinusDyn)
+nativeDiffs = filteredPesMinusDyn - nonNativeDiffs;
+
+//Total missing non-native edges: size(nonNativeDiffs) = 242
+//Total missing non-native edges to prototype: size(filterTargets(nonNativeDiffs, {"mootools"})) = 238
 
 filteredOptSlimeString = convertVertexGraphToStringGraph(filteredPesSlime);
 dynMinusFilteredOpt = dynSlime - filteredOptSlimeString;
