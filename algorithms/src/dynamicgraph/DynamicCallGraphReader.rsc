@@ -8,6 +8,7 @@ import lang::json::ast::JSON;
 import DataStructures;
 import analysis::graphs::Graph;
 import ParseTree;
+import utils::GraphUtils;
 import NativeFlow;
 
 public Graph[str] convertJsonToGraph(loc jsonFile) {
@@ -51,5 +52,3 @@ public Graph[str] convertJsonToGraph(loc jsonFile) {
 }
 
 private JSONText parse(loc jsonFile) = parse(#JSONText, readFile(jsonFile));
-
-private bool matchesNativeElement(str string) = !contains(string, "@");

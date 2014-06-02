@@ -1,4 +1,4 @@
-pacmanLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/google_pacman-master/prepared/src/js/main.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/google_pacman-master/prepared/src/js/pacman10-hp.3.js|];
+pacmanLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/google_pacman-master/prepared/src/js/main.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/google_pacman-master/prepared/src/js/pacman10-hp.3.js|];
 
 pesPac = createCleanPessimisticCallGraph(pacmanLijstje);
 optPac = createCleanOptimisticCallGraph(pacmanLijstje);

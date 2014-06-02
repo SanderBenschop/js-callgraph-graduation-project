@@ -1,4 +1,4 @@
-slimeLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/game.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/mootools-beta-1.js|];
+slimeLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/game.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/mootools-beta-1.js|];
 
 pesSlime = createCleanPessimisticCallGraph(slimeLijstje);
 

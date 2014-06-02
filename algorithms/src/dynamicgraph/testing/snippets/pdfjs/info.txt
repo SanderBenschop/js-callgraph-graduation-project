@@ -2,6 +2,9 @@ import ValueIO;
 import analysis::graphs::Graph;
 import DataStructures;
 
+
+
+TODO: fix names.
 tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] pessPdf = readBinaryValueFile(#tuple[Graph[Vertex], set[Vertex] ,set[Vertex]], |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/pdfjs/pessimisticPacman.bin|);
 optPdf = readBinaryValueFile(#Graph[Vertex], |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/pdfjs/optimisticPacman.bin|);
 

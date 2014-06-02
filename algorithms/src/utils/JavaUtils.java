@@ -33,10 +33,25 @@ public class JavaUtils {
         }
     }
     
+    public IString executeSloc(IString path, IEvaluatorContext ctx) {
+        String commandString = "sloc";
+        String[] args = new String[]{ commandString, path.getValue() };
+        try (java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(args).getInputStream())) {
+            java.util.Scanner delimited = s.useDelimiter("\\A");
+            return toIString(delimited.hasNext() ? delimited.next() : "");
+        } catch(IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public IString regexReplace(IString source, IString pattern, IString replacement, IEvaluatorContext ctx) {
         String sourceValue = source.getValue(), 
                patternValue = pattern.getValue(),
                replacementValue = replacement.getValue();
-        return ValueFactoryFactory.getValueFactory().string(sourceValue.replaceAll(patternValue, replacementValue));
+        return toIString(sourceValue.replaceAll(patternValue, replacementValue));
+    }
+    
+    private IString toIString(String string) {
+        return ValueFactoryFactory.getValueFactory().string(string);
     }
 }

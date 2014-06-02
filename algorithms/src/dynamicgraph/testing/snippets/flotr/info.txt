@@ -24,6 +24,27 @@ flotrLijstje = [
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/flotr/lib/prototype-1.6.0.2.js|
 ];
 
+nonFrameworkFlotr = [
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/examples.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/advanced-titles.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/basic.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/basic-axis.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/basic-bar.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/basic-candlesticks.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/basic-legend.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/basic-pie.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/basic-stacked-bars.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/click-event.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/data-download.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/extending-flotr.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/image-download.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/json-data.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/mouse-tracking.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/mouse-zoom.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/negative.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/flotr/flotr-0.2.0-alpha.js|
+	];
+
 pesFlotr = createCleanPessimisticCallGraph(flotrLijstje);
 optflotr = createCleanOptimisticCallGraph(flotrLijstje);
 

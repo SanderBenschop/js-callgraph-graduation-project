@@ -1,7 +1,7 @@
 modelLijstje = [
-	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/design.js|,
-	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/main.js|,
-	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/transform.js|
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/design.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/main.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/3dmodel/prepared/Javascript%203D%20Model%20Viewer_files/transform.js|
 ];
 
 pesModel = createCleanPessimisticCallGraph(modelLijstje);

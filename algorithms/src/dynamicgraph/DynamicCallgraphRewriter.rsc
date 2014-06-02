@@ -65,7 +65,6 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		return replaceFirst(body, "{", "{
 			  //Function augmented
 			  var THISREFERENCE = this;
-			  //var ARGUMENTS_REFERENCE = arguments;
 			  var FUNCTION_LOC = \"<formattedLoc>\";
 			  CALL_STACK_DEPTH++;
 			  if(<!isFrameworkFile> && COVERED_FUNCTIONS.indexOf(FUNCTION_LOC) === -1) COVERED_FUNCTIONS.push(FUNCTION_LOC);

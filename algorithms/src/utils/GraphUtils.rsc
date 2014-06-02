@@ -14,8 +14,16 @@ public Graph[Vertex] filterNativeEdges(Graph[Vertex] graph) {
 	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, Builtin(_) !:= tup.target};
 }
 
+public Graph[str] filterNativeEdges(Graph[str] graph) {
+	return {tup | tuple[str callee, str target] tup <- graph, !matchesNativeElement(tup.target)};
+}
+
 public Graph[str] filterFrameworkEdgesInclusive(Graph[str] graph, set[str] patterns) {
 	return {tup | tuple[str callee, str target] tup <- graph, matchesAPattern(tup.callee, patterns) && matchesAPattern(tup.target, patterns)};
+}
+
+public Graph[str] filterTargets(Graph[str] graph, set[str] patterns) {
+	return {tup | tuple[str callee, str target] tup <- graph, matchesAPattern(tup.target, patterns)};
 }
 
 public bool matchesAPattern(Vertex callee, set[str] patterns) {
@@ -48,3 +56,5 @@ public Graph[str] convertVertexGraphToStringGraph(Graph[Vertex] vertexGraph) {
 	}
 	return stringGraph;
 }
+
+public bool matchesNativeElement(str string) = !contains(string, "@");
