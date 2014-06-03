@@ -1,0 +1,38 @@
+htmlLijstje = [
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_1.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_2.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_3.js|,	
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_4.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.colors.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.full.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.styles.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.syntax.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.undoredomanager.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/jquery-1.3.2.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/xhtml.js|
+];
+
+htmlLijstjeNonFramework = [
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_1.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_2.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_3.js|,	
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/demo-iconset_silk_4.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.colors.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.full.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.styles.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.syntax.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/prepared/htmlbox.undoredomanager.js|
+];
+
+pesHtml = createCleanPessimisticCallGraph(htmlLijstje);
+optHtml = createCleanOptimisticCallGraph(htmlLijstje);
+
+loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/callmap.json|;
+printStatistics(pesHtml.calls, callGraph);
+printStatistics(optHtml, callGraph);
+
+filteredPesHtml = filterFrameworkEdges(pesHtml.calls, {"jquery", "xhtml"});
+filteredOptHtml = filterFrameworkEdges(optHtml, {"jquery", "xhtml"});
+
+printStatistics(filteredPesHtml, callGraph);
+printStatistics(filteredOptHtml, callGraph);

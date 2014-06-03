@@ -1,0 +1,21 @@
+rewrite(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/prepared/|, {}, {"jquery-1.6.2"});
+
+markLijstje = [
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/prepared/main.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/prepared/markitup/sets/default/set.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/prepared/markitup/jquery.markitup.js|,
+	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/prepared/markitup/jquery-1.6.2.js|
+];
+
+pesMark = createCleanPessimisticCallGraph(markLijstje);
+optMark = createCleanOptimisticCallGraph(markLijstje);
+
+loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/callmap.json|;
+printStatistics(pesMark.calls, callGraph);
+printStatistics(optMark, callGraph);
+
+filteredPesMark = filterFrameworkEdges(pesMark.calls, {"jquery-1.6.2"});
+filteredOptMark = filterFrameworkEdges(optMark, {"jquery-1.6.2"});
+
+printStatistics(filteredPesMark, callGraph);
+printStatistics(filteredOptMark, callGraph);
