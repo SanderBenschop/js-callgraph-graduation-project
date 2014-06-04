@@ -1,0 +1,15 @@
+marioLijstjeNonFramework = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/mario/prepared/code/|.ls + |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/mario/prepared/Enjine/|.ls;
+marioLijstje = marioLijstjeNonFramework + |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/mario/prepared/jquery-1.6.2.js|;
+
+pesMario = createCleanPessimisticCallGraph(marioLijstje);
+optMario = createCleanOptimisticCallGraph(marioLijstje);
+
+loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/mario/callmap.json|;
+printStatistics(pesMario.calls, callGraph);
+printStatistics(optMario, callGraph);
+
+filteredPesMario = filterFrameworkEdges(pesMario.calls, {"jquery-1.6.2"});
+filteredOptMario = filterFrameworkEdges(optMario, {"jquery-1.6.2"});
+
+printStatistics(filteredPesMario, callGraph);
+printStatistics(filteredOptMario, callGraph);
