@@ -1,0 +1,8 @@
+alienLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/AlienInvasion/source/game.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/AlienInvasion/source/engine.js|];
+
+pesAlien = createCleanPessimisticCallGraph(alienLijstje);
+optAlien = createCleanOptimisticCallGraph(alienLijstje);
+
+loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/AlienInvasion/callmap.json|;
+printStatistics(pesAlien.calls, callGraph);
+printStatistics(optAlien, callGraph);
