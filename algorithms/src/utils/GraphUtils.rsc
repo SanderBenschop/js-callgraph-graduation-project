@@ -10,8 +10,12 @@ public Graph[Vertex] filterFrameworkEdges(Graph[Vertex] graph, set[str] patterns
 	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, !matchesAPattern(tup.callee, patterns)};
 }
 
+public Graph[str] filterFrameworkEdges(Graph[str] graph, set[str] patterns) {
+	return {tup | tuple[str callee, str target] tup <- graph, !matchesAPattern(tup.callee, patterns)};
+}
+
 public Graph[Vertex] filterNativeEdges(Graph[Vertex] graph) {
-	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, Builtin(_) !:= tup.target};
+	return {tup | tuple[Vertex lhs, Vertex rhs] tup <- graph, Builtin(_) !:= tup.lhs && Builtin(_) !:= tup.rhs};
 }
 
 public Graph[str] filterNativeEdges(Graph[str] graph) {

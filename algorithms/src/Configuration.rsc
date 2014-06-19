@@ -9,7 +9,7 @@ public bool globalFunctionAsProperties = true;
 //If set to true, only call targets are taken into account when measuring performance and recall
 //In the paper it seems that this is what they've done.
 //It does repress information however, which helps to increase the precision.
-public bool compareCallTargetsOnly = true;
+public bool compareCallTargetsOnly = false;
 
 //If set to true, native functions are not counted when comparing call graphs.
 public bool filterNativeFunctions = false;

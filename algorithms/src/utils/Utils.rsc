@@ -5,6 +5,7 @@ import List;
 import ParseTree;
 import EcmaScript;
 import analysis::graphs::Graph;
+import String;
 
 list[tuple[&T first, &U second]] unbalancedZip(list[&T] a, list[&U] b) {
 	int sizeA = size(a), sizeB = size(b);
@@ -25,6 +26,15 @@ public str formatLoc(loc location) {
 	//The tool used by the original authors doesn't show multiple lines but just puts it one one big line like this.
 	int columnEnd = columnStart + location.length;
 	return "<file>@<lineNumber>:<columnStart>-<columnEnd>";
+}
+
+//TODO: remove duplication
+public str formatGVLoc(str prefix, loc location) {
+	try str file = replaceLast(location.file, ".js", ""); catch : str file = "Mockup";	
+	int lineNumber = location.begin.line;
+	int columnStart = location.offset;
+	int columnEnd = columnStart + location.length;
+	return "<prefix>FILE<file>LINE<lineNumber>COLSTART<columnStart>COLEND<columnEnd>";
 }
 
 public list[Tree] extractArguments(call) {

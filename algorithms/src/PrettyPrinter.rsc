@@ -15,6 +15,31 @@ public void writePrettyPrintedGraph(Graph[Vertex] graph, bool sortIt, bool flowG
     writeFile(|project://JavaScript%20cg%20algorithms/src/testing/filedump/prettyPrinted.log|, prettyPrinted);
 }
 
+public str prettyPrintGraphVizExport(Graph[Vertex] graph) {
+	list[str] vertices = [], edges = [];
+	
+	for (Vertex vertex <- domain(graph) + range(graph)) {
+		vertices += "<graphVizFormatVertex(vertex)> [label=\"<flowGraphFormatVertex(vertex)>\"]";
+	}
+	
+	for (Vertex base <- domain(graph)) {
+		set[Vertex] targets = graph[base];
+		for (Vertex target <- targets) {
+			edges += "<graphVizFormatVertex(base)> -\> <graphVizFormatVertex(target)>";
+		}
+	}
+	
+	return "
+	digraph G {
+		{
+			<joinStringList(vertices)>
+		}
+			<joinStringList(edges)>
+	}";
+}
+
+private str joinStringList(list[str] stringList) = ("" | it + stringElem + "\n" | str stringElem <- stringList);
+
 public str prettyPrintGraph(Graph[Vertex] graph) = prettyPrintGraph(graph, false, true);
 public str prettyPrintGraph(Graph[Vertex] graph, bool sortIt, bool flowGraphStyle) {
 	str (Vertex) formatter = flowGraphStyle ? flowGraphFormatVertex : callGraphFormatVertex;
@@ -106,5 +131,45 @@ private str callGraphFormatVertex(Vertex vertex) {
 			return formatLoc(position);
 		}
 		default: throw "CallGraph pretty print not implemented for vertex <vertex>";
+	}
+}
+
+private str graphVizFormatVertex(Vertex vertex) {
+	switch(vertex) {
+		case Function(loc position) : {
+			return formatGVLoc("func", position);
+		}
+		case Builtin(str name) : {
+			return name;
+		}
+		case Callee(loc position) : {
+			return formatGVLoc("callee", position);
+		}
+		case Expression(loc position) : {
+			return formatGVLoc("exp", position);
+		}
+		case Argument(loc position, int index) : {
+			return formatGVLoc("arg<index>", position);
+		}
+		case Parameter(loc position, int index) : {
+			return formatGVLoc("parm<index>", position);
+		}
+		case Return(loc position) : {
+			return formatGVLoc("return", position);
+		}
+		
+		case Result(loc position) : {
+			return formatGVLoc("result", position);
+		}
+		
+		case Property(str name) : {
+			return "prop_<name>";
+		}
+		
+		case Unknown() : {
+			return "unknown";
+		}
+		
+		default: throw "GraphViz pretty print not implemented for vertex <vertex>";
 	}
 }

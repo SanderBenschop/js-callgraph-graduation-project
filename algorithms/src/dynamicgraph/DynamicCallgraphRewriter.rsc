@@ -89,7 +89,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		str functionExpressionString = unparse(functionExpression);
 		return "(function(arguments) {
 		//Call augmented
-	  	var OLD_LAST_CALL_LOC = LAST_CALL_LOC;
+	  	var OLD_LAST_CALL_LOC = LAST_CALL_LOC; //TODO: I think resetting the old call loc isn\'t necessary after all. Check this.
 	  	LAST_CALL_LOC = \"<formattedLoc>\";
 	  	if(COVERED_CALLS.indexOf(LAST_CALL_LOC) === -1) COVERED_CALLS.push(LAST_CALL_LOC);
 	  	var LENGTH_BEFORE = CALL_STACK_DEPTH;
