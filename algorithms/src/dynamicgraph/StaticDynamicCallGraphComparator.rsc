@@ -35,6 +35,12 @@ public real calculatePrecision(Graph[str] staticCG, Graph[str] dynamicCG) {
 		staticCG = filterNatives(staticCG);
 		dynamicCG = filterNatives(dynamicCG);
 	}
+	
+	if (compareCoveredCodeOnly) {
+		println("Filtering out code not covered in the dynamic call graph!");
+		set[str] dynamicCallees = domain(dynamicCG);
+		staticCG = {tup | tuple[str callee, str target] tup <- staticCG, tup.callee in dynamicCallees};
+	}
 
 	real intersection, staticCallGraphSize;
 	if (compareCallTargetsOnly) {

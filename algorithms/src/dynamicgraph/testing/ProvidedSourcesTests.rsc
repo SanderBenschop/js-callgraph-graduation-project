@@ -7,9 +7,10 @@ import util::Math;
 import utils::GraphUtils;
 import IO;
 import Set;
+import Relation;
 
 public real tolerance = 0.1;
-public bool doFrameworkFiltering = true;
+public bool doFrameworkFiltering = false;
 
 public test bool testPacmanPessimistic() {
 	loc staticLoc = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/provided/pacman/pessimistic.json|;
@@ -55,7 +56,7 @@ public bool numbersAreCorrect(loc staticGraphJson, loc dynamicGraphJson, real ex
 		staticGraph = filterFrameworkEdges(staticGraph, frameworkFunctions);
 		dynamicGraph = filterFrameworkEdges(dynamicGraph, frameworkFunctions);
 		println("After filtering: Edges in static: <size(staticGraph)> edges in dynamic: <size(dynamicGraph)>");
-	}	
+	}
 	real precision = calculatePrecision(staticGraph, dynamicGraph), recall = calculateRecall(staticGraph, dynamicGraph);
 	println("Precision: <precision>, recall : <recall>");
 	return abs(expectedPrecision - precision) < tolerance && abs(expectedRecall - recall) < tolerance;
