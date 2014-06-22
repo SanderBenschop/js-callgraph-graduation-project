@@ -17,11 +17,16 @@ private loc PRETTY_PRINT_FOLDER = |project://JavaScript%20cg%20algorithms/src/te
 
 public void generateNRandomSnippets(int n) {
 	loc generatedFolder = GENERATED_SNIPPET_FOLDER;
+	int parsedWithErrors = 0;
 	for (int i <- [0..n]) {
-		str program = randomTest();
-		loc target = GENERATED_SNIPPET_FOLDER + "snippet-<i>.js";
-		writeFile(target, program);
+		try {
+			str program = randomTest();
+			loc target = GENERATED_SNIPPET_FOLDER + "snippet-<i>.js";
+			writeFile(target, program);
+		}
+		catch _: parsedWithErrors += 1;
 	}
+	println("Of the total <n> planned executions, <parsedWithErrors> failed due to parse errors.");
 }
 
 public void writePrettyPrints() {
@@ -37,9 +42,13 @@ public void writePrettyPrints() {
 //TODO: add references to existing properties.
 public bool nRandomTests() = nRandomTests(1000);
 public bool nRandomTests(int n) {
+	int parsedWithErrors = 0;
 	for (int i <- [0..n]) {
-		randomTest();
+		try
+			randomTest();
+		catch ParseError(_) : parsedWithErrors += 1;
 	}
+	println("Of the total <n> planned executions, <parsedWithErrors> failed due to parse errors.");
 	return true;
 }
 
@@ -49,10 +58,10 @@ public str randomTest() {
 	Graph[Vertex] flowGraph;
 	try 
 		flowGraph = createIntraProceduralFlowGraph(generatedProgram.code);
-	catch ParseError : {
+	catch e: {
 		println("A parse error occured. Source:");
 		println(generatedProgram.code);
-		throw "Parse error occured";
+		throw e;
 	}
 	
 	Graph[Vertex] matchedEdges = {};
@@ -119,7 +128,7 @@ private Maybe[tuple[Vertex, Vertex]] thereExistsVertex(Expectation from, Expecta
 	for (Vertex base <- domain(flowGraph)) {
 		set[Vertex] targets = flowGraph[base];
 		for (Vertex target <- targets) {
-			if (expectation(fromType, fromValue) := from && expectation(toType, toValue) := to) {
+			if (expectation(fromType, fromValue, _) := from && expectation(toType, toValue, _) := to) {
 				ExpectationType leftType = getExpectationType(base), rightType = getExpectationType(target);
 				str leftValue = getVertexValue(program, base), rightValue = getVertexValue(program, target);
 				if (fromType == leftType && removeLayout(fromValue) == removeLayout(leftValue)
