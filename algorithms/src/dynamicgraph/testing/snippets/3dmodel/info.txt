@@ -7,10 +7,10 @@ modelLijstje = [
 pesModel = createCleanPessimisticCallGraph(modelLijstje);
 optModel = createCleanOptimisticCallGraph(modelLijstje);
 
-loc callMap = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/3dmodel/callmap4.json|;
+loc callMap = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/3dmodel/callmap4.json|;
 
 printStatistics(pesModel.calls, callMap);
-printStatistics(optMod	el, callMap);
+printStatistics(optModel, callMap);
 
 dynModel = convertJsonToGraph(callMap);
 filteredPesModelString = convertVertexGraphToStringGraph(pesModel.calls);

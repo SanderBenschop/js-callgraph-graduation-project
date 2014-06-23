@@ -43,7 +43,7 @@ nonFrameworkFlotr = [
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/mouse-zoom.js|,
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/examples/negative.js|,
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/flotr/flotr-0.2.0-alpha.js|
-	];
+];
 
 pesFlotr = createCleanPessimisticCallGraph(flotrLijstje);
 optflotr = createCleanOptimisticCallGraph(flotrLijstje);

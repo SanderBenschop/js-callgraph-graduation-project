@@ -4,12 +4,9 @@ pesSlime = createCleanPessimisticCallGraph(slimeLijstje);
 
 optSlime = createCleanOptimisticCallGraph(slimeLijstje);
 
-import utils::GraphUtils;
-filteredPesSlime = filterFrameworkEdges(pesSlime.calls, {"mootools"});
-filteredOptSlime = filterFrameworkEdges(optSlime, {"mootools"});
-
-printStatistics(filteredPesSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
-printStatistics(filteredOptSlime, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
+loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/callmaprun7.json|;
+printStatistics(pesSlime.calls, callGraph);
+printStatistics(optSlime, callGraph);
 
 dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
 

@@ -16,7 +16,7 @@ markLijstjeNoFrameworks = [
 pesMark = createCleanPessimisticCallGraph(markLijstje);
 optMark = createCleanOptimisticCallGraph(markLijstje);
 
-loc callGraphIncl = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitupincl/callmap.json|;
+loc callGraphIncl = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/instrumented-incl/callmap.json|;
 loc callGraphExcl = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/callmap.json|;
 
 printStatistics(pesMark.calls, callGraphIncl);

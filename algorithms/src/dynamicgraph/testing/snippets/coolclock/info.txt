@@ -5,16 +5,10 @@ clockLijstje = [
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/coolclock/prepared/demos/demo2.js|
 ];
 
-clockNonFramework = [
-	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/coolclock/prepared/coolclock.js|,
-	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/coolclock/prepared/moreskins.js|,
-	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/coolclock/prepared/demos/demo2.js|
-];
-
 pesClock = createCleanPessimisticCallGraph(clockLijstje);
 optclock = createCleanOptimisticCallGraph(clockLijstje);
 
-loc clockCallGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/coolclock/callmap.json|;
+loc clockCallGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/coolclock/instrumented-incl/callmap.json|;
 printStatistics(pesClock.calls, clockCallGraph);
 printStatistics(optclock, clockCallGraph);
 

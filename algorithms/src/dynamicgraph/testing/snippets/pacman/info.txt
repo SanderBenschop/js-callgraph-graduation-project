@@ -3,13 +3,9 @@ pacmanLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/s
 pesPac = createCleanPessimisticCallGraph(pacmanLijstje);
 optPac = createCleanOptimisticCallGraph(pacmanLijstje);
 
-printStatistics(pesPac.calls, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/google_pacman-master/callmaprun6.json|);
-WARNING - Cannot extract call to native function from g.flashSoundPlayer.stopAmbientTrack
-WARNING - Cannot extract call to native function from g.flashSoundPlayer.stopChannel
-WARNING - Cannot extract call to native function from g.flashSoundPlayer.playTrack
-WARNING - Cannot extract call to native function from g.flashSoundPlayer.playAmbientTrack
-The precision is 79.4642857100%
-The recall is 100.%
+printStatistics(pesPac.calls, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/google_pacman-master/callmaprun6.json|);
+printStatistics(optPac, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/google_pacman-master/callmaprun6.json|);
+
 
 dynPacman = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/google_pacman-master/callmaprun6.json|);
 
