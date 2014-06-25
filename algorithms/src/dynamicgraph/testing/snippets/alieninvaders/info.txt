@@ -3,6 +3,9 @@ alienLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/sr
 pesAlien = createCleanPessimisticCallGraph(alienLijstje);
 optAlien = createCleanOptimisticCallGraph(alienLijstje);
 
-loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/AlienInvasion/callmap.json|;
-printStatistics(pesAlien.calls, callGraph);
-printStatistics(optAlien, callGraph);
+loc alienCallGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/AlienInvasion/callmap.json|;
+printStatistics(pesAlien.calls, alienCallGraph);
+printStatistics(optAlien, alienCallGraph);
+
+dynAlien = convertJsonToGraph(alienCallGraph);
+possibleIncorrectAlien = generatePossibleIncorrectCallbackEdges(alienLijstje);

@@ -6,6 +6,9 @@ marioLijstje = marioLijstjeNonFramework + |file:///home/sander/Dropbox/Afstudere
 pesMario = createCleanPessimisticCallGraph(marioLijstje);
 optMario = createCleanOptimisticCallGraph(marioLijstje);
 
-loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/mario/instrumented-incl/callmap.json|;
-printStatistics(pesMario.calls, callGraph);
-printStatistics(optMario, callGraph);
+loc marioCallGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/mario/instrumented-incl/callmap.json|;
+printStatistics(pesMario.calls, marioCallGraph);
+printStatistics(optMario, marioCallGraph);
+
+dynMario = convertJsonToGraph(marioCallGraph);
+possibleIncorrectMario = generatePossibleIncorrectCallbackEdges(marioLijstje);

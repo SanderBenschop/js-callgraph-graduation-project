@@ -8,11 +8,14 @@ loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/sr
 printStatistics(pesSlime.calls, callGraph);
 printStatistics(optSlime, callGraph);
 
-dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/beslimed/callmaprun7.json|);
+dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/callmaprun7.json|);
 
-filteredPesSlimeString = convertVertexGraphToStringGraph(filteredPesSlime);
-dynMinusFilteredPes = dynSlime - filteredPesSlimeString;
-filteredPesMinusDyn = filteredPesSlimeString - dynSlime;
+set[str] dynamicCallees = domain(dynSlime);
+pesSlimeString = convertVertexGraphToStringGraph(pesSlime.calls);
+filteredPesSlime = {tup | tuple[str callee, str target] tup <- pesSlimeString, tup.callee in dynamicCallees};
+
+dynMinusFilteredPes = dynSlime - filteredPesSlime;
+filteredPesMinusDyn = filteredPesSlime - dynSlime;
 nonNativeDiffs = filterNativeEdges(filteredPesMinusDyn)
 nativeDiffs = filteredPesMinusDyn - nonNativeDiffs;
 

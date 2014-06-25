@@ -1,3 +1,7 @@
+import ValueIO;
+import analysis::graphs::Graph;
+import DataStructures;
+
 lots of calls to toString, are treated as natives by static algorithm.
 
 flotrLijstje = [
@@ -45,22 +49,22 @@ nonFrameworkFlotr = [
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/prepared/flotr/flotr-0.2.0-alpha.js|
 ];
 
-pesFlotr = createCleanPessimisticCallGraph(flotrLijstje);
-optflotr = createCleanOptimisticCallGraph(flotrLijstje);
+//pesFlotr = createCleanPessimisticCallGraph(flotrLijstje);
+//optflotr = createCleanOptimisticCallGraph(flotrLijstje);
 
-loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/callmapRunTogether.json|;
-printStatistics(pesFlotr.calls, callGraph);
-printStatistics(optflotr, callGraph);
+tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] pesFlotr = readBinaryValueFile(#tuple[Graph[Vertex], set[Vertex] ,set[Vertex]], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/flotr/pessimistic.bin|);
+Graph[Vertex] optflotr = readBinaryValueFile(#Graph[Vertex], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/flotr/optimistic.bin|);
 
-filteredPesFlotr = filterFrameworkEdges(pesFlotr.calls, {"prototype", "canvas"});
-filteredOptFlotr = filterFrameworkEdges(optflotr, {"prototype", "canvas"});
+loc flotrCallGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/flotr/callmapRunTogether.json|;
+printStatistics(pesFlotr.calls, flotrCallGraph);
+printStatistics(optflotr, flotrCallGraph);
 
-printStatistics(filteredPesFlotr, callGraph);
-printStatistics(filteredOptFlotr, callGraph);
+dynFlotr = convertJsonToGraph(flotrCallGraph);
+possibleIncorrectFlotr = generatePossibleIncorrectCallbackEdges(flotrLijstje);
 
+set[str] dynamicCallees = domain(dynFlotr);
 pesFlotrString = convertVertexGraphToStringGraph(pesFlotr.calls);
-filteredPesFlotrString = convertVertexGraphToStringGraph(filteredPesFlotr);
-dynFlotr = convertJsonToGraph(callGraph);
+filteredPesFlotrString = {tup | tuple[str callee, str target] tup <- pesFlotrString, tup.callee in dynamicCallees};
 
 pessDynDiff = filteredPesFlotrString - dynFlotr;
 nonNativeDiffs = filterNativeEdges(pessDynDiff)
