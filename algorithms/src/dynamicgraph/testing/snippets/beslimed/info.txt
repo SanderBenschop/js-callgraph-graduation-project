@@ -1,14 +1,16 @@
 slimeLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/game.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/mootools-beta-1.js|];
 
-pesSlime = createCleanPessimisticCallGraph(slimeLijstje);
-
-optSlime = createCleanOptimisticCallGraph(slimeLijstje);
+//pesSlime = createCleanPessimisticCallGraph(slimeLijstje);
+//optSlime = createCleanOptimisticCallGraph(slimeLijstje);
+tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] pesSlime = readBinaryValueFile(#tuple[Graph[Vertex], set[Vertex] ,set[Vertex]], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/beslimed/pessimistic.bin|);
+Graph[Vertex] optSlime = readBinaryValueFile(#Graph[Vertex], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/beslimed/optimistic.bin|);
 
 loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/callmaprun7.json|;
 printStatistics(pesSlime.calls, callGraph);
 printStatistics(optSlime, callGraph);
 
 dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/callmaprun7.json|);
+possibleIncorrectSlime = generatePossibleIncorrectCallbackEdges(slimeLijstje);
 
 set[str] dynamicCallees = domain(dynSlime);
 pesSlimeString = convertVertexGraphToStringGraph(pesSlime.calls);

@@ -12,19 +12,6 @@ import utils::GraphUtils;
 import NativeFlow;
 
 public Graph[str] convertJsonToGraph(loc jsonFile) {
-	set[str] createBuiltinNodes(str string) {
-		if (isNativeTarget(string)) return { "Builtin(<key>)" | key <- getKeysByValue(string) };
-		list[str] splitted = split(".", string);
-		int maxIndex = size(splitted);
-		for (i <- [1..maxIndex]) {
-			str joined = intercalate(".", splitted[i..]);
-			if (isNativeTarget(joined)) return { "Builtin(<key>)" | key <- getKeysByValue(joined) };
-		}
-		if (isNativeBase(string)) return {"Builtin(<nativeFlows[string]>)"};
-		println("WARNING - Cannot extract call to native function from <string> for json file <jsonFile>");
-		return {};
-	}
-
 	Graph[str] callGraph = {};
 	JSONText cst = parse(#JSONText, jsonFile);
 	Value ast = buildAST(cst);

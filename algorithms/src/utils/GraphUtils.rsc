@@ -5,6 +5,8 @@ import DataStructures;
 import PrettyPrinter;
 import String;
 import List;
+import NativeFlow;
+import IO;
 
 public Graph[Vertex] filterFrameworkEdges(Graph[Vertex] graph, set[str] patterns) {
 	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, !matchesAPattern(tup.callee, patterns)};
@@ -61,4 +63,22 @@ public Graph[str] convertVertexGraphToStringGraph(Graph[Vertex] vertexGraph) {
 	return stringGraph;
 }
 
+//TODO: move somewhere more appropriately
+public set[str] createBuiltinNodes(str string) {
+	if (isNativeTarget(string)) return { "Builtin(<key>)" | key <- getKeysByValue(string) };
+	list[str] splitted = split(".", string);
+	int maxIndex = size(splitted);
+	for (i <- [1..maxIndex]) {
+		str joined = intercalate(".", splitted[i..]);
+		if (isNativeTarget(joined)) return { "Builtin(<key>)" | key <- getKeysByValue(joined) };
+	}
+	if (isNativeBase(string)) return {"Builtin(<nativeFlows[string]>)"};
+	println("WARNING - Cannot extract call to native function from <string>.");
+	return {};
+}
+
 public bool matchesNativeElement(str string) = !contains(string, "@");
+
+public Graph[&T] reverseGraphDirection(Graph[&T] originalGraph) {
+	return {<tup.from, tup.to> | tuple[&T to, &T from] tup <- originalGraph};
+}

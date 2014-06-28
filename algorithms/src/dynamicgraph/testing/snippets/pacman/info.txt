@@ -7,7 +7,13 @@ printStatistics(pesPac.calls, |file:///home/sander/Dropbox/Afstuderen%20UvA/grap
 printStatistics(optPac, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/google_pacman-master/callmaprun6.json|);
 
 
-dynPacman = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/google_pacman-master/callmaprun6.json|);
+dynPacman = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/google_pacman-master/callmaprun6.json|);
+possibleIncorrectPacman = generatePossibleIncorrectCallbackEdges(pacmanLijstje);
+----
+IDENTIFIED FALSE POSITIVES:
+dynPacman - (dynPacman - possibleIncorrectPacman)
+Zero
+----
 
 pesPacString = convertVertexGraphToStringGraph(pesPac.calls);
 dynMinusFilteredPes = dynPacman - pesPacString;

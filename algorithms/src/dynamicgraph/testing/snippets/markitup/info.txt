@@ -31,3 +31,27 @@ printStatistics(filteredOptMark, callGraphExcl);
 
 pesMarkString = convertVertexGraphToStringGraph(pesMark.calls);
 dynMar = convertJsonToGraph(callGraphIncl);
+possibleIncorrectMark = generatePossibleIncorrectCallbackEdges(markLijstje);
+----
+IDENTIFIED FALSE POSITIVES:
+dynMar - (dynMar - possibleIncorrectMark)
+bugged = {
+  <"Callee(jquery.markitup.js@152:7147-7607)","Func(jquery.markitup.js@152:7189-7606)">, //correct: function expr
+  //<"Callee(jquery-1.6.2.js@908:41521-41556)","Func(jquery-1.6.2.js@819:37989-39786)">, //false positive, ref to jquery via property
+  <"Callee(jquery-1.6.2.js@2350:100925-101055)","Func(jquery-1.6.2.js@2353:100971-101054)">, //correct, function expr
+  //<"Callee(jquery.markitup.js@480:21874-21943)","Func(jquery-1.6.2.js@3729:162647-163664)">, //false positive, ref to jquery function via property
+  <"Callee(jquery.markitup.js@144:6744-7116)","Func(jquery.markitup.js@144:6786-7115)">, //correct, function expr
+  //<"Callee(jquery-1.6.2.js@115:6585-6603)","Func(jquery-1.6.2.js@535:25543-26578)">, //false positive, ref to jquery via property
+  //<"Callee(jquery-1.6.2.js@4611:200273-200301)","Func(jquery-1.6.2.js@4638:201300-201854)">, //false positive, ref to jquery via property
+  <"Callee(jquery-1.6.2.js@2936:129304-129356)","Func(jquery-1.6.2.js@2931:129005-129085)">, //correct, reference to function via name
+  <"Callee(jquery-1.6.2.js@563:26915-26953)","Func(jquery-1.6.2.js@4208:182770-183380)"> //??
+  };
+  
+  bugged = {
+  <"Callee(jquery.markitup.js@152:7147-7607)","Func(jquery.markitup.js@152:7189-7606)">,
+  <"Callee(jquery-1.6.2.js@2350:100925-101055)","Func(jquery-1.6.2.js@2353:100971-101054)">,
+  <"Callee(jquery.markitup.js@144:6744-7116)","Func(jquery.markitup.js@144:6786-7115)">,
+  <"Callee(jquery-1.6.2.js@2936:129304-129356)","Func(jquery-1.6.2.js@2931:129005-129085)">,
+  <"Callee(jquery-1.6.2.js@563:26915-26953)","Func(jquery-1.6.2.js@4208:182770-183380)">
+  };
+----

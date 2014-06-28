@@ -12,3 +12,15 @@ printStatistics(optMario, marioCallGraph);
 
 dynMario = convertJsonToGraph(marioCallGraph);
 possibleIncorrectMario = generatePossibleIncorrectCallbackEdges(marioLijstje);
+----
+IDENTIFIED FALSE POSITIVES:
+dynMario - (dynMario - possibleIncorrectMario)
+Graph[str]: {
+  <"Callee(jquery-1.6.2.js@908:41521-41556)","Func(jquery-1.6.2.js@819:37989-39786)">,
+  <"Callee(jquery-1.6.2.js@2350:100925-101055)","Func(jquery-1.6.2.js@2353:100971-101054)">,
+  <"Callee(drawableManager.js@72:1694-1762)","Func(drawableManager.js@72:1712-1761)">,
+  <"Callee(jquery-1.6.2.js@115:6585-6603)","Func(jquery-1.6.2.js@535:25543-26578)">,
+  <"Callee(jquery-1.6.2.js@2936:129304-129356)","Func(jquery-1.6.2.js@2931:129005-129085)">,
+  <"Callee(jquery-1.6.2.js@563:26915-26953)","Func(jquery-1.6.2.js@4208:182770-183380)">
+}
+----

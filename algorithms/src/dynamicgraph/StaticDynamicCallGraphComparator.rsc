@@ -51,7 +51,7 @@ public real calculatePrecision(Graph[str] staticCG, Graph[str] dynamicCG) {
 		intersection = toReal(size(dynamicCG & staticCG));
 		staticCallGraphSize = toReal(size(staticCG));
 	}
-		
+	
 	return intersection / staticCallGraphSize * 100;
 }
 

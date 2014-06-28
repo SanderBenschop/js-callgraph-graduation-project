@@ -171,7 +171,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 		case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ _> )` => markCall(e, functionCallParams)
 		case functionCallNoParams:(Expression)`<Expression e>()` => markCall(e, functionCallNoParams)
 	
-		case (PropertyAssignment)`get <PropertyName name> () <Block body>` => markGetterProperty(name, body)
+		case (PropertyAssignment)`get <PropertyName name> () <Block body>` 	=> markGetterProperty(name, body)
 		case (PropertyAssignment)`set <PropertyName name> (<Id id>) <Block body>` => markSetterProperty(name, id, body)
 	};
 	

@@ -5,9 +5,10 @@ calendarLijstje = [
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/fullcalendar/prepared/jquery/jquery-ui-1.8.17.js|
 ];
 
-pesCalendar = createCleanPessimisticCallGraph(calendarLijstje);
-optCalendar = createCleanOptimisticCallGraph(calendarLijstje);
+//pesCalendar = createCleanPessimisticCallGraph(calendarLijstje);
 
-loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/fullcalendar/instrumented-incl/callmap.json|;
-printStatistics(pesCalendar.calls, callGraph);
-printStatistics(optCalendar, callGraph);
+tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] pesCalendar = readBinaryValueFile(#tuple[Graph[Vertex], set[Vertex] ,set[Vertex]], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/fullcalendar/pessimistic.bin|);
+//Optimistic analysis doesn't scale
+
+loc calendarGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/fullcalendar/instrumented-incl/callmap.json|;
+printStatistics(pesCalendar.calls, calendarGraph);

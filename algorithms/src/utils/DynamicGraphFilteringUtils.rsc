@@ -1,41 +1,60 @@
 module utils::DynamicGraphFilteringUtils
 
 import EcmaScript;
+import Main;
 import analysis::graphs::Graph;
 import DataStructures;
 import utils::Utils;
+import utils::GraphUtils;
+import utils::StringUtils;
 import ParseTree;
 import ScopeAnalysis;
+import GraphBuilder;
+import Relation;
+import IO;
+import NativeFlow;
+import String;
 
-//Functions can either be directly put as arguments or refered to by name or property.
-//Or it could be the result of another call...
-public Graph[str] generatePossibleIncorrectCallbackEdges(locs) {
-	trees = parseAll(locs);
-	SymbolTableMap symbolTableMap = createSymbolTableMap(trees);
+public Graph[str] generatePossibleIncorrectCallbackEdges(sources) {
+	trees = parseAll(sources);
+	Graph[Vertex] flowGraph = createOptimisticFlowGraph(trees);
+	Graph[Vertex] reversedFlowGraph = reverseGraphDirection(flowGraph);
 
 	Graph[str] stringGraph = {};
 	set[loc] functionLocs = getFunctionLocations(trees);
 	visit(trees) {
 		case exp:(Expression)`<Expression _> ( <{ Expression!comma ","}+ args> )` : {
+			int argIndex = 1;
 			for (arg <- args) {
 				if (arg@\loc in functionLocs) {
-					stringGraph += <formatLoc(exp@\loc), formatLoc(arg@\loc)>;
+					stringGraph += <"Callee(<formatLoc(exp@\loc)>)", "Func(<formatLoc(arg@\loc)>)">;
 				}
-				else if ((Expression)`<Id id>` := arg) {
-					str name = unparse(id);
-					SymbolTable symbolTable = symbolTableMap[arg@\loc];
-					if(just(tuple[Identifier id, bool _] pair) := find(name, symbolTable)) {
-						if (declaration(loc location) := pair.id) {
-							if (location in functionLocs) {
-								stringGraph += <"Callee(<formatLoc(exp@\loc)>)", "Func(<formatLoc(location)>)">;
-							}
-						}
+				else {
+					Vertex argVertex = Argument(exp@\loc, argIndex);
+					for(Vertex reachableFunction <- reach(reversedFlowGraph, { argVertex }), Function(location) := reachableFunction) {
+						stringGraph += <"Callee(<formatLoc(exp@\loc)>)", "Func(<formatLoc(location)>)">;
 					}
 				}
+				argIndex += 1;
 			}
 		}
 	}
 	return stringGraph;
+}
+
+public Graph[str] generatePossibleMissingEdges(Graph[str] possibleIncorrectCallbackEdges, map[str, str] sources) {
+	Graph[str] possibleMissingEdges = {};
+	for(str base <- domain(possibleIncorrectCallbackEdges)) {
+		//Read from string base
+		//Cut off ()
+		if (/Callee\(<file:.*>@\d+:<indexStart:\d+>-<indexEnd:\d+>\)/ := base) {
+			str source = sources[file];
+			str call = substring(source, toInt(indexStart), toInt(indexEnd));
+			str strippedCall = convertToDynamicTarget(call);
+			possibleMissingEdges += {<base, nativeTarget> | str nativeTarget <- createBuiltinNodes(strippedCall)};
+		} else throw "Not a valid callee";
+	}
+	return possibleMissingEdges;
 }
 
 private set[loc] getFunctionLocations(trees) {
@@ -46,4 +65,11 @@ private set[loc] getFunctionLocations(trees) {
 		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: functionLocations += func@\loc;
 	}
 	return functionLocations;
+}
+
+public Graph[Vertex] createFlowGraph(SymbolTableMap symbolTableMap, trees) {
+	Graph[Vertex] graph = withNativeFlow({}, trees, symbolTableMap);
+	graph = withIntraproceduralFlow(graph, trees, symbolTableMap);
+	graph = withOptimisticInterproceduralFlow(graph, trees, symbolTableMap);
+	return graph;
 }

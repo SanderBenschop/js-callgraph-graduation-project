@@ -14,7 +14,8 @@ public str convertToDynamicTarget(str source) {
 		return ""; //Definately not a native call target.
 	}
 	str replaced = escape(source,  ("\'" : "\\\'"));
-	replaced = regexReplace(replaced, "\\(.*\\)", "");
+	replaced = replaceAll(replaced, "\n", "");
+	replaced = regexReplace(replaced, "\\(.*\\)$", "");
 	
 	return removeNewLines(replaced);
 }

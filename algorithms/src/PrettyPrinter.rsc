@@ -162,6 +162,10 @@ private str graphVizFormatVertex(Vertex vertex) {
 			return formatGVLoc("result", position);
 		}
 		
+		case Variable(_, loc position) : {
+			return formatGVLoc("variable", position);
+		}
+		
 		case Property(str name) : {
 			return "prop_<name>";
 		}

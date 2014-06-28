@@ -15,9 +15,12 @@ htmlLijstje = [
 pesHtml = createCleanPessimisticCallGraph(htmlLijstje);
 optHtml = createCleanOptimisticCallGraph(htmlLijstje);
 
-loc callGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/instrumented-incl/callmap.json|;
-printStatistics(pesHtml.calls, callGraph);
-printStatistics(optHtml, callGraph);
+loc htmlGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/htmledit/instrumented-incl/callmap.json|;
+printStatistics(pesHtml.calls, htmlGraph);
+printStatistics(optHtml, htmlGraph);
+
+dynHtml = convertJsonToGraph(htmlGraph);
+possibleIncorrectHtml = generatePossibleIncorrectCallbackEdges(htmlLijstje);
 
 filteredPesHtml = filterFrameworkEdges(pesHtml.calls, {"jquery", "xhtml"});
 filteredOptHtml = filterFrameworkEdges(optHtml, {"jquery", "xhtml"});

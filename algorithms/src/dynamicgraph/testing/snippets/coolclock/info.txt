@@ -12,6 +12,9 @@ loc clockCallGraph = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitl
 printStatistics(pesClock.calls, clockCallGraph);
 printStatistics(optclock, clockCallGraph);
 
+dynClock = convertJsonToGraph(clockCallGraph);
+possibleIncorrectClock = generatePossibleIncorrectCallbackEdges(clockLijstje);
+
 filteredPesClock = filterFrameworkEdges(pesClock.calls, {"jquery"});
 filteredOptClock = filterFrameworkEdges(optclock, {"jquery"});
 
