@@ -1,0 +1,1 @@
+var res = Object.create(jQuery.fn);

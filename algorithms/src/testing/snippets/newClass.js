@@ -1,0 +1,1 @@
+var jewel = new Class({});
