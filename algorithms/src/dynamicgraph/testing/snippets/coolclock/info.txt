@@ -14,6 +14,14 @@ printStatistics(optclock, clockCallGraph);
 
 dynClock = convertJsonToGraph(clockCallGraph);
 possibleIncorrectClock = generatePossibleIncorrectCallbackEdges(clockLijstje);
+---
+dynClock - (dynClock - possibleIncorrectClock)
+Graph[str]: {
+  <"Callee(demo2.js@12:514-548)","Func(demo2.js@2:29-70)">,
+  <"Callee(demo2.js@12:514-534)","Func(demo2.js@2:29-70)">,
+  <"Callee(demo2.js@12:514-562)","Func(demo2.js@2:29-70)">
+}
+---
 
 filteredPesClock = filterFrameworkEdges(pesClock.calls, {"jquery"});
 filteredOptClock = filterFrameworkEdges(optclock, {"jquery"});

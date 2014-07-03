@@ -11,6 +11,10 @@ printStatistics(optSlime, callGraph);
 
 dynSlime = convertJsonToGraph(|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/callmaprun7.json|);
 possibleIncorrectSlime = generatePossibleIncorrectCallbackEdges(slimeLijstje);
+----
+IDENTIFIED FALSE POSITIVES:
+dynSlime - (dynSlime - possibleIncorrectSlime)
+----
 
 set[str] dynamicCallees = domain(dynSlime);
 pesSlimeString = convertVertexGraphToStringGraph(pesSlime.calls);

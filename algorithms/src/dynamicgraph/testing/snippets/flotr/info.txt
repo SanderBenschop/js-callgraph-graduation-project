@@ -61,6 +61,10 @@ printStatistics(optflotr, flotrCallGraph);
 
 dynFlotr = convertJsonToGraph(flotrCallGraph);
 possibleIncorrectFlotr = generatePossibleIncorrectCallbackEdges(flotrLijstje);
+dynFlotr - (dynFlotr - possibleIncorrectFlotr)
+----
+Graph[str]: {<"Callee(click-event.js@20:412-458)","Func(click-event.js@20:420-457)">}
+---
 
 set[str] dynamicCallees = domain(dynFlotr);
 pesFlotrString = convertVertexGraphToStringGraph(pesFlotr.calls);

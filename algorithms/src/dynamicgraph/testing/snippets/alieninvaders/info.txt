@@ -9,3 +9,8 @@ printStatistics(optAlien, alienCallGraph);
 
 dynAlien = convertJsonToGraph(alienCallGraph);
 possibleIncorrectAlien = generatePossibleIncorrectCallbackEdges(alienLijstje);
+
+----
+dynAlien - (dynAlien - possibleIncorrectAlien)
+Graph[str]: {}
+----

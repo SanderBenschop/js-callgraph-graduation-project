@@ -7,6 +7,9 @@ import String;
 import List;
 import NativeFlow;
 import IO;
+import Relation;
+import Map;
+import Set;
 
 public Graph[Vertex] filterFrameworkEdges(Graph[Vertex] graph, set[str] patterns) {
 	return {tup | tuple[Vertex callee, Vertex target] tup <- graph, !matchesAPattern(tup.callee, patterns)};
@@ -81,4 +84,20 @@ public bool matchesNativeElement(str string) = !contains(string, "@");
 
 public Graph[&T] reverseGraphDirection(Graph[&T] originalGraph) {
 	return {<tup.from, tup.to> | tuple[&T to, &T from] tup <- originalGraph};
+}
+
+public void countValueOccurences(Graph[&T] graph) {
+	map[&T, int] valueOccurenceMap = ();
+	for (tuple[&T from, &T to] tup <- graph) {
+		if (tup.to in valueOccurenceMap) valueOccurenceMap[tup.to] = valueOccurenceMap[tup.to] + 1;
+		else valueOccurenceMap[tup.to] = 1;
+	}
+	rel[int, &T] relation = invert(toRel(valueOccurenceMap));
+	for (key <- sort(domain(relation))) {
+		for (originalKey <- relation[key]) {
+			println("<originalKey> : <key>");
+		}
+	}
+	
+	return valueOccurenceMap;
 }

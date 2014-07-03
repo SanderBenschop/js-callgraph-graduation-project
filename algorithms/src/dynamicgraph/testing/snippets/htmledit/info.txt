@@ -21,6 +21,19 @@ printStatistics(optHtml, htmlGraph);
 
 dynHtml = convertJsonToGraph(htmlGraph);
 possibleIncorrectHtml = generatePossibleIncorrectCallbackEdges(htmlLijstje);
+----
+IDENTIFIED FALSE POSITIVES:
+dynHtml - (dynHtml - possibleIncorrectHtml)
+Graph[str]: {
+  <"Callee(jquery-1.3.2.js@1715:76255-76282)","Func(jquery-1.3.2.js@810:35442-35858)">, //property
+  <"Callee(jquery-1.3.2.js@1715:76182-76209)","Func(jquery-1.3.2.js@810:35442-35858)">, //property
+  <"Callee(jquery-1.3.2.js@1818:81486-81513)","Func(jquery-1.3.2.js@810:35442-35858)">, //property
+  <"Callee(jquery-1.3.2.js@2623:113988-114054)","Func(jquery-1.3.2.js@810:35442-35858)">, //property
+  <"Callee(jquery-1.3.2.js@632:28976-29087)","Func(jquery-1.3.2.js@632:29003-29086)">,
+  <"Callee(jquery-1.3.2.js@1715:76286-76505)","Func(jquery-1.3.2.js@810:35442-35858)">, //property
+  <"Callee(jquery-1.3.2.js@1715:76213-76244)","Func(jquery-1.3.2.js@810:35442-35858)"> /property
+}
+----
 
 filteredPesHtml = filterFrameworkEdges(pesHtml.calls, {"jquery", "xhtml"});
 filteredOptHtml = filterFrameworkEdges(optHtml, {"jquery", "xhtml"});

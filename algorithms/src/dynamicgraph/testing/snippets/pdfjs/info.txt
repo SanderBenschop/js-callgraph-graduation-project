@@ -52,3 +52,12 @@ Met natives:
 The precision is 73.3752620500%
 The recall is 84.1346153800%
 ok
+
+
+--------
+staticCG = {tup | tuple[str callee, str target] tup <- stringPdfPes, tup.callee in callees};
+diff = staticCG - dynPdf;
+callsToPushFunctions = {tup | tuple[str callee, str func] tup <- diff, tup.func == "Func(pdf.js@3678:166096-166327)"}
+
+rascal>size(staticCG - dynPdf)
+int: 2382

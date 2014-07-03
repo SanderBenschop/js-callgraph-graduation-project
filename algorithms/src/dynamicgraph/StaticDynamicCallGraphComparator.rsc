@@ -57,17 +57,3 @@ public real calculatePrecision(Graph[str] staticCG, Graph[str] dynamicCG) {
 
 //Recall can be calculated by switching around the static and dynamic graph as the calculation is exactly the same.
 public real calculateRecall(Graph[str] staticCG, Graph[str] dynamicCG) = calculatePrecision(dynamicCG, staticCG);
-
-/*
-function countEdges(graph) {
-	var i = 0;
-	for (base in graph) {
-	    var arr = graph[base];
-	    arr.forEach(function()	{
-	        i++;
-	    });
-	}
-	return i;
-}
-
-*/
