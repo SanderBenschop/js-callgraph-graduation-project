@@ -13,21 +13,17 @@ markLijstjeNoFrameworks = [
 	|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/prepared/markitup/jquery.markitup.js|
 ];
 
-pesMark = createCleanPessimisticCallGraph(markLijstje);
-optMark = createCleanOptimisticCallGraph(markLijstje);
+tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] pesMark = readBinaryValueFile(#tuple[Graph[Vertex], set[Vertex] ,set[Vertex]], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/markitup/pessimistic.bin|);
+Graph[Vertex] optMark = readBinaryValueFile(#Graph[Vertex], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/markitup/optimistic.bin|);
+
+//pesMark = createCleanPessimisticCallGraph(markLijstje);
+//optMark = createCleanOptimisticCallGraph(markLijstje);
 
 loc callGraphIncl = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/instrumented-incl/callmap.json|;
 loc callGraphExcl = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/callmap.json|;
 
 printStatistics(pesMark.calls, callGraphIncl);
 printStatistics(optMark, callGraphIncl);
-
-filteredPesMark = filterFrameworkEdges(pesMark.calls, {"jquery-1.6.2"});
-filteredOptMark = filterFrameworkEdges(optMark, {"jquery-1.6.2"});
-
-printStatistics(filteredPesMark, callGraphExcl);
-printStatistics(filteredOptMark, callGraphExcl);
-
 
 pesMarkString = convertVertexGraphToStringGraph(pesMark.calls);
 dynMar = convertJsonToGraph(callGraphIncl);
@@ -55,3 +51,5 @@ bugged = {
   <"Callee(jquery-1.6.2.js@563:26915-26953)","Func(jquery-1.6.2.js@4208:182770-183380)">
   };
 ----
+
+optMarkString = convertVertexGraphToStringGraph(optMark);

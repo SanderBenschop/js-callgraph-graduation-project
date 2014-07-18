@@ -1,3 +1,7 @@
+import ValueIO;
+import analysis::graphs::Graph;
+import DataStructures;
+
 slimeLijstje = [|file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/game.js|, |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/beslimed/prepared-2/BeSlimed%20-%20Mootools%20Game_files/mootools-beta-1.js|];
 
 //pesSlime = createCleanPessimisticCallGraph(slimeLijstje);
@@ -20,6 +24,9 @@ set[str] dynamicCallees = domain(dynSlime);
 pesSlimeString = convertVertexGraphToStringGraph(pesSlime.calls);
 filteredPesSlime = {tup | tuple[str callee, str target] tup <- pesSlimeString, tup.callee in dynamicCallees};
 
+optSlimeString = convertVertexGraphToStringGraph(optSlime);
+filteredOptSlime = {tup | tuple[str callee, str target] tup <- optSlimeString, tup.callee in dynamicCallees};
+
 dynMinusFilteredPes = dynSlime - filteredPesSlime;
 filteredPesMinusDyn = filteredPesSlime - dynSlime;
 nonNativeDiffs = filterNativeEdges(filteredPesMinusDyn)
@@ -27,17 +34,3 @@ nativeDiffs = filteredPesMinusDyn - nonNativeDiffs;
 
 //Total missing non-native edges: size(nonNativeDiffs) = 242
 //Total missing non-native edges to prototype: size(filterTargets(nonNativeDiffs, {"mootools"})) = 238
-
-filteredOptSlimeString = convertVertexGraphToStringGraph(filteredPesSlime);
-dynMinusFilteredOpt = dynSlime - filteredOptSlimeString;
-filteredOptMinusDyn = filteredOptSlimeString - dynSlime;
-
-// convertJsonToGraph(|file:///home/sander/beslimedDynSubset.json|, slimeMapje)
-
-pessimistic filtered:
-The precision is 42.1641791000%
-The recall is 92.6229508200%
-
-optimistic filtered:
-The precision is 15.5743024000%
-The recall is 98.3606557400%

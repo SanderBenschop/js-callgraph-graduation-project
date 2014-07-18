@@ -86,7 +86,7 @@ public Graph[&T] reverseGraphDirection(Graph[&T] originalGraph) {
 	return {<tup.from, tup.to> | tuple[&T to, &T from] tup <- originalGraph};
 }
 
-public void countValueOccurences(Graph[&T] graph) {
+public map[&T, int] countValueOccurences(Graph[&T] graph) {
 	map[&T, int] valueOccurenceMap = ();
 	for (tuple[&T from, &T to] tup <- graph) {
 		if (tup.to in valueOccurenceMap) valueOccurenceMap[tup.to] = valueOccurenceMap[tup.to] + 1;

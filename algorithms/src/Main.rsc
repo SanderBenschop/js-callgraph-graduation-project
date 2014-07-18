@@ -5,7 +5,6 @@ import analysis::graphs::Graph;
 import DataStructures;
 import GraphBuilder;
 
-
 //TODO: factor out andRemoveTreeAnnotations as we always want to do this.
 public Graph[Vertex] createIntraProceduralFlowGraph(source) = newGraph(source, [withIntraproceduralFlow]);
 public Graph[Vertex] createIntraProceduralFlowGraphNF(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow]);

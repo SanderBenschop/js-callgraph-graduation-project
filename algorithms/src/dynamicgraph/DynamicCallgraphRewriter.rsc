@@ -158,7 +158,6 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	
 	Tree replacedTree = visit(annotatedTree) { 
 		case (Expression)`this` => (Expression)`THISREFERENCE` 
-		//case (Id)`arguments` => (Id)`ARGUMENTS_REFERENCE`
 	};
 	
 	Tree markedTree = visit(replacedTree) {
