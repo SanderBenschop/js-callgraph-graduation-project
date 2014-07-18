@@ -23,6 +23,7 @@ public &T newGraph(list[Tree] trees, list[Graph[Vertex] (Graph[Vertex], value, S
 	for (intermediateOperation <- intermediateOperations) {
 		graph = intermediateOperation(graph, trees, symbolTableMap);
 	}
+	graph = andRemoveTreeAnnotations(graph);
 	return finalOperation(graph);
 }
 
@@ -46,9 +47,8 @@ public Graph[Vertex] andExtractOptimisticCallGraph(Graph[Vertex] graph, _, Symbo
 public Graph[Vertex] andDoNothing(Graph[Vertex] graph) = graph;
 
 //TODO: move.
-public Graph[Vertex] andRemoveTreeAnnotations(Graph[Vertex] graph, _, SymbolTableMap _) = mapper(graph, removeTreeAnnotations);
+public Graph[Vertex] andRemoveTreeAnnotations(Graph[Vertex] graph) = mapper(graph, removeTreeAnnotations);
 private tuple[Vertex, Vertex] removeTreeAnnotations(tuple[Vertex from, Vertex to] tup) = <cleanVertex(tup.from), cleanVertex(tup.to)>;
-
 private Vertex cleanVertex(Vertex annotatedVertex) {
 	switch(annotatedVertex) {
 		case Expression(loc position) : return Expression(position);

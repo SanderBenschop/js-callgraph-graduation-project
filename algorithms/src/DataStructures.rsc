@@ -37,6 +37,7 @@ data Identifier
 	| parameter(loc enclosingFunctionLocation, int index)
 	;
 
+//TODO: remove the globalScope stuff, if it's on the global scope then the content is never used anyway so just return nothing();
 public Maybe[tuple[Identifier id, bool globalScope]] find(str name, child(map[str, Identifier] symbolMap, SymbolTable parent)) {
 	if (name in symbolMap) {
 		return just(<symbolMap[name], false>);

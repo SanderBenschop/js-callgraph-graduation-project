@@ -16,8 +16,8 @@ markLijstjeNoFrameworks = [
 tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] pesMark = readBinaryValueFile(#tuple[Graph[Vertex], set[Vertex] ,set[Vertex]], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/markitup/pessimistic.bin|);
 Graph[Vertex] optMark = readBinaryValueFile(#Graph[Vertex], |project://JavaScript%20cg%20algorithms/src/dynamicgraph/testing/snippets/markitup/optimistic.bin|);
 
-//pesMark = createCleanPessimisticCallGraph(markLijstje);
-//optMark = createCleanOptimisticCallGraph(markLijstje);
+//pesMark2 = createCleanPessimisticCallGraph(markLijstje);
+//optMark2 = createCleanOptimisticCallGraph(markLijstje);
 
 loc callGraphIncl = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/instrumented-incl/callmap.json|;
 loc callGraphExcl = |file:///home/sander/Dropbox/Afstuderen%20UvA/graphs/untitled/src/verwerkt/markitup/callmap.json|;
