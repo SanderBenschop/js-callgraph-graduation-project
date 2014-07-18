@@ -101,3 +101,23 @@ public map[&T, int] countValueOccurences(Graph[&T] graph) {
 	
 	return valueOccurenceMap;
 }
+
+public Graph[Vertex] removeTreeAnnotationsFromGraph(Graph[Vertex] graph) = mapper(graph, removeTreeAnnotations);
+private tuple[Vertex, Vertex] removeTreeAnnotations(tuple[Vertex from, Vertex to] tup) = <cleanVertex(tup.from), cleanVertex(tup.to)>;
+private Vertex cleanVertex(Vertex annotatedVertex) {
+	switch(annotatedVertex) {
+		case Expression(loc position) : return Expression(position);
+		case Variable(str name, loc position) : return Variable(name, position);
+		case Property(str name) : return Property(name);
+		case Function(loc position) : return Function(position);
+	
+		case Callee(loc position) : return Callee(position);
+		case Argument(loc position, int index) : return Argument(position, index);
+		case Parameter(loc position, int index) : return Parameter(position, index);
+		case Return(loc position) : return Return(position);
+		case Result(loc position) : return Result(position);
+		
+		case Unknown() : return Unknown();
+		case Builtin(str name) : return Builtin(name);
+	}
+}
