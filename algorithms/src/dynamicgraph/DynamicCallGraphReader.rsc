@@ -23,7 +23,6 @@ public Graph[str] convertJsonToGraph(loc jsonFile) {
 						if (!isEmpty(target)) {
 							str callee = "Callee(<base>)";
 							if (matchesNativeElement(target)) {
-								//Create builtin nodes.
 								callGraph += { <callee, builtin> | builtin <- createBuiltinNodes(target) };
 							} else {
 								str target = "Func(<target>)";

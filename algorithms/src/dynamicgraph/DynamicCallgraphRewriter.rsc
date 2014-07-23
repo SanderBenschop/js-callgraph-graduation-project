@@ -24,10 +24,10 @@ public void rewrite(loc location, set[str] excludePatterns, set[str] frameworkPa
 	tuple[list[str] functions, list[str] calls] result = isDirectory(location) ? rewriteFolder(location, excludePatterns, frameworkPatterns) : rewriteFile(location, excludePatterns, frameworkPatterns);
 	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(result));
 }
-public tuple[list[str] functions, list[str] calls] rewriteFolder(loc folderLoc, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles(folderLoc.ls, folderLoc, excludePatterns, frameworkPatterns);
-public tuple[list[str] functions, list[str] calls] rewriteFile(loc file, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles([file], file.parent, excludePatterns, frameworkPatterns);
+private tuple[list[str] functions, list[str] calls] rewriteFolder(loc folderLoc, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles(folderLoc.ls, folderLoc, excludePatterns, frameworkPatterns);
+private tuple[list[str] functions, list[str] calls] rewriteFile(loc file, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles([file], file.parent, excludePatterns, frameworkPatterns);
 
-public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files, loc sourceFolderLoc, set[str] excludePatterns, set[str] frameworkPatterns) {
+private tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files, loc sourceFolderLoc, set[str] excludePatterns, set[str] frameworkPatterns) {
 	loc targetFolder = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/|;
 	list[str] combinedFunctionNames = [], combinedCallNames = [];
 	for (loc fileLoc <- files) {
@@ -55,7 +55,7 @@ public tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files,
 	return <combinedFunctionNames, combinedCallNames>;
 }
 
-public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree, bool isFrameworkFile) {
+private tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSource] rewriteForDynamicCallGraph(Tree tree, bool isFrameworkFile) {
 	list[Tree] nestedExpressions = getExpressionsNestedInNewExpression(tree);
 	list[str] allFunctionLocations = [], allCallLocations = [];
 		
@@ -177,7 +177,7 @@ public tuple[list[str] allFunctionNames, list[str] allCallNames, str rewrittenSo
 	return <allFunctionLocations, allCallLocations, unparse(markedTree)>;
 }
 
-public Tree addOriginalToExpression(Tree e, loc newELoc) {
+private Tree addOriginalToExpression(Tree e, loc newELoc) {
 	Tree replacedE = e;
 	replacedE@original = e;
 	replacedE@\loc = e@\loc;
@@ -187,7 +187,7 @@ public Tree addOriginalToExpression(Tree e, loc newELoc) {
 	return replacedNewE;
 }
 
-public list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
+private list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
 	list[Tree] nestedExpressions = [];
 	visit(tree) {
 		case newExpression:(Expression)`new <Expression e>` : nestedExpressions += e;

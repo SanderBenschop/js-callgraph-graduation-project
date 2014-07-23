@@ -130,7 +130,6 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 				doVisit(statements);
 			}
 			
-			//TODO: if they aren't declarations with a var statement, still they need the scope map.
 			
 			case (Expression)`<Id id>` : annotateElementWithCurrentScope(id);
 			case this:(Expression)`this` : annotateElementWithCurrentScope(this);
@@ -145,9 +144,8 @@ private SymbolTableMap createSymbolTableMap(Tree tree, Maybe[SymbolTable] parent
 				annotateElementWithCurrentScope(id);
 				doVisit(expression);
 			}
-			
-			// Return statements
-			// TODO: remove duplication
+
+
 			case returnExpSemi:(Statement)`return <Expression expression>;`: {
 				annotateElementWithCurrentScope(returnExpSemi);
 				doVisit(expression);

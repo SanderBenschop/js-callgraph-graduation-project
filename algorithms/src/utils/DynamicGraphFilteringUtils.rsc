@@ -45,8 +45,6 @@ public Graph[str] generatePossibleIncorrectCallbackEdges(sources) {
 public Graph[str] generatePossibleMissingEdges(Graph[str] possibleIncorrectCallbackEdges, map[str, str] sources) {
 	Graph[str] possibleMissingEdges = {};
 	for(str base <- domain(possibleIncorrectCallbackEdges)) {
-		//Read from string base
-		//Cut off ()
 		if (/Callee\(<file:.*>@\d+:<indexStart:\d+>-<indexEnd:\d+>\)/ := base) {
 			str source = sources[file];
 			str call = substring(source, toInt(indexStart), toInt(indexEnd));
@@ -65,11 +63,4 @@ private set[loc] getFunctionLocations(trees) {
 		case func:(FunctionDeclaration)`function <Id id> (<{Id ","}* _>) <Block _> <ZeroOrMoreNewLines _>`: functionLocations += func@\loc;
 	}
 	return functionLocations;
-}
-
-public Graph[Vertex] createFlowGraph(SymbolTableMap symbolTableMap, trees) {
-	Graph[Vertex] graph = withNativeFlow({}, trees, symbolTableMap);
-	graph = withIntraproceduralFlow(graph, trees, symbolTableMap);
-	graph = withOptimisticInterproceduralFlow(graph, trees, symbolTableMap);
-	return graph;
 }

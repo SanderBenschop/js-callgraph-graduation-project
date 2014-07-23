@@ -14,15 +14,10 @@ public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] 
 	return <calls, escaping, unresolved>;
 }
 
-public bool isValidBase(Vertex base) = Function(_) := base || Builtin(_) := base;
-public bool isValidTarget(Vertex target) = Callee(_) := target;
+public Graph[Vertex] extractOptimisticCallGraph(Graph[Vertex] flowGraph) = extractPessimisticCallGraph(flowGraph).calls;
 
-public Graph[Vertex] extractOptimisticCallGraph(Graph[Vertex] flowGraph) {
-	tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] res = extractPessimisticCallGraph(flowGraph);
-	assert isEmpty(res.escaping) : "Optimistic call graph should not contain escaping edges.";
-	assert isEmpty(res.unresolved) : "Optimistic call graph should not contain unresolved call sites.";
-	return res.calls;
-}
+private bool isValidBase(Vertex base) = Function(_) := base || Builtin(_) := base;
+private bool isValidTarget(Vertex target) = Callee(_) := target;
 
 private Vertex convertToFunction(Vertex returnVertex) {
 	if (Return(position) := returnVertex) {

@@ -26,7 +26,7 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 		}
 		graph += <Result(nodeLoc), Expression(nodeLoc)>;
 		
-		//TODO: optimize, this is to get the largest expressions
+		//This is to get the largest expressions
 		doVisit(\function);
 		for (argument <- arguments) {
 			doVisit(argument);
@@ -39,7 +39,6 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 		processR8(\node, function, arguments);
 		graph += <createVertex(r, symbolTableMap), Argument(\node@\loc, 0)>;
 		
-		//TODO: optimize
 		doVisit(r);
 		doVisit(p);
 		for (argument <- arguments) {
@@ -76,7 +75,6 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 			case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, e, args);
 			case functionCallNoParams:(Expression)`<Expression e>()`: processR8(functionCallNoParams, e, []);
 					
-			// Return statements
 			case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
 			case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);
 			case Statement s: {
