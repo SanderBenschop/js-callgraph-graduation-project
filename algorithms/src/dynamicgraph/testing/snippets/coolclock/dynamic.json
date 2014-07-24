@@ -1,0 +1,950 @@
+{
+  "jquery.js@1:1-249979": [
+    "jquery.js@1:1-249971"
+  ],
+  "jquery.js@3:143-25269": [
+    "jquery.js@3:143-25267"
+  ],
+  "jquery.js@181:9483-23546": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@488:23572-23640": [
+    "'Boolean Number String Function Array Date RegExp Object'.split"
+  ],
+  "jquery.js@488:23560-23751": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@319:15735-15760": [
+    "jquery.js@239:12043-12137"
+  ],
+  "jquery.js@240:12087-12103": [
+    "jquery.js@251:12575-12708"
+  ],
+  "jquery.js@252:12658-12676": [
+    "toString.call"
+  ],
+  "jquery.js@343:16812-16852": [
+    "jquery.js@488:23642-23750",
+    "jquery.js@1551:67338-67649",
+    "jquery.js@2124:91531-92622",
+    "jquery.js@2215:94752-97044",
+    "jquery.js@2336:100252-100606",
+    "jquery.js@4168:181108-181991",
+    "jquery.js@4423:192561-192669",
+    "jquery.js@4431:192727-193194",
+    "jquery.js@5289:229083-229136",
+    "jquery.js@5702:247166-248031",
+    "jquery.js@5730:248245-249928",
+    "jquery.js@2180:93513-93596"
+  ],
+  "jquery.js@489:23717-23735": [
+    "name.toLowerCase"
+  ],
+  "jquery.js@491:23780-23805": [
+    "jquery.js@459:22105-22477"
+  ],
+  "jquery.js@460:22146-22162": [
+    "ua.toLowerCase"
+  ],
+  "jquery.js@461:22196-22212": [
+    "rwebkit.exec"
+  ],
+  "jquery.js@499:24102-24124": [
+    "rnotwhite.test"
+  ],
+  "jquery.js@503:24250-24266": [
+    "jquery.js@4:182-308"
+  ],
+  "jquery.js@5:240-289": [
+    "jquery.js@11:1427-5160"
+  ],
+  "jquery.js@531:25296-25365": [
+    "'done fail isResolved isRejected promise then always pipe'.split"
+  ],
+  "jquery.js@532:25397-31891": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@680:31914-37369": [
+    "jquery.js@680:31914-37367"
+  ],
+  "jquery.js@681:31946-31975": [
+    "document.createElement"
+  ],
+  "jquery.js@682:32183-32217": [
+    "div.setAttribute"
+  ],
+  "jquery.js@684:32374-32403": [
+    "div.getElementsByTagName"
+  ],
+  "jquery.js@685:32417-32446": [
+    "div.getElementsByTagName"
+  ],
+  "jquery.js@689:32542-32574": [
+    "document.createElement"
+  ],
+  "jquery.js@690:32609-32641": [
+    "document.createElement"
+  ],
+  "jquery.js@690:32590-32642": [
+    "select.appendChild"
+  ],
+  "jquery.js@691:32660-32693": [
+    "div.getElementsByTagName"
+  ],
+  "jquery.js@694:32800-32833": [
+    "div.getElementsByTagName"
+  ],
+  "jquery.js@695:32871-32903": [
+    "div.getElementsByTagName"
+  ],
+  "jquery.js@696:32942-32965": [
+    "a.getAttribute"
+  ],
+  "jquery.js@696:32931-32966": [
+    "/top/.test"
+  ],
+  "jquery.js@697:32996-33018": [
+    "a.getAttribute"
+  ],
+  "jquery.js@698:33050-33080": [
+    "/^0.55$/.test"
+  ],
+  "jquery.js@713:33616-33637": [
+    "input.cloneNode"
+  ],
+  "jquery.js@727:34110-34141": [
+    "document.createElement"
+  ],
+  "jquery.js@729:34178-34213": [
+    "input.setAttribute"
+  ],
+  "jquery.js@731:34273-34313": [
+    "input.setAttribute"
+  ],
+  "jquery.js@732:34323-34345": [
+    "div.appendChild"
+  ],
+  "jquery.js@733:34366-34399": [
+    "document.createDocumentFragment"
+  ],
+  "jquery.js@734:34409-34445": [
+    "fragment.appendChild"
+  ],
+  "jquery.js@735:34476-34500": [
+    "fragment.cloneNode"
+  ],
+  "jquery.js@735:34476-34516": [
+    ""
+  ],
+  "jquery.js@738:34636-34673": [
+    "document.getElementsByTagName"
+  ],
+  "jquery.js@739:34700-34745": [
+    "document.createElement"
+  ],
+  "jquery.js@757:35209-35237": [
+    "testElement.appendChild"
+  ],
+  "jquery.js@759:35300-35373": [
+    "testElementParent.insertBefore"
+  ],
+  "jquery.js@771:35948-35978": [
+    "div.getElementsByTagName"
+  ],
+  "jquery.js@778:36314-36343": [
+    "document.createElement"
+  ],
+  "jquery.js@781:36445-36471": [
+    "div.appendChild"
+  ],
+  "jquery.js@782:36526-36580": [
+    "document.defaultView.getComputedStyle"
+  ],
+  "jquery.js@782:36516-36620": [
+    "parseInt"
+  ],
+  "jquery.js@785:36688-36730": [
+    "testElementParent.removeChild"
+  ],
+  "jquery.js@809:37594-37607": [
+    "Math.random"
+  ],
+  "jquery.js@809:37574-37627": [
+    ""
+  ],
+  "jquery.js@806:37494-41902": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@920:41908-43982": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@1005:45559-47633": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@1063:47639-49811": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@1120:50182-56551": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@1267:56557-64054": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@1548:67281-67650": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@1552:67384-67642": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@1826:79243-79576": [
+    "'altKey attrChange attrName bubbles button cancelable charCode clientX clientY ctrlKey currentTarget data detail eventPhase fromElement handler keyCode layerX layerY metaKey newValue offsetX offsetY pageX pageY prevValue relatedNode relatedTarget screenX screenY shiftKey srcElement target toElement view wheelDelta which'.split"
+  ],
+  "jquery.js@1974:85317-85786": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@337:16525-16572": [
+    "jquery.js@1977:85402-85785",
+    "jquery.js@2096:90621-91467",
+    "jquery.js@3442:151654-152339",
+    "jquery.js@3880:169000-169735",
+    "jquery.js@5301:229420-229589"
+  ],
+  "jquery.js@2093:90537-91468": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@2121:91480-92623": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@2156:92629-94532": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@2212:94701-97045": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@2336:100038-100250": [
+    ".split"
+  ],
+  "jquery.js@2336:100026-100607": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@2348:100614-144989": [
+    "jquery.js@2348:100614-144987"
+  ],
+  "jquery.js@2350:100925-101055": [
+    "jquery.js@2353:100971-101054"
+  ],
+  "jquery.js@2935:129157-129228": [
+    "RegExp"
+  ],
+  "jquery.js@2936:129304-129356": [
+    "Expr.match[type].source.replace",
+    "jquery.js@2931:129005-129085"
+  ],
+  "jquery.js@2936:129265-129357": [
+    ""
+  ],
+  "jquery.js@2947:129667-129733": [
+    "Array.prototype.slice.call"
+  ],
+  "jquery.js@3039:133099-134187": [
+    "jquery.js@3039:133099-134185"
+  ],
+  "jquery.js@3040:133136-133165": [
+    "document.createElement"
+  ],
+  "jquery.js@3040:133187-133193": [
+    "Date"
+  ],
+  "jquery.js@3040:133183-133203": [
+    ""
+  ],
+  "jquery.js@3042:133307-133347": [
+    "root.insertBefore"
+  ],
+  "jquery.js@3043:133365-133392": [
+    "document.getElementById"
+  ],
+  "jquery.js@3055:134120-134142": [
+    "root.removeChild"
+  ],
+  "jquery.js@3058:134199-135326": [
+    "jquery.js@3058:134199-135324"
+  ],
+  "jquery.js@3059:134235-134264": [
+    "document.createElement"
+  ],
+  "jquery.js@3060:134294-134320": [
+    "document.createComment"
+  ],
+  "jquery.js@3060:134278-134321": [
+    "div.appendChild"
+  ],
+  "jquery.js@3061:134339-134368": [
+    "div.getElementsByTagName"
+  ],
+  "jquery.js@3077:135097-135132": [
+    "div.firstChild.getAttribute"
+  ],
+  "jquery.js@3085:135383-138910": [
+    "jquery.js@3085:135383-138908"
+  ],
+  "jquery.js@3086:135443-135472": [
+    "document.createElement"
+  ],
+  "jquery.js@3088:135595-135624": [
+    "div.querySelectorAll"
+  ],
+  "jquery.js@3149:138932-140271": [
+    "jquery.js@3149:138932-140269"
+  ],
+  "jquery.js@3152:139191-139220": [
+    "document.createElement"
+  ],
+  "jquery.js@3152:139178-139228": [
+    "matches.call"
+  ],
+  "jquery.js@3175:140283-141049": [
+    "jquery.js@3175:140283-141047"
+  ],
+  "jquery.js@3176:140319-140348": [
+    "document.createElement"
+  ],
+  "jquery.js@3178:140483-140514": [
+    "div.getElementsByClassName"
+  ],
+  "jquery.js@3182:140628-140659": [
+    "div.getElementsByClassName"
+  ],
+  "jquery.js@3185:140726-140758": [
+    "Expr.order.splice"
+  ],
+  "jquery.js@3293:145318-150095": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@3404:150220-152340": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@3458:152346-153600": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@3572:156330-165676": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@3874:168825-169736": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@3917:170451-176720": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@4083:177986-181015": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@4165:181053-181992": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@4208:182763-183381": [
+    "jquery.js@4:182-308"
+  ],
+  "jquery.js@73:4773-4800": [
+    "jquery.js@239:12043-12137"
+  ],
+  "jquery.js@74:4835-4861": [
+    "jquery.js@113:6509-6655"
+  ],
+  "jquery.js@114:6545-6563": [
+    "jquery.js@215:10881-12013"
+  ],
+  "jquery.js@219:11018-11036": [
+    "jquery.js@533:25432-27876"
+  ],
+  "jquery.js@224:11259-11329": [
+    "document.addEventListener"
+  ],
+  "jquery.js@225:11355-11407": [
+    "window.addEventListener"
+  ],
+  "jquery.js@115:6585-6603": [
+    "jquery.js@535:25543-26578"
+  ],
+  "jquery.js@544:26010-26027": [
+    "jquery.js@251:12575-12708"
+  ],
+  "jquery.js@548:26260-26280": [
+    "callbacks.push"
+  ],
+  "jquery.js@4312:187687-187713": [
+    "ajaxLocation.toLowerCase"
+  ],
+  "jquery.js@4312:187677-187714": [
+    "rurl.exec"
+  ],
+  "jquery.js@4354:189761-192466": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@4423:192484-192559": [
+    "'ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend'.split"
+  ],
+  "jquery.js@4423:192472-192670": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@4428:192676-193195": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@4475:194238-194274": [
+    "rlocalProtocol.test"
+  ],
+  "jquery.js@4504:195175-195214": [
+    "jquery.js@4313:187726-188638"
+  ],
+  "jquery.js@4505:195239-195278": [
+    "jquery.js@4313:187726-188638"
+  ],
+  "jquery.js@4447:193201-206479": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@4777:207185-207269": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@4872:210794-210806": [
+    "jquery.js@456:21998-22078"
+  ],
+  "jquery.js@457:22043-22049": [
+    "Date"
+  ],
+  "jquery.js@457:22039-22059": [
+    ""
+  ],
+  "jquery.js@4873:210840-210988": [
+    "jquery.js@4454:193481-194160"
+  ],
+  "jquery.js@4457:193600-193650": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@165:8708-8734": [
+    "jquery.js@254:12741-13300"
+  ],
+  "jquery.js@255:12790-12806": [
+    "jquery.js@251:12575-12708"
+  ],
+  "jquery.js@165:8753-8773": [
+    "jQuery.isArray"
+  ],
+  "jquery.js@4879:210994-212740": [
+    "jquery.js@4314:187791-188626"
+  ],
+  "jquery.js@4319:188002-188025": [
+    "jquery.js@239:12043-12137"
+  ],
+  "jquery.js@4320:188061-188093": [
+    "dataTypeExpression.toLowerCase"
+  ],
+  "jquery.js@4320:188061-188112": [
+    ""
+  ],
+  "jquery.js@4323:188298-188318": [
+    "/^+/.test"
+  ],
+  "jquery.js@4328:188539-188583": [
+    "list[placeBefore ? 'unshift' : 'push']"
+  ],
+  "jquery.js@4915:212746-213109": [
+    "jquery.js@4454:193481-194160"
+  ],
+  "jquery.js@255:12839-12859": [
+    "jquery.js@245:12300-12417"
+  ],
+  "jquery.js@258:12967-12998": [
+    "hasOwn.call"
+  ],
+  "jquery.js@258:13003-13058": [
+    "hasOwn.call"
+  ],
+  "jquery.js@264:13260-13281": [
+    "hasOwn.call"
+  ],
+  "jquery.js@170:9062-9087": [
+    "jquery.js@254:12741-13300"
+  ],
+  "jquery.js@172:9181-9213": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@4925:213115-213340": [
+    "jquery.js@4314:187791-188626"
+  ],
+  "jquery.js@4934:213346-214797": [
+    "jquery.js@4314:187791-188626"
+  ],
+  "jquery.js@4992:215617-215642": [
+    "jquery.js@4972:215010-215145"
+  ],
+  "jquery.js@4974:215074-215101": [
+    "window.XMLHttpRequest"
+  ],
+  "jquery.js@4987:215465-215643": [
+    "jquery.js@4987:215465-215616"
+  ],
+  "jquery.js@4988:215490-215609": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@4994:215685-220499": [
+    "jquery.js@4314:187791-188626"
+  ],
+  "jquery.js@5108:221184-228790": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@5295:229202-229218": [
+    "jquery.js@5287:228964-229169"
+  ],
+  "jquery.js@5289:229059-229080": [
+    "fxAttrs.slice"
+  ],
+  "jquery.js@5289:229034-229081": [
+    "fxAttrs.concat.apply"
+  ],
+  "jquery.js@5289:229022-229137": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@5296:229237-229253": [
+    "jquery.js@5287:228964-229169"
+  ],
+  "jquery.js@5297:229276-229294": [
+    "jquery.js@5287:228964-229169"
+  ],
+  "jquery.js@5294:229169-229590": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@5306:229596-231120": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@5442:235267-236318": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@150:8094-8119": [
+    "jquery.js@239:12043-12137"
+  ],
+  "jquery.js@5671:245813-247109": [
+    "jquery.js@143:7706-9469"
+  ],
+  "jquery.js@5699:247115-248032": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@5727:248190-249929": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@5731:248285-248303": [
+    "name.toLowerCase"
+  ],
+  "coolclock.js@351:12139-12155": [
+    "jquery.js@4:182-308"
+  ],
+  "coolclock.js@351:12139-12192": [
+    "jquery.js@113:6509-6655"
+  ],
+  "jquery.js@506:24382-24455": [
+    "document.removeEventListener"
+  ],
+  "jquery.js@507:24477-24491": [
+    "jquery.js@200:10158-10852"
+  ],
+  "jquery.js@209:10616-10657": [
+    "jquery.js@557:26613-27350"
+  ],
+  "jquery.js@563:26915-26932": [
+    "callbacks.shift"
+  ],
+  "jquery.js@563:26915-26953": [
+    "jquery.js@4208:182770-183380",
+    "coolclock.js@329:11307-12114",
+    "demo2.js@1:2-611"
+  ],
+  "coolclock.js@330:11340-11379": [
+    "document.getElementsByTagName"
+  ],
+  "coolclock.js@332:11450-11482": [
+    "canvases[i].className.split"
+  ],
+  "coolclock.js@332:11450-11496": [
+    ""
+  ],
+  "coolclock.js@337:11686-12095": [
+    "coolclock.js@1:19-72"
+  ],
+  "coolclock.js@2:51-69": [
+    "coolclock.js@172:4407-5942"
+  ],
+  "coolclock.js@182:5250-5288": [
+    "document.getElementById"
+  ],
+  "coolclock.js@183:5298-5355": [
+    "THISREFERENCE.canvas.setAttribute"
+  ],
+  "coolclock.js@184:5365-5423": [
+    "THISREFERENCE.canvas.setAttribute"
+  ],
+  "coolclock.js@189:5695-5723": [
+    "THISREFERENCE.canvas.getContext"
+  ],
+  "coolclock.js@190:5733-5771": [
+    "THISREFERENCE.ctx.scale"
+  ],
+  "coolclock.js@194:5903-5914": [
+    "coolclock.js@322:11131-11271"
+  ],
+  "coolclock.js@323:11157-11173": [
+    "coolclock.js@309:10810-10892"
+  ],
+  "coolclock.js@310:10839-10877": [
+    "document.getElementById"
+  ],
+  "coolclock.js@324:11204-11225": [
+    "coolclock.js@297:10254-10636"
+  ],
+  "coolclock.js@298:10286-10296": [
+    "Date"
+  ],
+  "coolclock.js@303:10568-10582": [
+    "now.getHours"
+  ],
+  "coolclock.js@303:10584-10600": [
+    "now.getMinutes"
+  ],
+  "coolclock.js@303:10602-10618": [
+    "now.getSeconds"
+  ],
+  "coolclock.js@303:10556-10619": [
+    "coolclock.js@267:8575-10232"
+  ],
+  "coolclock.js@271:8759-8829": [
+    "THISREFERENCE.ctx.clearRect"
+  ],
+  "coolclock.js@273:8873-8946": [
+    "coolclock.js@197:5962-6714"
+  ],
+  "coolclock.js@198:5994-6009": [
+    "THISREFERENCE.ctx.save"
+  ],
+  "coolclock.js@202:6149-6169": [
+    "THISREFERENCE.ctx.beginPath"
+  ],
+  "coolclock.js@207:6302-6356": [
+    "THISREFERENCE.ctx.arc"
+  ],
+  "coolclock.js@216:6652-6669": [
+    "THISREFERENCE.ctx.stroke"
+  ],
+  "coolclock.js@218:6689-6707": [
+    "THISREFERENCE.ctx.restore"
+  ],
+  "coolclock.js@276:9165-9182": [
+    "coolclock.js@232:7144-7538"
+  ],
+  "coolclock.js@276:9142-9204": [
+    "coolclock.js@248:7847-8561"
+  ],
+  "coolclock.js@249:7888-7903": [
+    "THISREFERENCE.ctx.save"
+  ],
+  "coolclock.js@250:7913-7969": [
+    "THISREFERENCE.ctx.translate"
+  ],
+  "coolclock.js@251:7979-8031": [
+    "THISREFERENCE.ctx.rotate"
+  ],
+  "coolclock.js@260:8375-8395": [
+    "THISREFERENCE.ctx.beginPath"
+  ],
+  "coolclock.js@261:8409-8441": [
+    "THISREFERENCE.ctx.moveTo"
+  ],
+  "coolclock.js@262:8455-8485": [
+    "THISREFERENCE.ctx.lineTo"
+  ],
+  "coolclock.js@263:8499-8516": [
+    "THISREFERENCE.ctx.stroke"
+  ],
+  "coolclock.js@265:8536-8554": [
+    "THISREFERENCE.ctx.restore"
+  ],
+  "coolclock.js@275:9054-9071": [
+    "coolclock.js@232:7144-7538"
+  ],
+  "coolclock.js@275:9031-9093": [
+    "coolclock.js@248:7847-8561"
+  ],
+  "coolclock.js@283:9523-9544": [
+    "coolclock.js@232:7144-7538"
+  ],
+  "coolclock.js@283:9500-9560": [
+    "coolclock.js@248:7847-8561"
+  ],
+  "coolclock.js@285:9626-9646": [
+    "coolclock.js@232:7144-7538"
+  ],
+  "coolclock.js@285:9603-9664": [
+    "coolclock.js@248:7847-8561"
+  ],
+  "coolclock.js@287:9753-9773": [
+    "coolclock.js@232:7144-7538"
+  ],
+  "coolclock.js@287:9730-9791": [
+    "coolclock.js@248:7847-8561"
+  ],
+  "coolclock.js@294:10171-10191": [
+    "coolclock.js@232:7144-7538"
+  ],
+  "coolclock.js@294:10148-10215": [
+    "coolclock.js@248:7847-8561"
+  ],
+  "coolclock.js@258:8304-8344": [
+    "coolclock.js@197:5962-6714"
+  ],
+  "coolclock.js@213:6559-6574": [
+    "THISREFERENCE.ctx.fill"
+  ],
+  "coolclock.js@325:11239-11254": [
+    "coolclock.js@306:10652-10793"
+  ],
+  "coolclock.js@307:10693-10786": [
+    "setTimeout"
+  ],
+  "coolclock.js@177:4812-4841": [
+    "parseFloat"
+  ],
+  "coolclock.js@300:10373-10386": [
+    "now.valueOf"
+  ],
+  "coolclock.js@300:10364-10421": [
+    ""
+  ],
+  "coolclock.js@301:10447-10470": [
+    "offsetNow.getUTCHours"
+  ],
+  "coolclock.js@301:10472-10497": [
+    "offsetNow.getUTCMinutes"
+  ],
+  "coolclock.js@301:10499-10524": [
+    "offsetNow.getUTCSeconds"
+  ],
+  "coolclock.js@301:10435-10525": [
+    "coolclock.js@267:8575-10232"
+  ],
+  "coolclock.js@235:7253-7277": [
+    "Math.log"
+  ],
+  "coolclock.js@235:7280-7300": [
+    "Math.log"
+  ],
+  "coolclock.js@279:9276-9305": [
+    "coolclock.js@243:7554-7822"
+  ],
+  "coolclock.js@245:7698-7713": [
+    "coolclock.js@229:7061-7127"
+  ],
+  "coolclock.js@245:7736-7751": [
+    "coolclock.js@229:7061-7127"
+  ],
+  "coolclock.js@279:9260-9368": [
+    "coolclock.js@220:6732-7048"
+  ],
+  "coolclock.js@221:6767-6782": [
+    "THISREFERENCE.ctx.save"
+  ],
+  "coolclock.js@223:6847-6876": [
+    "THISREFERENCE.ctx.measureText"
+  ],
+  "coolclock.js@226:6944-7013": [
+    "THISREFERENCE.ctx.fillText"
+  ],
+  "coolclock.js@227:7023-7041": [
+    "THISREFERENCE.ctx.restore"
+  ],
+  "coolclock.js@238:7424-7448": [
+    "Math.log"
+  ],
+  "coolclock.js@238:7451-7471": [
+    "Math.log"
+  ],
+  "jquery.js@211:10736-10752": [
+    "jquery.js@4:182-308"
+  ],
+  "jquery.js@211:10736-10769": [
+    "jquery.js@2179:93460-93608"
+  ],
+  "jquery.js@2180:93503-93597": [
+    "jquery.js@110:6377-6484"
+  ],
+  "jquery.js@111:6432-6465": [
+    "jquery.js@318:15606-17073"
+  ],
+  "jquery.js@2181:93543-93581": [
+    "jquery.js@1726:74588-77982"
+  ],
+  "jquery.js@1728:74721-74738": [
+    "type.indexOf"
+  ],
+  "jquery.js@1732:74853-74870": [
+    "type.indexOf"
+  ],
+  "jquery.js@1740:75258-75280": [
+    "jquery.js@1903:82973-83571"
+  ],
+  "jquery.js@1917:83515-83527": [
+    "jquery.js@456:21998-22078"
+  ],
+  "jquery.js@1743:75384-75404": [
+    "namespaces.join"
+  ],
+  "jquery.js@1744:75462-75494": [
+    "namespaces.join"
+  ],
+  "jquery.js@1744:75439-75507": [
+    ""
+  ],
+  "jquery.js@1764:76322-76341": [
+    "data.unshift"
+  ],
+  "jquery.js@1765:76380-76397": [
+    "type.indexOf"
+  ],
+  "jquery.js@1767:76468-76495": [
+    "jquery.js@907:41472-41567"
+  ],
+  "jquery.js@908:41521-41556": [
+    "jquery.js@819:37989-39786"
+  ],
+  "jquery.js@820:38041-38064": [
+    "jquery.js@910:41589-41895"
+  ],
+  "jquery.js@912:41682-41709": [
+    "elem.nodeName.toLowerCase"
+  ],
+  "jquery.js@1772:76663-76685": [
+    "jquery.js@910:41589-41895"
+  ],
+  "jquery.js@1778:77034-77060": [
+    "jquery.js@1920:83577-83634"
+  ],
+  "jquery.js@1780:77291-77314": [
+    "jquery.js@910:41589-41895"
+  ],
+  "jquery.js@211:10736-10785": [
+    "jquery.js@2157:92664-93071"
+  ],
+  "jquery.js@2164:92965-93003": [
+    "jquery.js@1637:70885-74446"
+  ],
+  "jquery.js@1644:71235-71255": [
+    "jquery.js@815:37797-37973"
+  ],
+  "demo2.js@1:0-612": [
+    "jquery.js@4:182-308"
+  ],
+  "demo2.js@6:175-275": [
+    "clocks.push"
+  ],
+  "demo2.js@7:280-380": [
+    "clocks.push"
+  ],
+  "demo2.js@8:385-485": [
+    "clocks.push"
+  ],
+  "demo2.js@12:496-506": [
+    "jquery.js@4:182-308"
+  ],
+  "jquery.js@29:2225-2243": [
+    "selector.charAt"
+  ],
+  "jquery.js@36:2582-2606": [
+    "quickExpr.exec"
+  ],
+  "jquery.js@56:3863-3896": [
+    "document.getElementById"
+  ],
+  "demo2.js@12:514-534": [
+    "demo2.js@2:29-70"
+  ],
+  "demo2.js@2:54-67": [
+    "Math.random"
+  ],
+  "demo2.js@12:514-548": [
+    "demo2.js@2:29-70"
+  ],
+  "demo2.js@12:514-562": [
+    "demo2.js@2:29-70"
+  ],
+  "demo2.js@12:496-574": [
+    "jquery.js@3633:158580-158792"
+  ],
+  "jquery.js@3634:158613-158781": [
+    "jquery.js@3756:163781-165669"
+  ],
+  "jquery.js@3758:163998-164018": [
+    "rchecked.test"
+  ],
+  "jquery.js@3763:164191-164215": [
+    "jquery.js@239:12043-12137"
+  ],
+  "jquery.js@3775:164803-164844": [
+    "jquery.js@3846:167757-168792"
+  ],
+  "jquery.js@3862:168494-168522": [
+    "doc.createDocumentFragment"
+  ],
+  "jquery.js@3863:168536-168578": [
+    "jquery.js@3941:171562-175342"
+  ],
+  "jquery.js@3956:172211-172227": [
+    "rhtml.test"
+  ],
+  "jquery.js@3959:172352-172388": [
+    "elem.replace"
+  ],
+  "jquery.js@3960:172425-172444": [
+    "rtagName.exec"
+  ],
+  "jquery.js@3960:172424-172568": [
+    ""
+  ],
+  "jquery.js@3963:172634-172662": [
+    "context.createElement"
+  ],
+  "jquery.js@3995:174295-174318": [
+    "jquery.js@379:18379-18938"
+  ],
+  "jquery.js@4003:174599-174632": [
+    "jquery.js@315:15445-15582"
+  ],
+  "jquery.js@316:15513-15540": [
+    "elem.nodeName.toUpperCase"
+  ],
+  "jquery.js@316:15545-15563": [
+    "name.toUpperCase"
+  ],
+  "jquery.js@4007:174946-174983": [
+    "ret[i].getElementsByTagName"
+  ],
+  "jquery.js@4007:174934-175001": [
+    "jquery.js@393:18962-19398"
+  ],
+  "jquery.js@4008:175053-175172": [
+    "[                                i + 1,                                0                            ].concat"
+  ],
+  "jquery.js@4008:175031-175173": [
+    "ret.splice.apply"
+  ],
+  "jquery.js@4013:175225-175253": [
+    "fragment.appendChild"
+  ],
+  "jquery.js@3784:165183-165211": [
+    "jquery.js@315:15445-15582"
+  ],
+  "jquery.js@3786:165323-165469": [
+    "jquery.js@3634:158644-158780"
+  ],
+  "jquery.js@3636:158725-158747": [
+    "THISREFERENCE.appendChild"
+  ],
+  "demo2.js@13:577-608": [
+    "coolclock.js@329:11307-12114"
+  ]
+}

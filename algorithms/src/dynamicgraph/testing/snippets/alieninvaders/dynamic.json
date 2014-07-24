@@ -1,0 +1,414 @@
+{
+  "engine.js@1:1-958": [
+    "engine.js@1:1-956"
+  ],
+  "engine.js@27:976-3871": [
+    "engine.js@27:980-3871"
+  ],
+  "engine.js@77:2241-2247": [
+    "Date"
+  ],
+  "engine.js@77:2237-2257": [
+    ""
+  ],
+  "engine.js@141:3893-4457": [
+    "engine.js@141:3897-4457"
+  ],
+  "game.js@172:5191-5203": [
+    "engine.js@277:7412-7426"
+  ],
+  "game.js@188:5517-5529": [
+    "engine.js@277:7412-7426"
+  ],
+  "game.js@209:6038-6050": [
+    "engine.js@277:7412-7426"
+  ],
+  "game.js@268:7634-7646": [
+    "engine.js@277:7412-7426"
+  ],
+  "game.js@290:8163-8175": [
+    "engine.js@277:7412-7426"
+  ],
+  "game.js@299:8298-8390": [
+    "window.addEventListener"
+  ],
+  "game.js@300:8345-8386": [
+    "engine.js@31:1124-1701"
+  ],
+  "engine.js@32:1191-1231": [
+    "document.getElementById"
+  ],
+  "engine.js@36:1296-1314": [
+    "engine.js@99:2782-3867"
+  ],
+  "engine.js@100:2815-2851": [
+    "document.getElementById"
+  ],
+  "engine.js@41:1432-1460": [
+    "THISREFERENCE.canvas.getContext"
+  ],
+  "engine.js@44:1542-1559": [
+    "engine.js@60:1821-2216"
+  ],
+  "engine.js@61:1838-2021": [
+    "window.addEventListener"
+  ],
+  "engine.js@68:2028-2211": [
+    "window.addEventListener"
+  ],
+  "engine.js@46:1566-1577": [
+    "engine.js@80:2310-2657"
+  ],
+  "engine.js@81:2346-2352": [
+    "Date"
+  ],
+  "engine.js@81:2342-2362": [
+    ""
+  ],
+  "engine.js@82:2368-2400": [
+    "requestAnimationFrame"
+  ],
+  "engine.js@52:1658-1696": [
+    "engine.js@144:3944-4114"
+  ],
+  "engine.js@146:4021-4032": [
+    "Image"
+  ],
+  "game.js@32:1260-1293": [
+    "navigator.userAgent.toLowerCase"
+  ],
+  "game.js@35:1326-1345": [
+    "ua.match"
+  ],
+  "game.js@38:1433-1463": [
+    "game.js@81:2729-4332"
+  ],
+  "game.js@84:2818-2850": [
+    "document.createElement"
+  ],
+  "game.js@87:2927-2949": [
+    "stars.getContext"
+  ],
+  "game.js@95:3109-3155": [
+    "starCtx.fillRect"
+  ],
+  "game.js@103:3371-3384": [
+    "Math.random"
+  ],
+  "game.js@103:3360-3397": [
+    "Math.floor"
+  ],
+  "game.js@104:3431-3444": [
+    "Math.random"
+  ],
+  "game.js@104:3420-3458": [
+    "Math.floor"
+  ],
+  "game.js@103:3343-3507": [
+    "starCtx.fillRect"
+  ],
+  "game.js@38:1417-1464": [
+    "engine.js@96:2713-2757"
+  ],
+  "game.js@39:1486-1511": [
+    "game.js@81:2729-4332"
+  ],
+  "game.js@39:1470-1512": [
+    "engine.js@96:2713-2757"
+  ],
+  "game.js@40:1534-1559": [
+    "game.js@81:2729-4332"
+  ],
+  "game.js@40:1518-1560": [
+    "engine.js@96:2713-2757"
+  ],
+  "game.js@42:1586-1729": [
+    "engine.js@165:4478-5053"
+  ],
+  "game.js@42:1570-1730": [
+    "engine.js@96:2713-2757"
+  ],
+  "engine.js@88:2562-2580": [
+    "game.js@136:4249-4329",
+    "engine.js@167:4558-4670",
+    "engine.js@245:6657-6758",
+    "engine.js@451:11942-11958"
+  ],
+  "engine.js@89:2590-2614": [
+    "game.js@111:3610-4176",
+    "engine.js@172:4687-5050",
+    "engine.js@252:6800-6849",
+    "engine.js@437:11647-11925"
+  ],
+  "game.js@112:3646-3664": [
+    "Math.floor"
+  ],
+  "game.js@126:4021-4165": [
+    "ctx.drawImage"
+  ],
+  "game.js@117:3785-3937": [
+    "ctx.drawImage"
+  ],
+  "engine.js@176:4789-4811": [
+    "ctx.measureText"
+  ],
+  "engine.js@177:4819-4883": [
+    "ctx.fillText"
+  ],
+  "engine.js@180:4941-4966": [
+    "ctx.measureText"
+  ],
+  "engine.js@181:4972-5045": [
+    "ctx.fillText"
+  ],
+  "engine.js@64:1981-1999": [
+    "e.preventDefault"
+  ],
+  "engine.js@169:4655-4665": [
+    "game.js@61:2156-2336"
+  ],
+  "game.js@62:2183-2198": [
+    "engine.js@186:5073-7396"
+  ],
+  "game.js@63:2212-2228": [
+    "game.js@142:4352-5165"
+  ],
+  "game.js@143:4368-4428": [
+    "engine.js@279:7454-7635"
+  ],
+  "engine.js@281:7505-7522": [
+    "engine.js@287:7663-7768"
+  ],
+  "game.js@63:2202-2229": [
+    "engine.js@194:5233-5376"
+  ],
+  "engine.js@196:5275-5297": [
+    "THISREFERENCE.objects.push"
+  ],
+  "game.js@64:2243-2268": [
+    "engine.js@304:7963-8161"
+  ],
+  "engine.js@307:8084-8111": [
+    "Object.create"
+  ],
+  "engine.js@307:8064-8112": [
+    "THISREFERENCE.levelData.push"
+  ],
+  "game.js@64:2233-2269": [
+    "engine.js@194:5233-5376"
+  ],
+  "game.js@65:2273-2295": [
+    "engine.js@96:2713-2757"
+  ],
+  "game.js@66:2315-2332": [
+    "engine.js@432:11575-11961"
+  ],
+  "game.js@66:2299-2333": [
+    "engine.js@96:2713-2757"
+  ],
+  "engine.js@253:6820-6844": [
+    "engine.js@227:6087-6301"
+  ],
+  "engine.js@228:6124-6163": [
+    "Array.prototype.slice.call"
+  ],
+  "engine.js@231:6260-6289": [
+    "engine.js@295:7795-7874",
+    "engine.js@354:9390-9407",
+    "game.js@149:4570-5162",
+    "engine.js@313:8187-9364",
+    "game.js@217:6341-7183",
+    "game.js@191:5620-5868",
+    "game.js@271:7734-7985",
+    "game.js@292:8205-8295"
+  ],
+  "engine.js@296:7813-7871": [
+    "engine.js@151:4131-4438"
+  ],
+  "engine.js@158:4373-4386": [
+    "Math.floor"
+  ],
+  "engine.js@158:4388-4401": [
+    "Math.floor"
+  ],
+  "engine.js@154:4224-4433": [
+    "ctx.drawImage"
+  ],
+  "engine.js@246:6677-6696": [
+    "engine.js@213:5661-5694"
+  ],
+  "engine.js@247:6702-6725": [
+    "engine.js@227:6087-6301"
+  ],
+  "engine.js@332:8812-8837": [
+    "game.js@203:5884-6017"
+  ],
+  "game.js@204:5917-5948": [
+    "engine.js@287:7663-7768"
+  ],
+  "game.js@205:5952-5990": [
+    "engine.js@279:7454-7635"
+  ],
+  "game.js@206:5994-6014": [
+    "engine.js@287:7663-7768"
+  ],
+  "engine.js@332:8797-8838": [
+    "engine.js@194:5233-5376"
+  ],
+  "engine.js@248:6731-6753": [
+    "engine.js@216:5779-6017"
+  ],
+  "engine.js@438:11667-11677": [
+    "ctx.save"
+  ],
+  "engine.js@446:11869-11900": [
+    "ctx.fillText"
+  ],
+  "engine.js@447:11906-11919": [
+    "ctx.restore"
+  ],
+  "game.js@220:6403-6437": [
+    "Math.sin"
+  ],
+  "game.js@221:6469-6503": [
+    "Math.sin"
+  ],
+  "game.js@226:6577-6615": [
+    "engine.js@265:7184-7391"
+  ],
+  "engine.js@266:7216-7386": [
+    "engine.js@236:6370-6544"
+  ],
+  "engine.js@238:6465-6491": [
+    "engine.js@266:7228-7385"
+  ],
+  "engine.js@268:7313-7336": [
+    "engine.js@258:6944-7078"
+  ],
+  "game.js@232:6706-6719": [
+    "Math.random"
+  ],
+  "engine.js@71:2171-2189": [
+    "e.preventDefault"
+  ],
+  "game.js@166:5037-5078": [
+    "game.js@182:5372-5488"
+  ],
+  "game.js@183:5390-5436": [
+    "engine.js@279:7454-7635"
+  ],
+  "game.js@166:5022-5079": [
+    "engine.js@194:5233-5376"
+  ],
+  "game.js@167:5102-5150": [
+    "game.js@182:5372-5488"
+  ],
+  "game.js@167:5087-5151": [
+    "engine.js@194:5233-5376"
+  ],
+  "game.js@193:5680-5717": [
+    "engine.js@265:7184-7391"
+  ],
+  "game.js@238:6983-7030": [
+    "game.js@262:7495-7606"
+  ],
+  "game.js@263:7513-7564": [
+    "engine.js@279:7454-7635"
+  ],
+  "game.js@238:6968-7031": [
+    "engine.js@194:5233-5376"
+  ],
+  "game.js@273:7794-7832": [
+    "engine.js@265:7184-7391"
+  ],
+  "game.js@195:5741-5767": [
+    "game.js@251:7208-7473"
+  ],
+  "game.js@254:7283-7306": [
+    "engine.js@202:5427-5597"
+  ],
+  "engine.js@203:5458-5483": [
+    "THISREFERENCE.removed.indexOf"
+  ],
+  "engine.js@205:5511-5533": [
+    "THISREFERENCE.removed.push"
+  ],
+  "game.js@256:7372-7459": [
+    "game.js@284:8006-8138"
+  ],
+  "game.js@285:8036-8073": [
+    "engine.js@279:7454-7635"
+  ],
+  "game.js@256:7357-7460": [
+    "engine.js@194:5233-5376"
+  ],
+  "game.js@196:5773-5796": [
+    "engine.js@202:5427-5597"
+  ],
+  "engine.js@218:5861-5898": [
+    "THISREFERENCE.objects.indexOf"
+  ],
+  "engine.js@221:5972-5998": [
+    "THISREFERENCE.objects.splice"
+  ],
+  "game.js@198:5837-5860": [
+    "engine.js@202:5427-5597"
+  ],
+  "game.js@295:8265-8288": [
+    "engine.js@202:5427-5597"
+  ],
+  "game.js@278:7954-7977": [
+    "engine.js@202:5427-5597"
+  ],
+  "engine.js@325:8558-8578": [
+    "remove.push"
+  ],
+  "engine.js@342:9062-9095": [
+    "THISREFERENCE.levelData.indexOf"
+  ],
+  "engine.js@343:9118-9149": [
+    "THISREFERENCE.levelData.splice"
+  ],
+  "game.js@235:6835-6882": [
+    "game.js@262:7495-7606"
+  ],
+  "game.js@235:6820-6883": [
+    "engine.js@194:5233-5376"
+  ],
+  "game.js@236:6906-6946": [
+    "game.js@262:7495-7606"
+  ],
+  "game.js@236:6891-6947": [
+    "engine.js@194:5233-5376"
+  ],
+  "game.js@275:7855-7881": [
+    "game.js@175:5276-5348"
+  ],
+  "game.js@176:5300-5323": [
+    "engine.js@202:5427-5597"
+  ],
+  "game.js@177:5331-5341": [
+    "game.js@75:2540-2710"
+  ],
+  "game.js@76:2571-2706": [
+    "engine.js@165:4478-5053"
+  ],
+  "game.js@76:2555-2707": [
+    "engine.js@96:2713-2757"
+  ],
+  "game.js@276:7887-7910": [
+    "engine.js@202:5427-5597"
+  ],
+  "game.js@247:7153-7176": [
+    "engine.js@202:5427-5597"
+  ],
+  "engine.js@349:9341-9356": [
+    "game.js@69:2353-2522"
+  ],
+  "game.js@70:2384-2518": [
+    "engine.js@165:4478-5053"
+  ],
+  "game.js@70:2368-2519": [
+    "engine.js@96:2713-2757"
+  ]
+}

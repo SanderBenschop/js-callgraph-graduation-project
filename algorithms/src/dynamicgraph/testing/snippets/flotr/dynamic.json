@@ -1,0 +1,2032 @@
+{
+  "examples.js@12:152-538": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@131:4691-97537": [
+    "prototype-1.6.0.2.js@26:1108-2083"
+  ],
+  "flotr-0.2.0-alpha.js@2684:97556-99275": [
+    "prototype-1.6.0.2.js@26:1108-2083"
+  ],
+  "extending-flotr.js@1:14-139": [
+    "prototype-1.6.0.2.js@26:1108-2083"
+  ],
+  "extending-flotr.js@9:142-437": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "examples.js@13:208-222": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "examples.js@15:252-269": [
+    "prototype-1.6.0.2.js@3070:118568-118651"
+  ],
+  "examples.js@15:252-305": [
+    "prototype-1.6.0.2.js@279:10005-10583"
+  ],
+  "examples.js@22:471-488": [
+    "prototype-1.6.0.2.js@3070:118568-118651"
+  ],
+  "examples.js@22:504-520": [
+    "prototype-1.6.0.2.js@3070:118568-118651"
+  ],
+  "extending-flotr.js@13:257-268": [
+    "Math.sin"
+  ],
+  "extending-flotr.js@13:245-270": [
+    "d1.push"
+  ],
+  "extending-flotr.js@17:347-361": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "extending-flotr.js@17:336-389": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@20:576-611": [
+    "prototype-1.6.0.2.js@30:1292-1382"
+  ],
+  "flotr-0.2.0-alpha.js@134:4775-4780": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "flotr-0.2.0-alpha.js@139:4904-4925": [
+    "flotr-0.2.0-alpha.js@23:639-1043"
+  ],
+  "flotr-0.2.0-alpha.js@24:673-1035": [
+    "prototype-1.6.0.2.js@543:20295-20590"
+  ],
+  "flotr-0.2.0-alpha.js@29:951-979": [
+    "parseFloat"
+  ],
+  "flotr-0.2.0-alpha.js@140:4936-4960": [
+    "flotr-0.2.0-alpha.js@183:5886-13363"
+  ],
+  "flotr-0.2.0-alpha.js@322:10307-10334": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@322:10293-10351": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@323:10393-10420": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@323:10379-10437": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@324:10463-10497": [
+    "flotr-0.2.0-alpha.js@35:1059-1408"
+  ],
+  "flotr-0.2.0-alpha.js@371:11801-11824": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@86:2599-2674": [
+    "/rgb/.exec"
+  ],
+  "flotr-0.2.0-alpha.js@90:2798-2902": [
+    "/rgba/.exec"
+  ],
+  "flotr-0.2.0-alpha.js@94:3049-3157": [
+    "/rgb/.exec"
+  ],
+  "flotr-0.2.0-alpha.js@98:3308-3445": [
+    "/rgba/.exec"
+  ],
+  "flotr-0.2.0-alpha.js@102:3619-3680": [
+    "/#/.exec"
+  ],
+  "flotr-0.2.0-alpha.js@103:3713-3736": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@103:3738-3761": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@103:3763-3786": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@103:3703-3787": [
+    "prototype-1.6.0.2.js@30:1292-1382"
+  ],
+  "flotr-0.2.0-alpha.js@2691:97795-97811": [
+    "flotr-0.2.0-alpha.js@2711:98288-98555"
+  ],
+  "flotr-0.2.0-alpha.js@2713:98359-98375": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@2713:98353-98384": [
+    "flotr-0.2.0-alpha.js@2707:98172-98268"
+  ],
+  "flotr-0.2.0-alpha.js@2708:98230-98251": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2708:98221-98260": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@2714:98410-98426": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@2714:98404-98435": [
+    "flotr-0.2.0-alpha.js@2707:98172-98268"
+  ],
+  "flotr-0.2.0-alpha.js@2715:98461-98477": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@2715:98455-98486": [
+    "flotr-0.2.0-alpha.js@2707:98172-98268"
+  ],
+  "flotr-0.2.0-alpha.js@2716:98506-98525": [
+    "flotr-0.2.0-alpha.js@2707:98172-98268"
+  ],
+  "flotr-0.2.0-alpha.js@375:11920-11944": [
+    "Math.ceil"
+  ],
+  "flotr-0.2.0-alpha.js@376:11965-11996": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@2726:98766-98782": [
+    "flotr-0.2.0-alpha.js@2711:98288-98555"
+  ],
+  "flotr-0.2.0-alpha.js@379:12015-12029": [
+    "colors.push"
+  ],
+  "flotr-0.2.0-alpha.js@393:12297-12319": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@2741:99162-99196": [
+    "[THISREFERENCE.r, THISREFERENCE.g, THISREFERENCE.b].join"
+  ],
+  "flotr-0.2.0-alpha.js@407:12816-12848": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@407:12802-12858": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@408:12898-12931": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@408:12884-12942": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@409:12980-13011": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@409:12966-13020": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@410:13061-13095": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@410:13047-13107": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@411:13144-13174": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@411:13130-13182": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@412:13221-13253": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@412:13207-13263": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "flotr-0.2.0-alpha.js@163:5424-5446": [
+    "flotr-0.2.0-alpha.js@418:13389-15249"
+  ],
+  "flotr-0.2.0-alpha.js@422:13481-13507": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@423:13536-13563": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@425:13579-13597": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@425:13579-13614": [
+    "prototype-1.6.0.2.js@610:22775-22976"
+  ],
+  "flotr-0.2.0-alpha.js@428:13629-13720": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@433:13752-13765": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@434:13796-13810": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@446:14179-14206": [
+    "prototype-1.6.0.2.js@1348:49456-50075"
+  ],
+  "flotr-0.2.0-alpha.js@448:14268-14332": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@452:14423-14435": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@457:14566-14584": [
+    "c.getContext"
+  ],
+  "flotr-0.2.0-alpha.js@461:14653-14680": [
+    "prototype-1.6.0.2.js@1348:49456-50075"
+  ],
+  "flotr-0.2.0-alpha.js@463:14745-14810": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@467:14903-14916": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@472:15050-15069": [
+    "oc.getContext"
+  ],
+  "flotr-0.2.0-alpha.js@476:15122-15149": [
+    "canvastext.js@5372:134008-134657"
+  ],
+  "flotr-0.2.0-alpha.js@477:15164-15192": [
+    "canvastext.js@5372:134008-134657"
+  ],
+  "flotr-0.2.0-alpha.js@166:5461-5478": [
+    "flotr-0.2.0-alpha.js@730:24236-24587"
+  ],
+  "flotr-0.2.0-alpha.js@733:24325-24353": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@734:24398-24430": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@734:24364-24431": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@735:24476-24508": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@735:24442-24509": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@736:24550-24578": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@736:24520-24579": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@168:5491-5512": [
+    "flotr-0.2.0-alpha.js@739:24612-26504"
+  ],
+  "flotr-0.2.0-alpha.js@782:26048-26070": [
+    "flotr-0.2.0-alpha.js@908:30460-30756"
+  ],
+  "flotr-0.2.0-alpha.js@784:26083-26107": [
+    "flotr-0.2.0-alpha.js@801:26529-27629"
+  ],
+  "flotr-0.2.0-alpha.js@812:26890-26944": [
+    "flotr-0.2.0-alpha.js@43:1430-1867"
+  ],
+  "flotr-0.2.0-alpha.js@45:1535-1560": [
+    "flotr-0.2.0-alpha.js@70:2190-2278"
+  ],
+  "flotr-0.2.0-alpha.js@71:2245-2256": [
+    "Math.log"
+  ],
+  "flotr-0.2.0-alpha.js@71:2234-2269": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@71:2221-2270": [
+    "Math.pow"
+  ],
+  "flotr-0.2.0-alpha.js@785:26118-26153": [
+    "flotr-0.2.0-alpha.js@838:27665-29034"
+  ],
+  "flotr-0.2.0-alpha.js@792:26296-26320": [
+    "flotr-0.2.0-alpha.js@801:26529-27629"
+  ],
+  "flotr-0.2.0-alpha.js@793:26331-26366": [
+    "flotr-0.2.0-alpha.js@873:29070-30434"
+  ],
+  "flotr-0.2.0-alpha.js@169:5523-5555": [
+    "flotr-0.2.0-alpha.js@918:30781-32292"
+  ],
+  "flotr-0.2.0-alpha.js@951:31699-31734": [
+    "Math.ceil"
+  ],
+  "flotr-0.2.0-alpha.js@960:31999-32022": [
+    "Math.log"
+  ],
+  "flotr-0.2.0-alpha.js@960:31988-32035": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@963:32109-32128": [
+    "v.toFixed"
+  ],
+  "flotr-0.2.0-alpha.js@966:32220-32238": [
+    "flotr-0.2.0-alpha.js@59:1898-1947",
+    "basic-axis.js@29:662-694",
+    "image-download.js@32:754-786",
+    "advanced-titles.js@32:755-787"
+  ],
+  "flotr-0.2.0-alpha.js@964:32147-32258": [
+    "axis.ticks.push"
+  ],
+  "flotr-0.2.0-alpha.js@170:5566-5599": [
+    "flotr-0.2.0-alpha.js@918:30781-32292"
+  ],
+  "flotr-0.2.0-alpha.js@171:5610-5642": [
+    "flotr-0.2.0-alpha.js@918:30781-32292"
+  ],
+  "flotr-0.2.0-alpha.js@172:5653-5686": [
+    "flotr-0.2.0-alpha.js@918:30781-32292"
+  ],
+  "flotr-0.2.0-alpha.js@174:5699-5722": [
+    "flotr-0.2.0-alpha.js@972:32319-35520"
+  ],
+  "flotr-0.2.0-alpha.js@985:32641-33515": [
+    "prototype-1.6.0.2.js@504:18771-19154"
+  ],
+  "flotr-0.2.0-alpha.js@998:33160-33197": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@996:33060-33255": [
+    "flotr-0.2.0-alpha.js@481:15275-16005"
+  ],
+  "flotr-0.2.0-alpha.js@494:15714-15854": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@494:15714-15881": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@495:15905-15929": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@496:15944-15961": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@1002:33403-33439": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@1000:33287-33496": [
+    "flotr-0.2.0-alpha.js@481:15275-16005"
+  ],
+  "flotr-0.2.0-alpha.js@1007:33536-33679": [
+    "flotr-0.2.0-alpha.js@481:15275-16005"
+  ],
+  "flotr-0.2.0-alpha.js@1013:33740-33870": [
+    "flotr-0.2.0-alpha.js@481:15275-16005"
+  ],
+  "flotr-0.2.0-alpha.js@1048:35143-35160": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@175:5733-5744": [
+    "flotr-0.2.0-alpha.js@1059:35535-35988"
+  ],
+  "flotr-0.2.0-alpha.js@1060:35558-35573": [
+    "flotr-0.2.0-alpha.js@1084:36274-38306"
+  ],
+  "flotr-0.2.0-alpha.js@1088:36427-36496": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@1090:36518-36528": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@1091:36539-36595": [
+    "ctx.translate"
+  ],
+  "flotr-0.2.0-alpha.js@1102:36864-36879": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1110:37200-37212": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@1110:37189-37213": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@1110:37178-37237": [
+    "ctx.moveTo"
+  ],
+  "flotr-0.2.0-alpha.js@1111:37278-37290": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@1111:37267-37291": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@1111:37256-37329": [
+    "ctx.lineTo"
+  ],
+  "flotr-0.2.0-alpha.js@1123:37685-37698": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1123:37674-37699": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@1123:37660-37720": [
+    "ctx.moveTo"
+  ],
+  "flotr-0.2.0-alpha.js@1124:37777-37790": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1124:37766-37791": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@1124:37739-37812": [
+    "ctx.lineTo"
+  ],
+  "flotr-0.2.0-alpha.js@1127:37849-37861": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@1134:38053-38106": [
+    "ctx.strokeRect"
+  ],
+  "flotr-0.2.0-alpha.js@1136:38128-38141": [
+    "ctx.restore"
+  ],
+  "flotr-0.2.0-alpha.js@1138:38219-38287": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@1061:35584-35601": [
+    "flotr-0.2.0-alpha.js@1142:38327-45719"
+  ],
+  "flotr-0.2.0-alpha.js@1259:42900-42923": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@1259:42745-43117": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1279:44192-44216": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1279:44120-44467": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1302:45637-45656": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1303:45686-45699": [
+    "html.join"
+  ],
+  "flotr-0.2.0-alpha.js@1303:45671-45700": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@1062:35612-35629": [
+    "flotr-0.2.0-alpha.js@1307:45740-50985"
+  ],
+  "flotr-0.2.0-alpha.js@1411:49520-49539": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1414:49558-49627": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1434:50901-50920": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1436:50952-50965": [
+    "html.join"
+  ],
+  "flotr-0.2.0-alpha.js@1436:50937-50966": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@1065:35681-35734": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@1068:35860-35891": [
+    "prototype-1.6.0.2.js@200:7333-7443",
+    "flotr-0.2.0-alpha.js@1440:51006-51440"
+  ],
+  "extending-flotr.js@5:118-132": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1452:51359-51421": [
+    "flotr-0.2.0-alpha.js@1642:57652-58850"
+  ],
+  "flotr-0.2.0-alpha.js@1645:57751-57761": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@1646:57772-57828": [
+    "ctx.translate"
+  ],
+  "flotr-0.2.0-alpha.js@1658:58127-58165": [
+    "flotr-0.2.0-alpha.js@1456:51459-54043"
+  ],
+  "flotr-0.2.0-alpha.js@1460:51600-51620": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1461:51643-51664": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1466:51762-51782": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1467:51805-51826": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1469:51848-51863": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1470:51874-51898": [
+    "ctx.moveTo"
+  ],
+  "flotr-0.2.0-alpha.js@1527:53766-53778": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1527:53791-53804": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1530:53905-53917": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1531:53940-53953": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1532:53977-54001": [
+    "ctx.lineTo"
+  ],
+  "flotr-0.2.0-alpha.js@1534:54023-54035": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@1661:58232-58261": [
+    "flotr-0.2.0-alpha.js@1456:51459-54043"
+  ],
+  "flotr-0.2.0-alpha.js@1676:58794-58818": [
+    "flotr-0.2.0-alpha.js@1456:51459-54043"
+  ],
+  "flotr-0.2.0-alpha.js@1677:58829-58842": [
+    "ctx.restore"
+  ],
+  "flotr-0.2.0-alpha.js@1071:35928-35980": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@176:5755-5774": [
+    "flotr-0.2.0-alpha.js@2177:76992-83116"
+  ],
+  "flotr-0.2.0-alpha.js@2189:77322-77405": [
+    "prototype-1.6.0.2.js@562:20975-21277"
+  ],
+  "flotr-0.2.0-alpha.js@2189:77322-77412": [
+    "prototype-1.6.0.2.js@784:28660-28709"
+  ],
+  "extending-flotr.js@19:400-433": [
+    "alert"
+  ],
+  "click-event.js@1:0-519": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "click-event.js@13:241-255": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "click-event.js@13:230-271": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@38:1288-1312": [
+    "prototype-1.6.0.2.js@143:5281-5355"
+  ],
+  "flotr-0.2.0-alpha.js@38:1316-1344": [
+    "flotr-0.2.0-alpha.js@35:1059-1408"
+  ],
+  "flotr-0.2.0-alpha.js@1446:51220-51262": [
+    "flotr-0.2.0-alpha.js@1642:57652-58850",
+    "flotr-0.2.0-alpha.js@1680:58877-59751",
+    "flotr-0.2.0-alpha.js@1742:60975-61694",
+    "flotr-0.2.0-alpha.js@2028:71418-76549",
+    "flotr-0.2.0-alpha.js@1905:66560-66958"
+  ],
+  "flotr-0.2.0-alpha.js@1683:58937-58947": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@1684:58958-59014": [
+    "ctx.translate"
+  ],
+  "flotr-0.2.0-alpha.js@1693:59224-59303": [
+    "flotr-0.2.0-alpha.js@1724:60387-60950"
+  ],
+  "flotr-0.2.0-alpha.js@1736:60794-60809": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1737:60832-60848": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@1737:60850-60867": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1737:60824-60904": [
+    "ctx.arc"
+  ],
+  "flotr-0.2.0-alpha.js@1738:60919-60931": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@1696:59370-59440": [
+    "flotr-0.2.0-alpha.js@1724:60387-60950"
+  ],
+  "flotr-0.2.0-alpha.js@1702:59654-59719": [
+    "flotr-0.2.0-alpha.js@1705:59770-60362"
+  ],
+  "flotr-0.2.0-alpha.js@1718:60177-60192": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1719:60215-60231": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@1719:60233-60250": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1719:60207-60281": [
+    "ctx.arc"
+  ],
+  "flotr-0.2.0-alpha.js@1720:60306-60316": [
+    "ctx.fill"
+  ],
+  "flotr-0.2.0-alpha.js@1721:60331-60343": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@1703:59730-59743": [
+    "ctx.restore"
+  ],
+  "click-event.js@15:275-289": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "click-event.js@15:275-515": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-bar.js@1:0-314": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-bar.js@6:132-145": [
+    "Math.random"
+  ],
+  "basic-bar.js@6:122-149": [
+    "Math.ceil"
+  ],
+  "basic-bar.js@6:111-151": [
+    "d1.push"
+  ],
+  "basic-bar.js@7:181-194": [
+    "Math.random"
+  ],
+  "basic-bar.js@7:171-198": [
+    "Math.ceil"
+  ],
+  "basic-bar.js@7:155-200": [
+    "d2.push"
+  ],
+  "basic-bar.js@11:221-235": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "basic-bar.js@10:207-310": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@1745:61082-61117": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@1747:61130-61140": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@1748:61151-61207": [
+    "ctx.translate"
+  ],
+  "flotr-0.2.0-alpha.js@1755:61327-61380": [
+    "flotr-0.2.0-alpha.js@1851:64599-66532"
+  ],
+  "flotr-0.2.0-alpha.js@1858:64823-64843": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1859:64866-64887": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1897:66108-66123": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1897:66126-66140": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1897:66145-66160": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1898:66234-66251": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1898:66254-66268": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1898:66273-66290": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1901:66414-66428": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1901:66461-66475": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1758:61502-61532": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@87:2707-2726": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@87:2728-2747": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@87:2749-2768": [
+    "parseInt"
+  ],
+  "flotr-0.2.0-alpha.js@87:2697-2769": [
+    "prototype-1.6.0.2.js@30:1292-1382"
+  ],
+  "flotr-0.2.0-alpha.js@1758:61502-61581": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@1758:61502-61592": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@2741:99215-99257": [
+    "[THISREFERENCE.r, THISREFERENCE.g, THISREFERENCE.b, THISREFERENCE.a].join"
+  ],
+  "flotr-0.2.0-alpha.js@1761:61616-61662": [
+    "flotr-0.2.0-alpha.js@1764:61711-64575"
+  ],
+  "flotr-0.2.0-alpha.js@1771:61941-61961": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1772:61984-62005": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1830:63673-63688": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1831:63718-63732": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1831:63734-63751": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1832:63791-63805": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1832:63807-63821": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1833:63861-63876": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1833:63878-63892": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1834:63932-63947": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1834:63949-63966": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1835:63995-64005": [
+    "ctx.fill"
+  ],
+  "flotr-0.2.0-alpha.js@1840:64128-64143": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1841:64173-64187": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1841:64189-64206": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1843:64273-64287": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1843:64289-64303": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1844:64367-64382": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1844:64384-64398": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1845:64464-64479": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1845:64481-64498": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1847:64529-64541": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@1762:61673-61686": [
+    "ctx.restore"
+  ],
+  "json-data.js@2:16-29": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "json-data.js@2:16-370": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-legend.js@1:0-680": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-legend.js@7:148-167": [
+    "Math.sin"
+  ],
+  "basic-legend.js@7:132-169": [
+    "d1.push"
+  ],
+  "basic-legend.js@8:173-188": [
+    "d2.push"
+  ],
+  "basic-legend.js@9:207-218": [
+    "Math.cos"
+  ],
+  "basic-legend.js@9:192-220": [
+    "d3.push"
+  ],
+  "basic-legend.js@19:313-327": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "basic-legend.js@18:299-676": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@25:748-767": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "flotr-0.2.0-alpha.js@488:15502-15543": [
+    "canvastext.js@5379:134320-134420"
+  ],
+  "flotr-0.2.0-alpha.js@1171:39226-39263": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@1177:39449-39472": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@1175:39358-39606": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@1209:40673-40710": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@1216:40965-40989": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1213:40805-41036": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@2215:78243-78289": [
+    "basic-legend.js@13:228-291",
+    "prototype-1.6.0.2.js@19:916-964"
+  ],
+  "flotr-0.2.0-alpha.js@2216:78352-78381": [
+    "canvastext.js@5376:134192-134286"
+  ],
+  "flotr-0.2.0-alpha.js@2219:78440-78481": [
+    "Math.round"
+  ],
+  "flotr-0.2.0-alpha.js@2220:78519-78564": [
+    "Math.round"
+  ],
+  "flotr-0.2.0-alpha.js@2222:78589-78600": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2223:78695-78706": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2226:78812-78882": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@2226:78812-78947": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@2226:78812-78958": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@2229:79019-79076": [
+    "ctx.fillRect"
+  ],
+  "flotr-0.2.0-alpha.js@2231:79181-79203": [
+    "flotr-0.2.0-alpha.js@73:2294-2356"
+  ],
+  "flotr-0.2.0-alpha.js@74:2327-2342": [
+    "Math.floor"
+  ],
+  "flotr-0.2.0-alpha.js@2231:79205-79227": [
+    "flotr-0.2.0-alpha.js@73:2294-2356"
+  ],
+  "flotr-0.2.0-alpha.js@2231:79166-79255": [
+    "ctx.strokeRect"
+  ],
+  "flotr-0.2.0-alpha.js@2238:79500-79546": [
+    "basic-legend.js@13:228-291",
+    "prototype-1.6.0.2.js@19:916-964"
+  ],
+  "flotr-0.2.0-alpha.js@2241:79625-79661": [
+    "ctx.fillRect"
+  ],
+  "flotr-0.2.0-alpha.js@2245:79816-79828": [
+    "Math.ceil"
+  ],
+  "flotr-0.2.0-alpha.js@2245:79836-79848": [
+    "Math.ceil"
+  ],
+  "flotr-0.2.0-alpha.js@2245:79801-79873": [
+    "ctx.strokeRect"
+  ],
+  "flotr-0.2.0-alpha.js@2251:80035-80057": [
+    "canvastext.js@5385:134564-134646"
+  ],
+  "flotr-0.2.0-alpha.js@2248:79900-80117": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "mouse-zoom.js@1:0-747": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "mouse-zoom.js@7:144-155": [
+    "Math.sin"
+  ],
+  "mouse-zoom.js@7:158-169": [
+    "Math.cos"
+  ],
+  "mouse-zoom.js@7:132-171": [
+    "d1.push"
+  ],
+  "mouse-zoom.js@8:187-203": [
+    "Math.pow"
+  ],
+  "mouse-zoom.js@8:175-205": [
+    "d2.push"
+  ],
+  "mouse-zoom.js@9:228-241": [
+    "Math.random"
+  ],
+  "mouse-zoom.js@9:209-246": [
+    "d3.push"
+  ],
+  "mouse-zoom.js@27:478-489": [
+    "mouse-zoom.js@16:305-470"
+  ],
+  "mouse-zoom.js@18:356-377": [
+    "prototype-1.6.0.2.js@140:5194-5263"
+  ],
+  "mouse-zoom.js@18:342-390": [
+    "prototype-1.6.0.2.js@79:3303-3448"
+  ],
+  "mouse-zoom.js@21:417-431": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "mouse-zoom.js@20:402-461": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "mouse-zoom.js@29:496-510": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "mouse-zoom.js@29:496-682": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "mouse-zoom.js@39:687-701": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "mouse-zoom.js@39:687-743": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-axis.js@1:0-951": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-axis.js@10:170-185": [
+    "Math.pow"
+  ],
+  "basic-axis.js@10:154-187": [
+    "d1.push"
+  ],
+  "basic-axis.js@11:203-216": [
+    "Math.pow"
+  ],
+  "basic-axis.js@11:191-218": [
+    "d2.push"
+  ],
+  "basic-axis.js@12:240-253": [
+    "Math.sin"
+  ],
+  "basic-axis.js@12:222-255": [
+    "d3.push"
+  ],
+  "basic-axis.js@13:259-274": [
+    "d4.push"
+  ],
+  "basic-axis.js@14:282-294": [
+    "i.toFixed"
+  ],
+  "basic-axis.js@15:308-325": [
+    "d5.push"
+  ],
+  "basic-axis.js@20:358-372": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "basic-axis.js@19:344-947": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@927:30981-31005": [
+    "prototype-1.6.0.2.js@152:5600-5671"
+  ],
+  "flotr-0.2.0-alpha.js@942:31468-31486": [
+    "flotr-0.2.0-alpha.js@59:1898-1947"
+  ],
+  "flotr-0.2.0-alpha.js@1404:48969-49183": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1409:49258-49490": [
+    "html.push"
+  ],
+  "flotr-0.2.0-alpha.js@1528:53843-53855": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1528:53857-53870": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1665:58373-58415": [
+    "flotr-0.2.0-alpha.js@1537:54066-57626"
+  ],
+  "flotr-0.2.0-alpha.js@1545:54309-54329": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1546:54352-54373": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1547:54406-54425": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@1547:54397-54434": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@1550:54474-54489": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1579:55530-55542": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1579:55544-55561": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1624:57101-57113": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1624:57115-57128": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1625:57164-57176": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1625:57178-57191": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1634:57473-57492": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@1637:57527-57542": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1637:57544-57561": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1638:57582-57597": [
+    "ctx.closePath"
+  ],
+  "flotr-0.2.0-alpha.js@1639:57608-57618": [
+    "ctx.fill"
+  ],
+  "flotr-0.2.0-alpha.js@1672:58636-58666": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@1672:58636-58716": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@1672:58636-58727": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@1673:58742-58770": [
+    "flotr-0.2.0-alpha.js@1537:54066-57626"
+  ],
+  "flotr-0.2.0-alpha.js@2262:80414-80463": [
+    "fragments.push"
+  ],
+  "flotr-0.2.0-alpha.js@2266:80567-80613": [
+    "prototype-1.6.0.2.js@19:916-964"
+  ],
+  "flotr-0.2.0-alpha.js@2268:80638-81018": [
+    "fragments.push"
+  ],
+  "flotr-0.2.0-alpha.js@2271:81072-81095": [
+    "fragments.push"
+  ],
+  "flotr-0.2.0-alpha.js@2274:81248-81266": [
+    "fragments.join"
+  ],
+  "flotr-0.2.0-alpha.js@2282:81624-81635": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2284:81825-81836": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2285:81929-81940": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2287:82034-82145": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2287:82034-82172": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2287:82034-82180": [
+    "prototype-1.6.0.2.js@739:27277-27322"
+  ],
+  "flotr-0.2.0-alpha.js@2293:82488-82511": [
+    "flotr-0.2.0-alpha.js@117:4299-4669"
+  ],
+  "flotr-0.2.0-alpha.js@121:4377-4413": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2294:82550-82571": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@106:3816-3868": [
+    "/#/.exec"
+  ],
+  "flotr-0.2.0-alpha.js@110:4037-4048": [
+    "prototype-1.6.0.2.js@312:11340-11422"
+  ],
+  "flotr-0.2.0-alpha.js@110:4037-4062": [
+    ""
+  ],
+  "flotr-0.2.0-alpha.js@112:4122-4149": [
+    "prototype-1.6.0.2.js@30:1292-1382"
+  ],
+  "flotr-0.2.0-alpha.js@2294:82550-82599": [
+    "flotr-0.2.0-alpha.js@2694:97836-98055"
+  ],
+  "flotr-0.2.0-alpha.js@2700:98031-98047": [
+    "flotr-0.2.0-alpha.js@2711:98288-98555"
+  ],
+  "flotr-0.2.0-alpha.js@2294:82550-82610": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@2296:82752-82766": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2296:82784-82799": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2296:82672-82855": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2296:82672-82885": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2296:82672-82893": [
+    "prototype-1.6.0.2.js@739:27277-27322"
+  ],
+  "flotr-0.2.0-alpha.js@2296:82672-83013": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-pie.js@1:0-570": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-pie.js@7:152-166": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "basic-pie.js@7:141-566": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@2035:71701-71746": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2039:71867-71897": [
+    "Math.sin"
+  ],
+  "flotr-0.2.0-alpha.js@2053:72316-72639": [
+    "prototype-1.6.0.2.js@543:20295-20590"
+  ],
+  "flotr-0.2.0-alpha.js@2063:72668-72691": [
+    "prototype-1.6.0.2.js@647:24177-24376"
+  ],
+  "flotr-0.2.0-alpha.js@2063:72668-72700": [
+    "prototype-1.6.0.2.js@647:24177-24376"
+  ],
+  "flotr-0.2.0-alpha.js@2063:72668-72779": [
+    "prototype-1.6.0.2.js@603:22515-22756"
+  ],
+  "flotr-0.2.0-alpha.js@2071:72922-73463": [
+    "prototype-1.6.0.2.js@543:20295-20590"
+  ],
+  "flotr-0.2.0-alpha.js@2073:73019-73045": [
+    "parseFloat"
+  ],
+  "flotr-0.2.0-alpha.js@2086:73480-73490": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@2089:73538-74055": [
+    "prototype-1.6.0.2.js@504:18771-19154"
+  ],
+  "flotr-0.2.0-alpha.js@2092:73695-73714": [
+    "Math.cos"
+  ],
+  "flotr-0.2.0-alpha.js@2093:73783-73802": [
+    "Math.sin"
+  ],
+  "flotr-0.2.0-alpha.js@2095:73848-73937": [
+    "flotr-0.2.0-alpha.js@2162:76567-76939"
+  ],
+  "flotr-0.2.0-alpha.js@2166:76700-76710": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@2167:76721-76741": [
+    "ctx.scale"
+  ],
+  "flotr-0.2.0-alpha.js@2168:76752-76767": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@2169:76778-76794": [
+    "ctx.moveTo"
+  ],
+  "flotr-0.2.0-alpha.js@2170:76805-76854": [
+    "ctx.arc"
+  ],
+  "flotr-0.2.0-alpha.js@2171:76865-76881": [
+    "ctx.lineTo"
+  ],
+  "flotr-0.2.0-alpha.js@2172:76892-76907": [
+    "ctx.closePath"
+  ],
+  "flotr-0.2.0-alpha.js@2173:76918-76931": [
+    "ctx.restore"
+  ],
+  "flotr-0.2.0-alpha.js@2098:74018-74028": [
+    "ctx.fill"
+  ],
+  "flotr-0.2.0-alpha.js@2106:74243-76321": [
+    "prototype-1.6.0.2.js@504:18771-19154"
+  ],
+  "flotr-0.2.0-alpha.js@2110:74451-74470": [
+    "Math.cos"
+  ],
+  "flotr-0.2.0-alpha.js@2111:74530-74549": [
+    "Math.sin"
+  ],
+  "flotr-0.2.0-alpha.js@2113:74586-74675": [
+    "flotr-0.2.0-alpha.js@2162:76567-76939"
+  ],
+  "flotr-0.2.0-alpha.js@2116:74756-74779": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@2116:74756-74827": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@2116:74756-74838": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@2117:74861-74871": [
+    "ctx.fill"
+  ],
+  "flotr-0.2.0-alpha.js@2121:74988-75000": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@2125:75037-75070": [
+    "flotr-0.2.0-alpha.js@66:2085-2167"
+  ],
+  "flotr-0.2.0-alpha.js@67:2120-2153": [
+    ".toFixed"
+  ],
+  "flotr-0.2.0-alpha.js@2127:75113-75132": [
+    "Math.cos"
+  ],
+  "flotr-0.2.0-alpha.js@2128:75178-75197": [
+    "Math.cos"
+  ],
+  "flotr-0.2.0-alpha.js@2129:75270-75289": [
+    "Math.sin"
+  ],
+  "flotr-0.2.0-alpha.js@2143:76056-76256": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@2158:76478-76491": [
+    "ctx.restore"
+  ],
+  "mouse-tracking.js@1:0-530": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "mouse-tracking.js@7:126-143": [
+    "d1.push"
+  ],
+  "mouse-tracking.js@8:169-180": [
+    "Math.sin"
+  ],
+  "mouse-tracking.js@8:147-182": [
+    "d2.push"
+  ],
+  "mouse-tracking.js@9:206-217": [
+    "Math.cos"
+  ],
+  "mouse-tracking.js@9:192-222": [
+    "d3.push"
+  ],
+  "mouse-tracking.js@13:252-266": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "mouse-tracking.js@12:238-526": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "negative.js@1:0-932": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "negative.js@10:186-199": [
+    "Math.random"
+  ],
+  "negative.js@11:210-225": [
+    "d0.push"
+  ],
+  "negative.js@12:235-250": [
+    "d1.push"
+  ],
+  "negative.js@17:299-312": [
+    "Math.pow"
+  ],
+  "negative.js@22:399-413": [
+    "Math.pow"
+  ],
+  "negative.js@26:488-516": [
+    "d2.push"
+  ],
+  "negative.js@30:550-564": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "negative.js@33:773-789": [
+    "alpha.toFixed"
+  ],
+  "negative.js@33:798-813": [
+    "beta.toFixed"
+  ],
+  "negative.js@29:536-928": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@360:11407-11425": [
+    "prototype-1.6.0.2.js@158:5774-5843"
+  ],
+  "flotr-0.2.0-alpha.js@361:11489-11508": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@394:12345-12369": [
+    "prototype-1.6.0.2.js@158:5774-5843"
+  ],
+  "flotr-0.2.0-alpha.js@2283:81724-81735": [
+    "p.charAt"
+  ],
+  "basic-candlesticks.js@1:0-428": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "basic-candlesticks.js@7:120-133": [
+    "Math.random"
+  ],
+  "basic-candlesticks.js@8:147-160": [
+    "Math.random"
+  ],
+  "basic-candlesticks.js@9:175-188": [
+    "Math.random"
+  ],
+  "basic-candlesticks.js@10:209-261": [
+    "d1.push"
+  ],
+  "basic-candlesticks.js@14:317-331": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "basic-candlesticks.js@14:306-424": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@1909:66666-66676": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@1910:66687-66743": [
+    "ctx.translate"
+  ],
+  "flotr-0.2.0-alpha.js@1915:66842-66881": [
+    "flotr-0.2.0-alpha.js@1994:70052-71394"
+  ],
+  "flotr-0.2.0-alpha.js@2000:70265-70285": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@2001:70308-70329": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@2014:70731-70752": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2014:70714-70753": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@2015:70795-70816": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@2015:70778-70817": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2020:70960-70975": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@2020:70978-70992": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@2020:70997-71012": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@2021:71086-71103": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@2021:71106-71120": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@2021:71125-71142": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@2024:71276-71290": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@2024:71323-71337": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1916:66892-66924": [
+    "flotr-0.2.0-alpha.js@1920:66978-70025"
+  ],
+  "flotr-0.2.0-alpha.js@1927:67192-67212": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1928:67235-67256": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@1940:67598-67619": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@1941:67644-67666": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@1942:67712-67733": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@1942:67695-67734": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@1943:67777-67798": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@1943:67760-67799": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@1951:68110-68133": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@1951:68110-68185": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@1951:68110-68196": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@1952:68228-68242": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1952:68244-68259": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1952:68270-68285": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1952:68288-68302": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1952:68304-68322": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1952:68325-68340": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1959:68554-68578": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1961:68618-68628": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@1980:69454-69468": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1980:69470-69485": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1980:69496-69511": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1980:69514-69528": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1980:69530-69548": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1980:69551-69566": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1982:69592-69607": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1983:69655-69670": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1984:69729-69743": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1985:69802-69820": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1986:69879-69896": [
+    "prototype-1.6.0.2.js@174:6402-6498"
+  ],
+  "flotr-0.2.0-alpha.js@1989:69947-69959": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@1990:69978-69991": [
+    "ctx.restore"
+  ],
+  "flotr-0.2.0-alpha.js@1918:66937-66950": [
+    "ctx.restore"
+  ],
+  "image-download.js@3:8-1345": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "image-download.js@11:177-192": [
+    "Math.pow"
+  ],
+  "image-download.js@11:161-194": [
+    "d1.push"
+  ],
+  "image-download.js@12:210-223": [
+    "Math.pow"
+  ],
+  "image-download.js@12:198-225": [
+    "d2.push"
+  ],
+  "image-download.js@13:247-260": [
+    "Math.sin"
+  ],
+  "image-download.js@13:229-262": [
+    "d3.push"
+  ],
+  "image-download.js@14:266-281": [
+    "d4.push"
+  ],
+  "image-download.js@15:289-301": [
+    "i.toFixed"
+  ],
+  "image-download.js@16:315-332": [
+    "d5.push"
+  ],
+  "image-download.js@21:361-375": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "image-download.js@20:347-1155": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@796:26409-26434": [
+    "flotr-0.2.0-alpha.js@801:26529-27629"
+  ],
+  "flotr-0.2.0-alpha.js@797:26449-26485": [
+    "flotr-0.2.0-alpha.js@873:29070-30434"
+  ],
+  "flotr-0.2.0-alpha.js@1096:36714-36765": [
+    "ctx.fillRect"
+  ],
+  "flotr-0.2.0-alpha.js@1228:41389-41426": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@1235:41698-41722": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1232:41521-41769": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@1239:41790-41800": [
+    "ctx.save"
+  ],
+  "flotr-0.2.0-alpha.js@1241:41867-41882": [
+    "ctx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@1242:41977-42001": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1242:41901-42002": [
+    "ctx.moveTo"
+  ],
+  "flotr-0.2.0-alpha.js@1243:42093-42117": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@1243:42021-42118": [
+    "ctx.lineTo"
+  ],
+  "flotr-0.2.0-alpha.js@1244:42137-42149": [
+    "ctx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@1245:42168-42181": [
+    "ctx.restore"
+  ],
+  "flotr-0.2.0-alpha.js@1323:46186-46413": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@1336:46552-46754": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@1352:47036-47071": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@1353:47090-47348": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@1378:47999-48034": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@1379:48053-48293": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "flotr-0.2.0-alpha.js@1391:48471-48507": [
+    "flotr-0.2.0-alpha.js@76:2370-2437"
+  ],
+  "flotr-0.2.0-alpha.js@1392:48526-48785": [
+    "canvastext.js@5373:134052-134160"
+  ],
+  "advanced-titles.js@3:8-1292": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "advanced-titles.js@11:177-192": [
+    "Math.pow"
+  ],
+  "advanced-titles.js@11:161-194": [
+    "d1.push"
+  ],
+  "advanced-titles.js@12:210-223": [
+    "Math.pow"
+  ],
+  "advanced-titles.js@12:198-225": [
+    "d2.push"
+  ],
+  "advanced-titles.js@13:247-260": [
+    "Math.sin"
+  ],
+  "advanced-titles.js@13:229-262": [
+    "d3.push"
+  ],
+  "advanced-titles.js@14:266-281": [
+    "d4.push"
+  ],
+  "advanced-titles.js@15:289-301": [
+    "i.toFixed"
+  ],
+  "advanced-titles.js@16:315-332": [
+    "d5.push"
+  ],
+  "advanced-titles.js@21:361-375": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "advanced-titles.js@20:347-1288": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@2344:84449-84477": [
+    "flotr-0.2.0-alpha.js@2306:83143-84156"
+  ],
+  "flotr-0.2.0-alpha.js@2307:83184-83215": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2348:84647-84735": [
+    "prototype-1.6.0.2.js@534:19943-20275"
+  ],
+  "flotr-0.2.0-alpha.js@2354:84790-84841": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2358:84908-84928": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2340:84340-84368": [
+    "flotr-0.2.0-alpha.js@2306:83143-84156"
+  ],
+  "flotr-0.2.0-alpha.js@2340:84311-84376": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2351:84753-84766": [
+    "flotr-0.2.0-alpha.js@2554:92186-96549"
+  ],
+  "flotr-0.2.0-alpha.js@2582:93134-93185": [
+    "Math.pow"
+  ],
+  "flotr-0.2.0-alpha.js@2583:93211-93262": [
+    "Math.pow"
+  ],
+  "flotr-0.2.0-alpha.js@2584:93317-93339": [
+    "Math.sqrt"
+  ],
+  "flotr-0.2.0-alpha.js@2585:93382-93404": [
+    "Math.sqrt"
+  ],
+  "flotr-0.2.0-alpha.js@2594:93720-93756": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2606:94518-94529": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2606:94579-94594": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@2608:94756-94767": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2608:94816-94830": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@2615:95061-95140": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2616:95182-95218": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2616:95182-95226": [
+    "prototype-1.6.0.2.js@739:27277-27322"
+  ],
+  "flotr-0.2.0-alpha.js@2622:95390-95399": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2624:95420-95435": [
+    "flotr-0.2.0-alpha.js@2538:91578-92172"
+  ],
+  "flotr-0.2.0-alpha.js@2626:95508-95519": [
+    "octx.save"
+  ],
+  "flotr-0.2.0-alpha.js@2627:95542-95589": [
+    "octx.translate"
+  ],
+  "flotr-0.2.0-alpha.js@2631:95784-95800": [
+    "octx.beginPath"
+  ],
+  "flotr-0.2.0-alpha.js@2632:95832-95846": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@2632:95848-95863": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@2632:95823-95908": [
+    "octx.arc"
+  ],
+  "flotr-0.2.0-alpha.js@2633:95931-95942": [
+    "octx.fill"
+  ],
+  "flotr-0.2.0-alpha.js@2634:95965-95978": [
+    "octx.stroke"
+  ],
+  "flotr-0.2.0-alpha.js@2635:96001-96015": [
+    "octx.restore"
+  ],
+  "flotr-0.2.0-alpha.js@2643:96280-96301": [
+    "n.x.toFixed"
+  ],
+  "flotr-0.2.0-alpha.js@2644:96327-96348": [
+    "n.y.toFixed"
+  ],
+  "flotr-0.2.0-alpha.js@2642:96231-96368": [
+    "mouse-tracking.js@22:461-518",
+    "flotr-0.2.0-alpha.js@63:1979-2052"
+  ],
+  "flotr-0.2.0-alpha.js@2646:96387-96418": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2618:95285-95305": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2648:96472-96481": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2649:96500-96515": [
+    "flotr-0.2.0-alpha.js@2538:91578-92172"
+  ],
+  "flotr-0.2.0-alpha.js@2545:91803-91823": [
+    "flotr-0.2.0-alpha.js@1074:36003-36112"
+  ],
+  "flotr-0.2.0-alpha.js@2546:91888-91909": [
+    "flotr-0.2.0-alpha.js@1079:36128-36255"
+  ],
+  "flotr-0.2.0-alpha.js@2544:91765-92119": [
+    "THISREFERENCE.octx.clearRect"
+  ],
+  "flotr-0.2.0-alpha.js@2371:85345-85364": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2373:85385-85434": [
+    "flotr-0.2.0-alpha.js@2426:87289-88014"
+  ],
+  "flotr-0.2.0-alpha.js@2428:87372-87387": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "flotr-0.2.0-alpha.js@2428:87372-87406": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2430:87423-87458": [
+    "options.selection.mode.indexOf"
+  ],
+  "flotr-0.2.0-alpha.js@2434:87660-87678": [
+    "Math.max"
+  ],
+  "flotr-0.2.0-alpha.js@2434:87651-87695": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2437:87723-87758": [
+    "options.selection.mode.indexOf"
+  ],
+  "flotr-0.2.0-alpha.js@2378:85633-85664": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@2380:85735-85765": [
+    "prototype-1.6.0.2.js@170:6200-6506"
+  ],
+  "flotr-0.2.0-alpha.js@2381:85776-85787": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "flotr-0.2.0-alpha.js@2381:85776-85827": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2448:88119-88181": [
+    "flotr-0.2.0-alpha.js@2426:87289-88014"
+  ],
+  "flotr-0.2.0-alpha.js@2449:88192-88213": [
+    "flotr-0.2.0-alpha.js@2454:88307-89026"
+  ],
+  "flotr-0.2.0-alpha.js@2451:88230-88252": [
+    "flotr-0.2.0-alpha.js@2532:91357-91559"
+  ],
+  "flotr-0.2.0-alpha.js@2534:91428-91476": [
+    "Math.abs"
+  ],
+  "flotr-0.2.0-alpha.js@2535:91498-91546": [
+    "Math.abs"
+  ],
+  "flotr-0.2.0-alpha.js@2451:88254-88274": [
+    "flotr-0.2.0-alpha.js@2493:89834-91331"
+  ],
+  "flotr-0.2.0-alpha.js@2507:90378-90419": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@2507:90378-90448": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@2507:90378-90459": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@2510:90550-90591": [
+    "flotr-0.2.0-alpha.js@80:2458-4276"
+  ],
+  "flotr-0.2.0-alpha.js@2510:90550-90620": [
+    "flotr-0.2.0-alpha.js@2720:98571-98790"
+  ],
+  "flotr-0.2.0-alpha.js@2510:90550-90631": [
+    "flotr-0.2.0-alpha.js@2740:99105-99271"
+  ],
+  "flotr-0.2.0-alpha.js@2523:90930-90977": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2524:90996-91043": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2525:91062-91110": [
+    "Math.abs"
+  ],
+  "flotr-0.2.0-alpha.js@2526:91129-91177": [
+    "Math.abs"
+  ],
+  "flotr-0.2.0-alpha.js@2528:91190-91250": [
+    "octx.fillRect"
+  ],
+  "flotr-0.2.0-alpha.js@2529:91261-91323": [
+    "octx.strokeRect"
+  ],
+  "flotr-0.2.0-alpha.js@2460:88512-88567": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2461:88586-88641": [
+    "Math.min"
+  ],
+  "flotr-0.2.0-alpha.js@2462:88660-88716": [
+    "Math.abs"
+  ],
+  "flotr-0.2.0-alpha.js@2463:88735-88791": [
+    "Math.abs"
+  ],
+  "flotr-0.2.0-alpha.js@2465:88804-88980": [
+    "octx.clearRect"
+  ],
+  "flotr-0.2.0-alpha.js@2408:86762-86773": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "flotr-0.2.0-alpha.js@2408:86762-86819": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2409:86830-86842": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2412:86906-86943": [
+    "clearInterval"
+  ],
+  "flotr-0.2.0-alpha.js@2416:87011-87061": [
+    "flotr-0.2.0-alpha.js@2426:87289-88014"
+  ],
+  "flotr-0.2.0-alpha.js@2417:87072-87093": [
+    "flotr-0.2.0-alpha.js@2454:88307-89026"
+  ],
+  "flotr-0.2.0-alpha.js@2419:87110-87132": [
+    "flotr-0.2.0-alpha.js@2532:91357-91559"
+  ],
+  "flotr-0.2.0-alpha.js@2420:87149-87169": [
+    "flotr-0.2.0-alpha.js@2493:89834-91331"
+  ],
+  "flotr-0.2.0-alpha.js@2421:87184-87206": [
+    "flotr-0.2.0-alpha.js@2384:85861-86709"
+  ],
+  "flotr-0.2.0-alpha.js@2397:86525-86701": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "mouse-zoom.js@33:586-677": [
+    "mouse-zoom.js@16:305-470"
+  ],
+  "flotr-0.2.0-alpha.js@450:14369-14401": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@465:14848-14881": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "click-event.js@18:367-400": [
+    "d1.push"
+  ],
+  "click-event.js@20:412-458": [
+    "click-event.js@20:420-457"
+  ],
+  "click-event.js@22:480-494": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "click-event.js@22:469-510": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "flotr-0.2.0-alpha.js@2601:94126-94137": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2602:94218-94229": [
+    "p.charAt"
+  ],
+  "flotr-0.2.0-alpha.js@2603:94311-94322": [
+    "p.charAt"
+  ],
+  "json-data.js@4:61-366": [
+    "prototype-1.6.0.2.js@30:1292-1382"
+  ],
+  "json-data.js@8:157-190": [
+    "prototype-1.6.0.2.js@417:15490-15780"
+  ],
+  "json-data.js@12:237-251": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "json-data.js@12:237-281": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "json-data.js@14:306-320": [
+    "prototype-1.6.0.2.js@1309:48126-48470"
+  ],
+  "json-data.js@14:295-348": [
+    "flotr-0.2.0-alpha.js@18:462-619"
+  ],
+  "examples.js@3:38-44": [
+    "prototype-1.6.0.2.js@715:26465-26854"
+  ],
+  "examples.js@3:38-132": [
+    "prototype-1.6.0.2.js@504:18771-19154"
+  ],
+  "flotr-0.2.0-alpha.js@2662:96879-96944": [
+    "canvas2image.js@143:6017-6559"
+  ],
+  "flotr-0.2.0-alpha.js@2668:97119-97142": [
+    "prototype-1.6.0.2.js@143:5281-5355"
+  ],
+  "flotr-0.2.0-alpha.js@2669:97176-97196": [
+    "flotr-0.2.0-alpha.js@2677:97405-97533"
+  ],
+  "flotr-0.2.0-alpha.js@2678:97428-97446": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2679:97457-97476": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2680:97487-97508": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2680:97487-97525": [
+    "prototype-1.6.0.2.js@610:22775-22976"
+  ],
+  "flotr-0.2.0-alpha.js@2670:97211-97229": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2671:97244-97263": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2672:97293-97363": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2672:97278-97364": [
+    "prototype-1.6.0.2.js@208:7617-7713"
+  ],
+  "flotr-0.2.0-alpha.js@2658:96731-96797": [
+    "canvas2image.js@156:6586-7273"
+  ],
+  "flotr-0.2.0-alpha.js@2665:97008-97073": [
+    "canvas2image.js@173:7299-7926"
+  ]
+}

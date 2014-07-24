@@ -62,18 +62,18 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 	private void doVisit(parseTrees) {
 		top-down-break visit(parseTrees) {
 			//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
-			case newFunctionCallParams:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newFunctionCallParams, e, args);
-			case newFunctionCallNoParams:(Expression)`new <Expression e>()`: processR8(newFunctionCallNoParams, e, []);
-			case newNoParams:(Expression)`new <Expression e>`: processR8(newNoParams, e, []);
+			case newWithArguments:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newWithArguments, e, args);
+			case newWithoutArguments:(Expression)`new <Expression e>()`: processR8(newWithoutArguments, e, []);
+			case newWithoutParentheses:(Expression)`new <Expression e>`: processR8(newWithoutParentheses, e, []);
 	
-			case propertyCallParams:(Expression)`<Expression r>.<Id p>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallParams, r, p, args);
-			case propertyCallEmptyParams:(Expression)`<Expression r>.<Id p>()`: processR9(propertyCallEmptyParams, r, p, []);
+			case propertyCallWithArguments:(Expression)`<Expression r>.<Id p>( <{ Expression!comma ","}+ args> )`: processR9(propertyCallWithArguments, r, p, args);
+			case propertyCallWithoutArguments:(Expression)`<Expression r>.<Id p>()`: processR9(propertyCallWithoutArguments, r, p, []);
 			
-			case wrappedFunctionCallParams:(Expression)`(<Expression e>) ( <{ Expression!comma ","}+ args> )`: processR8(wrappedFunctionCallParams, e, args);
-			case wrappedFunctionCallNoParams:(Expression)`(<Expression e>)()`: processR8(wrappedFunctionCallNoParams, e, []);
+			case wrappedCallWithArguments:(Expression)`(<Expression e>) ( <{ Expression!comma ","}+ args> )`: processR8(wrappedCallWithArguments, e, args);
+			case wrappedCallWithoutArguments:(Expression)`(<Expression e>)()`: processR8(wrappedCallWithoutArguments, e, []);
 			
-			case functionCallParams:(Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(functionCallParams, e, args);
-			case functionCallNoParams:(Expression)`<Expression e>()`: processR8(functionCallNoParams, e, []);
+			case callWithArguments:(Expression)`<Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(callWithArguments, e, args);
+			case callWithoutArguments:(Expression)`<Expression e>()`: processR8(callWithoutArguments, e, []);
 					
 			case returnExpSemi:(Statement)`return <Expression e>;`: processR10(returnExpSemi, e);
 			case returnExpNoSemi:(Statement)`return <Expression e>`: processR10(returnExpNoSemi, e);

@@ -72,7 +72,6 @@ private tuple[lrel[Tree, Tree] oneShot, list[Tree] unresolved, list[Tree] functi
 	list[Tree] unresolved = [], functionsInsideClosures = [];
 	private void analyseCall(call, closure) {
 		println("Found call: <call>");
-		//TODO: turn into one production when Id? bug is fixed.
 		if ((Expression)`(function (<{Id ","}* _>) <Block _>)` := call || (Expression)`(function <Id _> (<{Id ","}* _>) <Block _>)` := call) {
 			println("Which is a one-shot closure");
 			oneShot += <call, closure>;
