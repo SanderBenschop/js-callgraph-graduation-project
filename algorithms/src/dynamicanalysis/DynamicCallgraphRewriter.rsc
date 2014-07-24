@@ -1,4 +1,4 @@
-module dynamicgraph::DynamicCallgraphRewriter
+module dynamicanalysis::DynamicCallgraphRewriter
 
 import util::Maybe;
 

@@ -1,7 +1,7 @@
-module dynamicgraph::StaticDynamicCallGraphComparator
+module dynamicanalysis::StaticDynamicCallGraphComparator
 
 import ValueIO;
-import dynamicgraph::DynamicCallGraphReader;
+import dynamicanalysis::DynamicCallGraphReader;
 import DataStructures;
 import analysis::graphs::Graph;
 import IO;

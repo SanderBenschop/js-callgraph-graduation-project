@@ -1,4 +1,4 @@
-module dynamicgraph::DynamicCallGraphReader
+module dynamicanalysis::DynamicCallGraphReader
 
 import IO;
 import String;

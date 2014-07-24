@@ -1,0 +1,1 @@
+This is the folder where randomly generated JavaScript snippets are placed by the SpecificationTest module.

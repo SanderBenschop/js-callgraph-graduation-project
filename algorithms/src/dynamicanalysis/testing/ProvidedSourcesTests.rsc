@@ -1,8 +1,8 @@
-module dynamicgraph::testing::ProvidedSourcesTests
+module dynamicanalysis::testing::ProvidedSourcesTests
 
-import dynamicgraph::DynamicCallGraphReader;
+import dynamicanalysis::DynamicCallGraphReader;
 import analysis::graphs::Graph;
-import dynamicgraph::StaticDynamicCallGraphComparator;
+import dynamicanalysis::StaticDynamicCallGraphComparator;
 import util::Math;
 import utils::GraphUtils;
 import IO;
