@@ -1,4 +1,4 @@
-module dynamicanalysis::StaticDynamicCallGraphComparator
+module comparison::StaticDynamicCallGraphComparator
 
 import ValueIO;
 import dynamicanalysis::DynamicCallGraphReader;
