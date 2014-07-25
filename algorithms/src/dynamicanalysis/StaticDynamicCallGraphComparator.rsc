@@ -2,14 +2,14 @@ module dynamicanalysis::StaticDynamicCallGraphComparator
 
 import ValueIO;
 import dynamicanalysis::DynamicCallGraphReader;
-import DataStructures;
+import staticanalysis::DataStructures;
 import analysis::graphs::Graph;
 import IO;
 import Set;
 import String;
 import util::Math;
 import utils::GraphUtils;
-import Configuration;
+import staticanalysis::Configuration;
 import Relation;
 
 public Graph[str] filterNatives(Graph[str] graph) = { tup | tuple[str base, str target] tup <- graph, !startsWith(tup.target, "Builtin") };

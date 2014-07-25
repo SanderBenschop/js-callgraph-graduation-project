@@ -1,4 +1,4 @@
-module Configuration
+module staticanalysis::Configuration
 
 
 //If set to true, edges in named functions will be from Function --> Parameter if the function

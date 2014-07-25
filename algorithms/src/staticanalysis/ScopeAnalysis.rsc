@@ -1,9 +1,9 @@
-module ScopeAnalysis
+module staticanalysis::ScopeAnalysis
 
 import ParseTree;
 import util::Maybe;
 
-import DataStructures;
+import staticanalysis::DataStructures;
 import EcmaScript;
 import IO;
 import String;

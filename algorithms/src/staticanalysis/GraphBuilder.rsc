@@ -1,18 +1,18 @@
-module GraphBuilder
+module staticanalysis::GraphBuilder
 
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
 
-import DataStructures;
-import NativeFlow;
-import IntraproceduralFlow;
-import CommonInterproceduralFlow;
-import PessimisticInterproceduralFlow;
-import OptimisticInterproceduralFlow;
-import OptimisticTransitiveClosure;
-import CallGraphExtractor;
-import ScopeAnalysis;
+import staticanalysis::DataStructures;
+import staticanalysis::NativeFlow;
+import staticanalysis::IntraproceduralFlow;
+import staticanalysis::CommonInterproceduralFlow;
+import staticanalysis::PessimisticInterproceduralFlow;
+import staticanalysis::OptimisticInterproceduralFlow;
+import staticanalysis::OptimisticTransitiveClosure;
+import staticanalysis::CallGraphExtractor;
+import staticanalysis::ScopeAnalysis;
 import utils::Utils;
 import utils::GraphUtils;
 

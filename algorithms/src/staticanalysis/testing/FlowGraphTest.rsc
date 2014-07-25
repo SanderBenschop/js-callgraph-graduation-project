@@ -1,10 +1,10 @@
-module testing::FlowGraphTest
+module staticanalysis::testing::FlowGraphTest
 
 import analysis::graphs::Graph;
 import IO;
 
-import Main;
-import DataStructures;
+import staticanalysis::Main;
+import staticanalysis::DataStructures;
 
 public test bool testOneOrTwo() {
 	Graph[Vertex] flowGraph = createIntraProceduralFlowGraph(|project://JavaScript%20cg%20algorithms/src/testing/snippets/oneOrTwo.js|);

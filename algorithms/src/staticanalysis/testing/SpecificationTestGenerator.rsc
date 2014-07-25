@@ -1,4 +1,4 @@
-module testing::SpecificationTestGenerator
+module staticanalysis::testing::SpecificationTestGenerator
 
 import analysis::graphs::Graph;
 import util::Math;
@@ -7,7 +7,7 @@ import IO;
 import String;
 import Boolean;
 
-import DataStructures;
+import staticanalysis::DataStructures;
 import util::Benchmark;
 
 private int MAX_INTEGER = 2147483647;

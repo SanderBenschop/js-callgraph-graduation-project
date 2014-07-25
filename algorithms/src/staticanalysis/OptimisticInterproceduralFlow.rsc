@@ -1,14 +1,14 @@
-module OptimisticInterproceduralFlow
+module staticanalysis::OptimisticInterproceduralFlow
 
 import IO;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
-import VertexFactory;
 import utils::Utils;
 import Set;
 
-import DataStructures;
+import staticanalysis::VertexFactory;
+import staticanalysis::DataStructures;
 
 public Graph[Vertex] getOptimisticInterproceduralFlow(trees, Graph[Vertex] graph) {
 	

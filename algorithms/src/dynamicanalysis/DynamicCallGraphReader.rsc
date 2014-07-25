@@ -5,11 +5,11 @@ import String;
 import lang::json::\syntax::JSON;
 import lang::json::ast::Implode;
 import lang::json::ast::JSON;
-import DataStructures;
+import staticanalysis::DataStructures;
 import analysis::graphs::Graph;
 import ParseTree;
 import utils::GraphUtils;
-import NativeFlow;
+import staticanalysis::NativeFlow;
 
 public Graph[str] convertJsonToGraph(loc jsonFile) {
 	Graph[str] callGraph = {};

@@ -1,9 +1,9 @@
-module Main
+module staticanalysis::Main
 
 import analysis::graphs::Graph;
 
-import DataStructures;
-import GraphBuilder;
+import staticanalysis::DataStructures;
+import staticanalysis::GraphBuilder;
 
 public Graph[Vertex] createIntraProceduralFlowGraph(source) = newGraph(source, [withIntraproceduralFlow]);
 public Graph[Vertex] createIntraProceduralFlowGraphNF(source) = newGraph(source, [withNativeFlow, withIntraproceduralFlow]);

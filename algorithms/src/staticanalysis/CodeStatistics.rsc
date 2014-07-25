@@ -1,4 +1,4 @@
-module CodeStatistics
+module staticanalysis::CodeStatistics
 
 import EcmaScript;
 import ParseTree;

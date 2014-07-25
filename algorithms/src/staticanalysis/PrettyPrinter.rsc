@@ -1,11 +1,11 @@
-module PrettyPrinter
+module staticanalysis::PrettyPrinter
 
 import analysis::graphs::Graph;
 import Relation;
 import IO;
 import List;
 
-import DataStructures;
+import staticanalysis::DataStructures;
 import utils::Utils;
 
 public void writePrettyPrintedGraph(Graph[Vertex] graph) = writePrettyPrintedGraph(graph, true, true);

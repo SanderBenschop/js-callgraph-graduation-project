@@ -1,4 +1,4 @@
-module PessimisticInterproceduralFlow
+module staticanalysis::PessimisticInterproceduralFlow
 
 import util::Maybe;
 
@@ -7,10 +7,10 @@ import String;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
-import VertexFactory;
+import staticanalysis::VertexFactory;
 import utils::Utils;
 
-import DataStructures;
+import staticanalysis::DataStructures;
 
 public Graph[Vertex] getPessimisticInterproceduralFlow(trees) {
 	tuple[lrel[Tree, Tree] oneShotClosures, list[Tree] unresolved, list[Tree] functionsInsideClosures] callSites = analyseCallSites(trees);

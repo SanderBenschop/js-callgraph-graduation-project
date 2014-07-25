@@ -1,4 +1,4 @@
-module CommonInterproceduralFlow
+module staticanalysis::CommonInterproceduralFlow
 
 import util::Maybe;
 
@@ -7,11 +7,11 @@ import String;
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
-import VertexFactory;
 import utils::Utils;
 import utils::GraphUtils;
 
-import DataStructures;
+import staticanalysis::VertexFactory;
+import staticanalysis::DataStructures;
 
 public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTableMap) {
 	Graph[Vertex] graph = {};

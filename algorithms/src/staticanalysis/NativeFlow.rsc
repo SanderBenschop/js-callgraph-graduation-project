@@ -1,11 +1,11 @@
-module NativeFlow
+module staticanalysis::NativeFlow
 
 import analysis::graphs::Graph;
 import Map;
 import Set;
 import String;
 
-import DataStructures;
+import staticanalysis::DataStructures;
 
 /**
  * Creates the initial CallGraph consisting of modelled native flow.

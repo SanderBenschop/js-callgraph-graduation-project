@@ -12,10 +12,10 @@ import utils::Utils;
 import utils::FileUtils;
 import utils::StringUtils;
 import utils::GraphUtils;
-import NativeFlow;	
+import staticanalysis::NativeFlow;	
 import Node;
 
-import DataStructures;
+import staticanalysis::DataStructures;
 
 anno Tree Tree @ original;
 

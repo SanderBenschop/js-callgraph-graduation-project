@@ -1,11 +1,11 @@
-module IntraproceduralFlow
+module staticanalysis::IntraproceduralFlow
 
 import EcmaScript;
 import ParseTree;
 import analysis::graphs::Graph;
-import VertexFactory;
 
-import DataStructures;
+import staticanalysis::VertexFactory;
+import staticanalysis::DataStructures;
 
 public Graph[Vertex] getIntraproceduralFlow(trees, SymbolTableMap symbolTableMap) {
 	Graph[Vertex] graph = {};

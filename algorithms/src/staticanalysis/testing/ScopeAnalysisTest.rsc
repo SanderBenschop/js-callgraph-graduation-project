@@ -1,12 +1,12 @@
-module testing::ScopeAnalysisTest
+module staticanalysis::testing::ScopeAnalysisTest
 
 import EcmaScript;
 import ParseTree;
 import IO;
 import Node;
 
-import DataStructures;
-import ScopeAnalysis;
+import staticanalysis::DataStructures;
+import staticanalysis::ScopeAnalysis;
 
 public test bool testDoublyNested() {
 	Tree tree = parse(|project://JavaScript%20cg%20algorithms/src/testing/snippets/doublyNested.js|);	

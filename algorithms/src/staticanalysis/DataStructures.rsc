@@ -1,4 +1,4 @@
-module DataStructures
+module staticanalysis::DataStructures
 
 import util::Maybe;
 import ParseTree;

@@ -1,11 +1,11 @@
 module utils::GraphUtils
 
 import analysis::graphs::Graph;
-import DataStructures;
-import PrettyPrinter;
+import staticanalysis::DataStructures;
+import staticanalysis::PrettyPrinter;
 import String;
 import List;
-import NativeFlow;
+import staticanalysis::NativeFlow;
 import IO;
 import Relation;
 import Map;

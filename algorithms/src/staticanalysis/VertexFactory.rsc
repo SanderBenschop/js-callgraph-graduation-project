@@ -1,12 +1,11 @@
-module VertexFactory
+module staticanalysis::VertexFactory
 
 import EcmaScript;
 import util::Maybe;
 import ParseTree;
 import IO;
-import Configuration;
-
-import DataStructures;
+import staticanalysis::Configuration;
+import staticanalysis::DataStructures;
 
 public Vertex createVertex(element, symbolTableMap) {
 	

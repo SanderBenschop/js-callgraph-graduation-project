@@ -1,19 +1,18 @@
-module testing::SpecificationTest
+module staticanalysis::testing::SpecificationTest
 
 import analysis::graphs::Graph;
 import util::Maybe;
 
 import testing::SpecificationTestGenerator;
-import Main;
-import DataStructures;
+import staticanalysis::Main;
+import staticanalysis::DataStructures;
 import Relation;
 import IO;
 import String;
 import Set;
-import PrettyPrinter;
+import staticanalysis::PrettyPrinter;
 
-private loc GENERATED_SNIPPET_FOLDER = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated|;
-private loc PRETTY_PRINT_FOLDER = |project://JavaScript%20cg%20algorithms/src/testing/snippets/generated/prettyprinted|;
+private loc GENERATED_SNIPPET_FOLDER = |project://JavaScript%20cg%20algorithms/src/staticanalysis/testing/snippets/generated|;
 
 public void generateNRandomSnippets(int n) {
 	loc generatedFolder = GENERATED_SNIPPET_FOLDER;
@@ -27,16 +26,6 @@ public void generateNRandomSnippets(int n) {
 		catch _: parsedWithErrors += 1;
 	}
 	println("Of the total <n> planned executions, <parsedWithErrors> failed due to parse errors.");
-}
-
-public void writePrettyPrints() {
-	for (loc snippet <- GENERATED_SNIPPET_FOLDER.ls, isFile(snippet)) {
-		Graph[Vertex] flowGraph = createIntraProceduralFlowGraphNF(snippet);
-		str prettyPrinted = prettyPrintGraph(flowGraph, true);
-		str fileName = replaceLast(snippet.file, ".js", "");
-		loc target = PRETTY_PRINT_FOLDER + "<fileName>.log";
-		writeFile(target, prettyPrinted);
-	}
 }
 
 //TODO: add references to existing properties.

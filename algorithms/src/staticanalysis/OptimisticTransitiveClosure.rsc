@@ -1,9 +1,9 @@
-module OptimisticTransitiveClosure
+module staticanalysis::OptimisticTransitiveClosure
 
 import analysis::graphs::Graph;
 import IO;
 
-import DataStructures;
+import staticanalysis::DataStructures;
 
 //Paths through Unknown nodes are not considered.
 public Graph[Vertex] getOptimisticTransitiveClosure(Graph graph) {

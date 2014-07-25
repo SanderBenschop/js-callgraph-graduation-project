@@ -1,18 +1,18 @@
 module utils::DynamicGraphFilteringUtils
 
 import EcmaScript;
-import Main;
+import staticanalysis::Main;
 import analysis::graphs::Graph;
-import DataStructures;
+import staticanalysis::DataStructures;
 import utils::Utils;
 import utils::GraphUtils;
 import utils::StringUtils;
 import ParseTree;
-import ScopeAnalysis;
-import GraphBuilder;
+import staticanalysis::ScopeAnalysis;
+import staticanalysis::GraphBuilder;
 import Relation;
 import IO;
-import NativeFlow;
+import staticanalysis::NativeFlow;
 import String;
 
 public Graph[str] generatePossibleIncorrectCallbackEdges(sources) {

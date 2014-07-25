@@ -1,9 +1,9 @@
-module CallGraphExtractor
+module staticanalysis::CallGraphExtractor
 
 import IO;
 import Set;
 import analysis::graphs::Graph;
-import DataStructures;
+import staticanalysis::DataStructures;
 import Relation;
 
 public tuple[Graph[Vertex] calls, set[Vertex] escaping, set[Vertex] unresolved] extractPessimisticCallGraph(Graph[Vertex] flowGraph) {
