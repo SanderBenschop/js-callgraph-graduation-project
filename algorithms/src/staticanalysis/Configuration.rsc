@@ -6,7 +6,7 @@ module staticanalysis::Configuration
 //is described in the paper.
 public bool globalFunctionAsProperties = true;
 
-public bool callSiteAnalysis = true;
+public bool callSiteAnalysis = false;
 
 //If set to true, the static call graph is filtered to remove all call sites not present in the
 //dynamic analysis, so only for covered code the precision and recall is calculated.

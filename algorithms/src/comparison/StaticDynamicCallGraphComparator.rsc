@@ -46,7 +46,9 @@ private real calculateMetric(Graph[str] first, Graph[str] second, bool firstIsSt
 		if (compareCoveredCodeOnly) {
 			println("Filtering out code not covered in the dynamic call graph!");
 			set[str] dynamicCallees = firstIsStatic ? domain(second) : domain(first);
-			first = {tup | tuple[str callee, str target] tup <- first, tup.callee in dynamicCallees};
+			
+			if (firstIsStatic) first = {tup | tuple[str callee, str target] tup <- first, tup.callee in dynamicCallees};
+			else second = {tup | tuple[str callee, str target] tup <- second, tup.callee in dynamicCallees};
 		}
 	
 		intersectionSize = toReal(size(first & second));
@@ -59,10 +61,10 @@ private real calculateMetric(Graph[str] first, Graph[str] second, bool firstIsSt
 public real calculatePrecisionPerCallsite(Graph[str] staticCG, Graph[str] dynamicCG) = calculateMetricPerCallSite(staticCG, dynamicCG, true);
 public real calculateRecallPerCallsite(Graph[str] staticCG, Graph[str] dynamicCG) = calculateMetricPerCallSite(dynamicCG, staticCG, false);
 
-private real calculateMetricPerCallSite(Graph[str] first, Graph[str] second, bool leftIsStatic) {
+private real calculateMetricPerCallSite(Graph[str] first, Graph[str] second, bool firstIsStatic) {
 	real cumulative = 0.0;
 	int numberOfCallSites = 0;
-	set[str] theDomain = leftIsStatic ? domain(second) : domain(first);
+	set[str] theDomain = firstIsStatic ? domain(second) : domain(first);
 	for (str callSite <- theDomain) {
 		set[str] firstTargets = first[callSite], secondTargets = second[callSite];
 		numberOfCallSites += 1;
