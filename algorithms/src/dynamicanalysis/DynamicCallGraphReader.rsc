@@ -11,7 +11,9 @@ import ParseTree;
 import utils::GraphUtils;
 import staticanalysis::NativeFlow;
 
-public Graph[str] convertJsonToGraph(loc jsonFile) {
+public Graph[str] convertJsonToGraph(loc jsonFile) = convertJsonToGraph(jsonFile, true);
+
+public Graph[str] convertJsonToGraph(loc jsonFile, bool convertNatives) {
 	Graph[str] callGraph = {};
 	JSONText cst = parse(#JSONText, jsonFile);
 	Value ast = buildAST(cst);
@@ -22,7 +24,7 @@ public Graph[str] convertJsonToGraph(loc jsonFile) {
 					if (string(target) := targetValue) {
 						if (!isEmpty(target)) {
 							str callee = "Callee(<base>)";
-							if (matchesNativeElement(target)) {
+							if (convertNatives && matchesNativeElement(target)) {
 								callGraph += { <callee, builtin> | builtin <- createBuiltinNodes(target) };
 							} else {
 								str target = "Func(<target>)";

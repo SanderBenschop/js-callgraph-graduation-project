@@ -30,30 +30,48 @@ public void printStatistics(Graph[str] staticCG, Graph[str] dynamicCG) {
 	println("The recall is <calculateRecall(staticCG, dynamicCG)>%");
 }
 
-public real calculatePrecision(Graph[str] staticCG, Graph[str] dynamicCG) {
+public real calculatePrecision(Graph[str] staticCG, Graph[str] dynamicCG) = calculateMetric(staticCG, dynamicCG, true);
+public real calculateRecall(Graph[str] staticCG, Graph[str] dynamicCG) = calculateMetric(dynamicCG, staticCG, false);
+
+private real calculateMetric(Graph[str] first, Graph[str] second, bool firstIsStatic) {
 	if (filterNativeFunctions) {
-		staticCG = filterNatives(staticCG);
-		dynamicCG = filterNatives(dynamicCG);
+		first = filterNatives(first);
+		second = filterNatives(second);
 	}
 	
 	if (compareCoveredCodeOnly) {
 		println("Filtering out code not covered in the dynamic call graph!");
-		set[str] dynamicCallees = domain(dynamicCG);
-		staticCG = {tup | tuple[str callee, str target] tup <- staticCG, tup.callee in dynamicCallees};
+		set[str] dynamicCallees = firstIsStatic ? domain(second) : domain(first);
+		first = {tup | tuple[str callee, str target] tup <- first, tup.callee in dynamicCallees};
 	}
 
-	real intersection, staticCallGraphSize;
+	real intersectionSize, firstSize;
 	if (compareCallTargetsOnly) {
-		set[str] staticrange = range(staticCG), dynamicrange = range(dynamicCG);
-		intersection = toReal(size(dynamicrange & staticrange));
-		staticCallGraphSize = toReal(size(staticrange));
+		set[str] firstrange = range(first), secondrange = range(second);
+		intersectionSize = toReal(size(firstrange & secondrange));
+		firstSize = toReal(size(firstrange));
 	} else {
-		intersection = toReal(size(dynamicCG & staticCG));
-		staticCallGraphSize = toReal(size(staticCG));
+		intersectionSize = toReal(size(first & second));
+		firstSize = toReal(size(first));
 	}
 	
-	return intersection / staticCallGraphSize * 100;
+	return intersectionSize / firstSize * 100;
 }
 
-//Recall can be calculated by switching around the static and dynamic graph as the calculation is exactly the same.
-public real calculateRecall(Graph[str] staticCG, Graph[str] dynamicCG) = calculatePrecision(dynamicCG, staticCG);
+	
+public real calculatePrecisionPerCallsite(Graph[str] staticCG, Graph[str] dynamicCG) = calculateMetricPerCallSite(staticCG, dynamicCG, true);
+public real calculateRecallPerCallsite(Graph[str] staticCG, Graph[str] dynamicCG) = calculateMetricPerCallSite(dynamicCG, staticCG, false);
+
+private real calculateMetricPerCallSite(Graph[str] first, Graph[str] second, bool leftIsStatic) {
+	real cumulative = 0.0;
+	int numberOfCallSites = 0;
+	set[str] theDomain = leftIsStatic ? domain(second) : domain(first);
+	for (str callSite <- theDomain) {
+		set[str] firstTargets = first[callSite], secondTargets = second[callSite];
+		numberOfCallSites += 1;
+		if (size(firstTargets) != 0)
+		cumulative += toReal(size(firstTargets & secondTargets)) / size(firstTargets);
+	}
+	println("Cumulative: <cumulative> divider: <numberOfCallSites>");
+	return cumulative / numberOfCallSites * 100;
+}

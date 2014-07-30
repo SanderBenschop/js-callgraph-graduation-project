@@ -53,7 +53,7 @@ public str prettyPrintGraph(Graph[Vertex] graph, bool sortIt, bool flowGraphStyl
 	}
 	if (sortIt) lines = sort(lines);
 	str joined = intercalate("\n", lines);
-	println(joined);
+	//println(joined);
 	return joined;
 }
 
