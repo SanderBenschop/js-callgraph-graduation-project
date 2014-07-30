@@ -25,7 +25,7 @@ public void printStatistics(Graph[str] staticCG, loc dynamicCallMapLoc) {
 }
 
 public void printStatistics(Graph[str] staticCG, Graph[str] dynamicCG) {
-	if (compareCallTargetsOnly) println("WARNING - Only call targets are compared!");
+	if (callSiteAnalysis) println("INFO - Call site analysis comparison");
 	println("The precision is <calculatePrecision(staticCG, dynamicCG)>%");
 	println("The recall is <calculateRecall(staticCG, dynamicCG)>%");
 }
@@ -39,23 +39,20 @@ private real calculateMetric(Graph[str] first, Graph[str] second, bool firstIsSt
 		second = filterNatives(second);
 	}
 	
-	if (compareCoveredCodeOnly) {
-		println("Filtering out code not covered in the dynamic call graph!");
-		set[str] dynamicCallees = firstIsStatic ? domain(second) : domain(first);
-		first = {tup | tuple[str callee, str target] tup <- first, tup.callee in dynamicCallees};
-	}
-
 	real intersectionSize, firstSize;
-	if (compareCallTargetsOnly) {
-		set[str] firstrange = range(first), secondrange = range(second);
-		intersectionSize = toReal(size(firstrange & secondrange));
-		firstSize = toReal(size(firstrange));
+	if (callSiteAnalysis) {
+		return calculateMetricPerCallSite(first, second, firstIsStatic);
 	} else {
+		if (compareCoveredCodeOnly) {
+			println("Filtering out code not covered in the dynamic call graph!");
+			set[str] dynamicCallees = firstIsStatic ? domain(second) : domain(first);
+			first = {tup | tuple[str callee, str target] tup <- first, tup.callee in dynamicCallees};
+		}
+	
 		intersectionSize = toReal(size(first & second));
 		firstSize = toReal(size(first));
-	}
-	
-	return intersectionSize / firstSize * 100;
+		return intersectionSize / firstSize * 100;
+	}	
 }
 
 	
