@@ -63,14 +63,13 @@ public real calculateRecallPerCallsite(Graph[str] staticCG, Graph[str] dynamicCG
 
 private real calculateMetricPerCallSite(Graph[str] first, Graph[str] second, bool firstIsStatic) {
 	real cumulative = 0.0;
-	int numberOfCallSites = 0;
 	set[str] theDomain = firstIsStatic ? domain(second) : domain(first);
 	for (str callSite <- theDomain) {
 		set[str] firstTargets = first[callSite], secondTargets = second[callSite];
-		numberOfCallSites += 1;
 		if (size(firstTargets) != 0)
 		cumulative += toReal(size(firstTargets & secondTargets)) / size(firstTargets);
 	}
-	println("Cumulative: <cumulative> divider: <numberOfCallSites>");
-	return cumulative / numberOfCallSites * 100;
+	int divisor = averageOverIntersection ? size(domain(first) & domain(second)) : size(theDomain);
+	println("Cumulative: <cumulative> divisor: <divisor>");
+	return cumulative / divisor * 100;
 }

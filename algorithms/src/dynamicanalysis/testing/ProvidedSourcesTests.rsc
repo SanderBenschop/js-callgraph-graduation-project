@@ -84,6 +84,22 @@ public test bool testExampleOpt() {
 	return numbersAreCorrect(staticLoc, dynamicLoc, -1.0, -1.0, {"jquery-1.3.2"});
 }
 
+public test bool testExample2Pes() {
+	loc staticLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/example2/pessimistic.json|;
+	loc dynamicLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/example2/dynamic.json|;
+	return numbersAreCorrect(staticLoc, dynamicLoc, -1.0, -1.0, {"jquery-1.3.2"});
+	//NEW WAY: Precision 50% recall 50%
+	//OLD EDGE WAY: Precision: 100., recall : 50.0
+}
+
+public test bool testExample2Opt() {
+	loc staticLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/example2/optimistic.json|;
+	loc dynamicLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/example2/dynamic.json|;
+	return numbersAreCorrect(staticLoc, dynamicLoc, -1.0, -1.0, {"jquery-1.3.2"});
+	//NEW WAY: Precision: 75.00, recall : 100.0
+	//OLD EDGE WAY: Precision: 66.6666666700, recall : 100.
+}
+
 public bool numbersAreCorrect(loc staticGraphJson, loc dynamicGraphJson, real expectedPrecision, real expectedRecall, set[str] frameworkFunctions) {
 	Graph[str] staticGraph = convertJsonToGraph(staticGraphJson, false), dynamicGraph = convertJsonToGraph(dynamicGraphJson, false);
 	println("Edges in static: <size(staticGraph)> edges in dynamic: <size(dynamicGraph)>");
