@@ -7,7 +7,7 @@ import analysis::graphs::Graph;
 import staticanalysis::DataStructures;
 import dynamicanalysis::DynamicCallGraphReader;
 
-public void showInformation() {
+public void showCallGraphAccuracies() {
 	loc rootFolder = |project://JavaScript%20cg%20algorithms/src/callgraphs|;
 	for (loc subFolder <- rootFolder.ls) {
 		println("---------------------------------------");
