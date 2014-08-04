@@ -72,6 +72,18 @@ public test bool testHtmlEditPessimistic() {
 	return numbersAreCorrect(staticLoc, dynamicLoc, 80.9, 94.2, {"jquery-1.3.2"});
 }
 
+public test bool testFlotrPessimistic() {
+	loc staticLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/flotr/pessimistic.json|;
+	loc dynamicLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/flotr/dynamic.json|;
+	return numbersAreCorrect(staticLoc, dynamicLoc, -1.0, -1.0, {});
+}
+
+public test bool testFlotrOptimistic() {
+	loc staticLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/flotr/optimistic.json|;
+	loc dynamicLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/flotr/dynamic.json|;
+	return numbersAreCorrect(staticLoc, dynamicLoc, -1.0, -1.0, {});
+}
+
 public test bool testExamplePes() {
 	loc staticLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/example/pessimistic.json|;
 	loc dynamicLoc = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/testing/snippets/provided/example/dynamic.json|;

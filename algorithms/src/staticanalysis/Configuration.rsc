@@ -7,7 +7,7 @@ module staticanalysis::Configuration
 public bool globalFunctionAsProperties = true;
 
 public bool callSiteAnalysis = true;
-
+	
 public bool averageOverIntersection = false;
 
 //If set to true, the static call graph is filtered to remove all call sites not present in the

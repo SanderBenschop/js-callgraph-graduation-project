@@ -62,14 +62,34 @@ public real calculatePrecisionPerCallsite(Graph[str] staticCG, Graph[str] dynami
 public real calculateRecallPerCallsite(Graph[str] staticCG, Graph[str] dynamicCG) = calculateMetricPerCallSite(dynamicCG, staticCG, false);
 
 private real calculateMetricPerCallSite(Graph[str] first, Graph[str] second, bool firstIsStatic) {
+	map[int, int] count = ();
+	
+	int total100 = 0, singleCallSite100 = 0;	
+	
 	real cumulative = 0.0;
 	set[str] theDomain = firstIsStatic ? domain(second) : domain(first);
 	for (str callSite <- theDomain) {
 		set[str] firstTargets = first[callSite], secondTargets = second[callSite];
-		if (size(firstTargets) != 0)
-		cumulative += toReal(size(firstTargets & secondTargets)) / size(firstTargets);
+		if (size(firstTargets) != 0) {
+			real thisMetric = toReal(size(firstTargets & secondTargets)) / size(firstTargets);
+			cumulative += thisMetric;
+			
+			int rounded = round(thisMetric * 100);
+			if (rounded notin count) count += (rounded : 1);
+			else count[rounded] = count[rounded] + 1;
+			
+			if (rounded == 100) {
+				total100 += 1;
+				if (size(firstTargets) == 1) {
+					singleCallSite100 += 1;
+				}
+			}
+		}
 	}
 	int divisor = averageOverIntersection ? size(domain(first) & domain(second)) : size(theDomain);
 	println("Cumulative: <cumulative> divisor: <divisor>");
+	println("Rounded precision occurences (key is rounded percentage, value is occurences):");
+	println(count);
+	println("Of the total <total100> call sites with 100% score, <singleCallSite100> had a single target.");
 	return cumulative / divisor * 100;
 }
