@@ -25,3 +25,7 @@ After manually executing the program, the coverage can be measured by calling th
 
 ### Comparing call graphs
 The static and dynamic call graph can be compared using the algorithms/comparison/StaticDynamicCallGraphComparator module. For now the easiest usage is to either create the static call graph or read it from a binary file to a variable and then call printStatistics function with this static call graph as the first argument and with a Rascal location to the dynamic call graph as a second argument. This will calculate the precision and recall of the static call graph.
+
+
+### Running algorithms on call graphs used in thesis
+In the algorithms/callgraphs folder the call graphs can be found that have been created for the analysis in the master thesis. To run the comparison algorithm on all these call graphs at once, execute the showCallGraphAccuracies function in the algorithms/comparison/CompareCallGraphs module. By default the analysis is set to compute the overall precision and recall by averaging over call sites, as was done in the original paper. To compare call graph edges instead, set the property callSiteAnalysis to false.
