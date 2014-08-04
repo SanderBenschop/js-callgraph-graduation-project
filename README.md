@@ -11,10 +11,10 @@ This Github repository contains two folders at the root level: algorithms and gr
 Usage
 -----
 
-### Static call graph
+### Creating static call graph
 To create a static call graph, load the algorithms/staticanalysis/Main module in the Rascal console and either call the function createPessimisticCallGraph or createOptimisticCall graph. These functions take a (list of) Rascal locations as input. Pass the JavaScript files that need to be analyzed in here. The main module also contains some other functions for creating flow graphs if desired. The static call graphs can be persisted by using Rascal's writeBinaryValueFile function.
 
-### Dynamic call graph
+### Creating dynamic call graph
 To create a dynamic call graph, load the algorithms/dynamicanalysis/DynamicCallGraphRewriter module in the Rascal console. Call the function rewrite with a Rascal location as an argument. This can either be a file or a folder. In the last case, all JavaScript files that are recursively found are rewritten and all other files are copied normally. If desired, the overloaded method with two extra parameters can be called to specify files that need to be completely ignored by the rewriter and framework files for which the functions should be annotated but the call sites should not. Some frameworks don't work after rewriting the call sites, like Mootools and Prototype. 
 
 When the rewriter is done, the results can be retrieved from the algorithms/dynamicanalysis/filedump folder. The newly created file instrumentationCode.js needs to be included into the HTML file before all other JavaScript files.
