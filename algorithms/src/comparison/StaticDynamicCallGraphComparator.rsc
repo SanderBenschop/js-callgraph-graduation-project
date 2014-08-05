@@ -80,9 +80,7 @@ private real calculateMetricPerCallSite(Graph[str] first, Graph[str] second, boo
 			
 			if (rounded == 100) {
 				total100 += 1;
-				if (size(firstTargets) == 1) {
-					singleCallSite100 += 1;
-				}
+				if (size(firstTargets) == 1) singleCallSite100 += 1;
 			}
 		}
 	}

@@ -51,7 +51,6 @@ public bool matchesAPattern(str uri, set[str] patterns) {
 }
 
 public Graph[str] convertVertexGraphToStringGraph(Graph[Vertex] vertexGraph) {
-	//TODO: maybe do this in a more straight-forward way.
 	Graph[str] stringGraph = {};
 	str prettyPrinted = prettyPrintGraph(vertexGraph, false, true);
 	list[str] lines = split("\n", prettyPrinted);
@@ -66,7 +65,6 @@ public Graph[str] convertVertexGraphToStringGraph(Graph[Vertex] vertexGraph) {
 	return stringGraph;
 }
 
-//TODO: move somewhere more appropriately
 public set[str] createBuiltinNodes(str string) {
 	if (isNativeTarget(string)) return { "Builtin(<key>)" | key <- getKeysByValue(string) };
 	list[str] splitted = split(".", string);

@@ -28,7 +28,6 @@ public str formatLoc(loc location) {
 	return "<file>@<lineNumber>:<columnStart>-<columnEnd>";
 }
 
-//TODO: remove duplication
 public str formatGVLoc(str prefix, loc location) {
 	try str file = replaceLast(location.file, ".js", ""); catch : str file = "Mockup";	
 	int lineNumber = location.begin.line;

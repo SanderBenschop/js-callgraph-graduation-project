@@ -61,7 +61,6 @@ public Graph[Vertex] getCommonInterproceduralFlow(trees, SymbolTableMap symbolTa
 	
 	private void doVisit(parseTrees) {
 		top-down-break visit(parseTrees) {
-			//TODO: rename all these cases, they are not params but arguments. Also they don't all make sense.
 			case newWithArguments:(Expression)`new <Expression e> ( <{ Expression!comma ","}+ args> )`: processR8(newWithArguments, e, args);
 			case newWithoutArguments:(Expression)`new <Expression e>()`: processR8(newWithoutArguments, e, []);
 			case newWithoutParentheses:(Expression)`new <Expression e>`: processR8(newWithoutParentheses, e, []);

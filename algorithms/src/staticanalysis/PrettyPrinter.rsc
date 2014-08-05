@@ -12,7 +12,7 @@ public void writePrettyPrintedGraph(Graph[Vertex] graph) = writePrettyPrintedGra
 
 public void writePrettyPrintedGraph(Graph[Vertex] graph, bool sortIt, bool flowGraphStyle) {
     str prettyPrinted = prettyPrintGraph(graph, sortIt, flowGraphStyle);
-    writeFile(|project://JavaScript%20cg%20algorithms/src/testing/filedump/prettyPrinted.log|, prettyPrinted);
+    writeFile(|project://JavaScript%20cg%20algorithms/src/staticanalysis/testing/filedump/prettyPrinted.log|, prettyPrinted);
 }
 
 public str prettyPrintGraphVizExport(Graph[Vertex] graph) {
@@ -53,11 +53,9 @@ public str prettyPrintGraph(Graph[Vertex] graph, bool sortIt, bool flowGraphStyl
 	}
 	if (sortIt) lines = sort(lines);
 	str joined = intercalate("\n", lines);
-	//println(joined);
 	return joined;
 }
 
-//TODO: Remove duplication
 public str prettyPrintGraph(Graph[str] graph, bool sortIt) {
 	list[str] lines = [];
 		for (str base <- domain(graph)) {

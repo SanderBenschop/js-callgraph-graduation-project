@@ -24,7 +24,6 @@ public Graph[Vertex] getPessimisticInterproceduralFlow(trees) {
 
 private Graph[Vertex] oneShotClosureEdges(lrel[Tree, Tree] oneShotClosures) {
 	Graph[Vertex] oneShotClosureEdges = {};
-	//TODO: rename call as this is actually the part before the call and it's confusing
 	for (tuple[Tree call, Tree closure] oneShotClosure <- oneShotClosures) {
 		Tree nestedFunction = extractNestedExpression(oneShotClosure.call);
 		loc oneShotClosureLocation = oneShotClosure.closure@\loc, nestedFunctionLocation = nestedFunction@\loc;

@@ -28,7 +28,6 @@ public void generateNRandomSnippets(int n) {
 	println("Of the total <n> planned executions, <parsedWithErrors> failed due to parse errors.");
 }
 
-//TODO: add references to existing properties.
 public bool nRandomTests() = nRandomTests(1000);
 public bool nRandomTests(int n) {
 	int parsedWithErrors = 0;
@@ -106,7 +105,6 @@ private Vertex replaceLocs(Vertex vertex) {
 }
 
 public loc replaceLoc(loc original) {
-	//TODO: locs
 	int O = original.offset, L = original.length, 
 		BL = original.begin.line, BC = original.begin.column,
 		EL = original.end.line, EC = original.end.column;

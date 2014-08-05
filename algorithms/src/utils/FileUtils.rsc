@@ -2,8 +2,6 @@ module utils::FileUtils
 
 import String;
 
-//TODO: rename IOUtils
-
 @javaClass{utils.JavaUtils}
 @reflect
 public java void copyFile(loc sourceLoc, loc targetLoc);
