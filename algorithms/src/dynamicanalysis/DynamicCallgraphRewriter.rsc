@@ -19,16 +19,18 @@ import staticanalysis::DataStructures;
 
 anno Tree Tree @ original;
 
+private loc dynamicAnalysisFolder = |project://JavaScript%20cg%20algorithms/src/dynamicanalysis/|;
+
 public void rewrite(loc location) = rewrite(location, {}, {});
 public void rewrite(loc location, set[str] excludePatterns, set[str] frameworkPatterns) {
 	tuple[list[str] functions, list[str] calls] result = isDirectory(location) ? rewriteFolder(location, excludePatterns, frameworkPatterns) : rewriteFile(location, excludePatterns, frameworkPatterns);
-	writeFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/instrumentationCode.js|, getInstrumentationCode(result));
+	writeFile(dynamicAnalysisFolder + "filedump/instrumentationCode.js", getInstrumentationCode(result));
 }
 private tuple[list[str] functions, list[str] calls] rewriteFolder(loc folderLoc, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles(folderLoc.ls, folderLoc, excludePatterns, frameworkPatterns);
 private tuple[list[str] functions, list[str] calls] rewriteFile(loc file, set[str] excludePatterns, set[str] frameworkPatterns) = rewriteFiles([file], file.parent, excludePatterns, frameworkPatterns);
 
 private tuple[list[str] functions, list[str] calls] rewriteFiles(list[loc] files, loc sourceFolderLoc, set[str] excludePatterns, set[str] frameworkPatterns) {
-	loc targetFolder = |project://JavaScript%20cg%20algorithms/src/dynamicgraph/filedump/|;
+	loc targetFolder = dynamicAnalysisFolder + "/filedump/";
 	list[str] combinedFunctionNames = [], combinedCallNames = [];
 	for (loc fileLoc <- files) {
 		int sourceFolderNameSize = size(sourceFolderLoc.uri);
@@ -197,7 +199,7 @@ private list[Tree] getExpressionsNestedInNewExpression(Tree tree) {
 
 private str getInstrumentationCode(tuple[list[str] functions, list[str] calls] information) {
 	str allFunctionsJoined = intercalate(",", information.functions), allCallsJoined = intercalate(",", information.calls);;
-	str template = readFile(|project://JavaScript%20cg%20algorithms/src/dynamicgraph/defaultFunctionsTemplate.js|);
+	str template = readFile(dynamicAnalysisFolder + "defaultFunctionsTemplate.js");
 	str filledTemplate = replaceAll(template, "$$allFunctionsJoined$$", allFunctionsJoined);
 	filledTemplate = replaceAll(filledTemplate, "$$allCallsJoined$$", allCallsJoined);
 	return filledTemplate;
